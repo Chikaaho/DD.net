@@ -1,7 +1,7 @@
 package mapper;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import lombok.Data;
 
 /**
@@ -10,27 +10,27 @@ import lombok.Data;
  */
 @Data
 public class DdData implements Serializable {
-    private Long fileId;
+    private Long file_id;
 
     /**
      * 文件类型 0:txt 1:image 2:video
      */
-    private Boolean fileType;
+    private Boolean file_type;
 
     /**
      * 访问凭证
      */
-    private Long fileKey;
+    private Long file_key;
 
     /**
      * 创建文件时间
      */
-    private Date createTime;
+    private LocalDateTime create_time;
 
     /**
      * 最近一次修改文件时间
      */
-    private Date updateTime;
+    private LocalDateTime update_time;
 
     private static final long serialVersionUID = 1L;
 
@@ -46,22 +46,22 @@ public class DdData implements Serializable {
             return false;
         }
         DdData other = (DdData) that;
-        return (this.getFileId() == null ? other.getFileId() == null : this.getFileId().equals(other.getFileId()))
-            && (this.getFileType() == null ? other.getFileType() == null : this.getFileType().equals(other.getFileType()))
-            && (this.getFileKey() == null ? other.getFileKey() == null : this.getFileKey().equals(other.getFileKey()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
+        return (this.getFile_id() == null ? other.getFile_id() == null : this.getFile_id().equals(other.getFile_id()))
+            && (this.getFile_type() == null ? other.getFile_type() == null : this.getFile_type().equals(other.getFile_type()))
+            && (this.getFile_key() == null ? other.getFile_key() == null : this.getFile_key().equals(other.getFile_key()))
+            && (this.getCreate_time() == null ? other.getCreate_time() == null : this.getCreate_time().equals(other.getCreate_time()))
+            && (this.getUpdate_time() == null ? other.getUpdate_time() == null : this.getUpdate_time().equals(other.getUpdate_time()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getFileId() == null) ? 0 : getFileId().hashCode());
-        result = prime * result + ((getFileType() == null) ? 0 : getFileType().hashCode());
-        result = prime * result + ((getFileKey() == null) ? 0 : getFileKey().hashCode());
-        result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
-        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
+        result = prime * result + ((getFile_id() == null) ? 0 : getFile_id().hashCode());
+        result = prime * result + ((getFile_type() == null) ? 0 : getFile_type().hashCode());
+        result = prime * result + ((getFile_key() == null) ? 0 : getFile_key().hashCode());
+        result = prime * result + ((getCreate_time() == null) ? 0 : getCreate_time().hashCode());
+        result = prime * result + ((getUpdate_time() == null) ? 0 : getUpdate_time().hashCode());
         return result;
     }
 
@@ -71,11 +71,11 @@ public class DdData implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", fileId=").append(fileId);
-        sb.append(", fileType=").append(fileType);
-        sb.append(", fileKey=").append(fileKey);
-        sb.append(", createTime=").append(createTime);
-        sb.append(", updateTime=").append(updateTime);
+        sb.append(", file_id=").append(file_id);
+        sb.append(", file_type=").append(file_type);
+        sb.append(", file_key=").append(file_key);
+        sb.append(", create_time=").append(create_time);
+        sb.append(", update_time=").append(update_time);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
