@@ -1,6 +1,6 @@
 package net.dd.dao;
 
-import mapper.Student;
+import generator.Student;
 
 public interface StudentDao {
     int deleteByPrimaryKey(Long fileId);

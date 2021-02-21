@@ -1,6 +1,6 @@
 package net.dd.dao;
 
-import mapper.DdData;
+import generator.DdData;
 
 public interface DdDataDao {
     int deleteByPrimaryKey(Long fileId);
