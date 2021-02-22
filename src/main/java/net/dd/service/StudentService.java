@@ -1,8 +1,8 @@
-package net.dd.mapper;
+package net.dd.service;
 
 import mapper.Student;
 
-public interface StudentMapper {
+public interface StudentService {
     int deleteByPrimaryKey(Long fileId);
 
     int insert(Student record);

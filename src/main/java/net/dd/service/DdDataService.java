@@ -1,8 +1,8 @@
-package net.dd.mapper;
+package net.dd.service;
 
 import mapper.DdData;
 
-public interface DdDataMapper {
+public interface DdDataService {
     int deleteByPrimaryKey(Long fileId);
 
     int insert(DdData record);
