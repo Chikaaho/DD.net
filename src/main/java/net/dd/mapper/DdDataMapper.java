@@ -1,17 +1,7 @@
 package net.dd.mapper;
 
-import mapper.DdData;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface DdDataMapper {
-    int deleteByPrimaryKey(Long fileId);
-
-    int insert(DdData record);
-
-    int insertSelective(DdData record);
-
-    DdData selectByPrimaryKey(Long fileId);
-
-    int updateByPrimaryKeySelective(DdData record);
-
-    int updateByPrimaryKey(DdData record);
 }

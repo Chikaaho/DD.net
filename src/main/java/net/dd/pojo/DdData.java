@@ -1,7 +1,9 @@
 package net.dd.pojo;
 
+import java.io.Serializable;
+import java.sql.Timestamp;
 
-public class DdData {
+public class DdData implements Serializable{
 
   private long fileId;
   private long fileType;
@@ -9,6 +11,13 @@ public class DdData {
   private java.sql.Timestamp createTime;
   private java.sql.Timestamp updateTime;
 
+  public DdData(long fileId, long fileType, long fileKey, Timestamp createTime, Timestamp updateTime) {
+    this.fileId = fileId;
+    this.fileType = fileType;
+    this.fileKey = fileKey;
+    this.createTime = createTime;
+    this.updateTime = updateTime;
+  }
 
   public long getFileId() {
     return fileId;

@@ -1,6 +1,8 @@
 package net.dd.config;
 
-public class MyInterceptor {
+import org.springframework.web.servlet.HandlerInterceptor;
+
+public class MyInterceptor implements HandlerInterceptor {
 
 
 

@@ -1,7 +1,9 @@
 package net.dd.pojo;
 
 
-public class Teacher {
+import java.io.Serializable;
+
+public class Teacher implements Serializable {
 
   private long id;
   private String username;
