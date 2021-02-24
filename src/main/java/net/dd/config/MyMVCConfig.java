@@ -10,8 +10,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @Configuration
-@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
-@MapperScan("net.dd.mapper")
 public class MyMVCConfig implements WebMvcConfigurer {
 
     @Override
