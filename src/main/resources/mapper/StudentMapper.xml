@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.dd.mapper.StudentMapper">
+
+    <select id="selectByFileId" parameterType="Student">
+        select 'usernum', 'username', 'classname' from dd_net.student where id = #{id} and is_deleted == 0;
+    </select>
+
+</mapper>

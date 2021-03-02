@@ -6,6 +6,7 @@ import java.util.Objects;
 
 public class DdData implements Serializable {
 
+
     private long fileId;
     private long fileType;
     private long fileKey;

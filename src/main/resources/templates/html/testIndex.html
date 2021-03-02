@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../static/vue/vue.js"></script>
+    <script src="../../static/axios-master/dist/axios.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{info.fileKey}}</p>
+    </div>
+<script>
+    let vue = new Vue({
+        el: '#app',
+        data() {
+            return {
+                info: {
+                    fileId: null,
+                    fileKey: null
+                }
+            }
+        },
+        mounted() {
+            axios.get('http://localhost:8080/test').then(response=>(this.info=response.data));
+        }
+    });
+</script>
+</body>
+</html>
