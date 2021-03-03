@@ -4,11 +4,13 @@ import net.dd.mapper.StudentMapper;
 import net.dd.pojo.Student;
 import net.dd.service.StudentService;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
-@Mapper
+@Service
+// @Mapper
 public class StudentServiceImpl implements StudentService {
 
     @Resource

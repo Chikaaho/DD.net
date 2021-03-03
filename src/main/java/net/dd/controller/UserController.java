@@ -21,13 +21,18 @@ public class UserController {
     @Resource
     private TeacherServiceImpl teacherService;
 
-    private Student student;
-    private Teacher teacher;
-
     @RequestMapping("/loginCheck.php")
     @ResponseBody
-    public void teacherLogin(@RequestParam("teacher") Teacher teacher, Model model) {
-
+    public void teacherLogin(@RequestParam("teacher") Teacher teacher
+            , @RequestParam("student") Student student
+            , @RequestParam("id") long id
+            , Model model) {
+        if (!teacherService.selectTeacher(id).contains(teacher)) {
+            model.addAttribute("ERROR_MSG", "该用户不存在或账号密码输入错误，请检查后重新输入！");
+        }
+        if (!studentService.selectStudent(id).contains(student)) {
+            model.addAttribute("ERROR_MSG", "该用户不存在或账号密码输入错误，请检查后重新输入！");
+        }
     }
 
     @RequestMapping("/login.php")

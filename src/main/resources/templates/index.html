@@ -9,30 +9,31 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/assets/images/favicon.png">
     <title>Home</title>
     <!-- Bootstrap Core CSS -->
-    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- This page CSS -->
     <!-- chartist CSS -->
-    <link href="assets/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
-    <link href="assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
+    <link href="../static/assets/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
+    <link href="../static/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
     <!--c3 CSS -->
-    <link href="assets/plugins/c3-master/c3.min.css" rel="stylesheet">
+    <link href="../static/assets/plugins/c3-master/c3.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="../static/assets/css/style.css" rel="stylesheet">
     <!-- Dashboard 1 Page CSS -->
-    <link href="assets/css/pages/dashboard.css" rel="stylesheet">
+    <link href="../static/assets/css/pages/dashboard.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
-    <link href="assets/css/colors/default-dark.css" id="theme" rel="stylesheet">
+    <link href="../static/assets/css/colors/default-dark.css" id="theme" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-    <script src="../../static/vue/vue.js"></script>
-    <script src="../../static/axios-master/dist/axios.js"></script>
+    <!-- vue.js and axios.js -->
+    <script src="../static/vue/vue.js"></script>
+    <script src="../static/axios-master/dist/axios.js"></script>
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
@@ -60,12 +61,12 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.html">
                         <!-- Logo icon --><b>
-                            <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                            <img src="../static/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
                         <span>
-                            <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                            <img src="../static/assets/images/logo-text.png" alt="homepage" class="dark-logo" />
                         </span>
                     </a>
                 </div>
@@ -96,7 +97,7 @@
                         <!-- Profile -->
                         <!-- ============================================================== -->
                         <li class="nav-item">
-                            <a class="nav-link waves-effect waves-dark" href="#"><img src="assets/images/users/1.jpg" alt="user" class="profile-pic" /></a>
+                            <a class="nav-link waves-effect waves-dark" href="#"><img src="../static/assets/images/users/1.jpg" alt="user" class="profile-pic" /></a>
                         </li>
                     </ul>
                 </div>
@@ -115,12 +116,12 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li> <a class="waves-effect waves-dark" href="index.html" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="pages-profile.html" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Profile</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="table-basic.html" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">Table</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="icon-material.html" aria-expanded="false"><i class="mdi mdi-emoticon"></i><span class="hide-menu">Icons</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="map-google.html" aria-expanded="false"><i class="mdi mdi-earth"></i><span class="hide-menu">Map</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="pages-blank.html" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Blank</span></a></li>
-                        <li> <a class="waves-effect waves-dark" href="pages-error-404.html" aria-expanded="false"><i class="mdi mdi-help-circle"></i><span class="hide-menu">404</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="regist/pages-profile.html" aria-expanded="false"><i class="mdi mdi-account-check"></i><span class="hide-menu">Profile</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="class/table-basic.html" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">Table</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="class/icon-material.html" aria-expanded="false"><i class="mdi mdi-emoticon"></i><span class="hide-menu">Icons</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="class/map-google.html" aria-expanded="false"><i class="mdi mdi-earth"></i><span class="hide-menu">Map</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="login/pages-blank.html" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Blank</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="error/pages-error-404.html" aria-expanded="false"><i class="mdi mdi-help-circle"></i><span class="hide-menu">404</span></a></li>
                     </ul>
                     <div class="text-center m-t-30">
                         <a href="#" class="btn waves-effect waves-light btn-info hidden-md-down"> Upgrade to Pro</a>
@@ -223,35 +224,35 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td style="width:50px;"><span class="round"><img src="assets/images/users/1.jpg" alt="user" width="50"></span></td>
+                                                <td style="width:50px;"><span class="round"><img src="../static/assets/images/users/1.jpg" alt="user" width="50"></span></td>
                                                 <td>
                                                     <h6>Sunil Joshi</h6><small class="text-muted">Web Designer</small></td>
                                                 <td>Elite Admin</td>
                                                 <td>Low</td>
                                             </tr>
                                             <tr class="active">
-                                                <td><span class="round"><img src="assets/images/users/2.jpg" alt="user" width="50"></span></td>
+                                                <td><span class="round"><img src="../static/assets/images/users/2.jpg" alt="user" width="50"></span></td>
                                                 <td>
                                                     <h6>Andrew</h6><small class="text-muted">Project Manager</small></td>
                                                 <td>Real Homes</td>
                                                 <td>Medium</td>
                                             </tr>
                                             <tr>
-                                                <td><span class="round round-success"><img src="assets/images/users/3.jpg" alt="user" width="50"></span></td>
+                                                <td><span class="round round-success"><img src="../static/assets/images/users/3.jpg" alt="user" width="50"></span></td>
                                                 <td>
                                                     <h6>Bhavesh patel</h6><small class="text-muted">Developer</small></td>
                                                 <td>MedicalPro Theme</td>
                                                 <td>High</td>
                                             </tr>
                                             <tr>
-                                                <td><span class="round round-primary"><img src="assets/images/users/4.jpg" alt="user" width="50"></span></td>
+                                                <td><span class="round round-primary"><img src="../static/assets/images/users/4.jpg" alt="user" width="50"></span></td>
                                                 <td>
                                                     <h6>Nirav Joshi</h6><small class="text-muted">Frontend Eng</small></td>
                                                 <td>Elite Admin</td>
                                                 <td>Low</td>
                                             </tr>
                                             <tr>
-                                                <td><span class="round round-warning"><img src="assets/images/users/5.jpg" alt="user" width="50"></span></td>
+                                                <td><span class="round round-warning"><img src="../static/assets/images/users/5.jpg" alt="user" width="50"></span></td>
                                                 <td>
                                                     <h6>Micheal Doe</h6><small class="text-muted">Content Writer</small></td>
                                                 <td>Helping Hands</td>
@@ -274,13 +275,13 @@
                                     <div class="message-widget contact-widget">
                                         <!-- Message -->
                                         <a href="#">
-                                            <div class="user-img"> <img src="assets/images/users/1.jpg" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
+                                            <div class="user-img"> <img src="../static/assets/images/users/1.jpg" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> </div>
                                             <div class="mail-contnet">
                                                 <h5>Pavan kumar</h5> <span class="mail-desc">info@website.com</span></div>
                                         </a>
                                         <!-- Message -->
                                         <a href="#">
-                                            <div class="user-img"> <img src="assets/images/users/2.jpg" alt="user" class="img-circle"> <span class="profile-status busy pull-right"></span> </div>
+                                            <div class="user-img"> <img src="../static/assets/images/users/2.jpg" alt="user" class="img-circle"> <span class="profile-status busy pull-right"></span> </div>
                                             <div class="mail-contnet">
                                                 <h5>Sonu Nigam</h5> <span class="mail-desc">pamela1987@gmail.com</span></div>
                                         </a>
@@ -292,19 +293,19 @@
                                         </a>
                                         <!-- Message -->
                                         <a href="#">
-                                            <div class="user-img"> <img src="assets/images/users/4.jpg" alt="user" class="img-circle"> <span class="profile-status offline pull-right"></span> </div>
+                                            <div class="user-img"> <img src="../static/assets/images/users/4.jpg" alt="user" class="img-circle"> <span class="profile-status offline pull-right"></span> </div>
                                             <div class="mail-contnet">
                                                 <h5>Pavan kumar</h5> <span class="mail-desc">kat@gmail.com</span></div>
                                         </a>
                                         <!-- Message -->
                                         <a href="#">
-                                            <div class="user-img"> <img src="assets/images/users/5.jpg" alt="user" class="img-circle"> <span class="profile-status offline pull-right"></span> </div>
+                                            <div class="user-img"> <img src="../static/assets/images/users/5.jpg" alt="user" class="img-circle"> <span class="profile-status offline pull-right"></span> </div>
                                             <div class="mail-contnet">
                                                 <h5>Andrew</h5> <span class="mail-desc">and@gmail.com</span></div>
                                         </a>
                                         <!-- Message -->
                                         <a href="#">
-                                            <div class="user-img"> <img src="assets/images/users/6.jpg" alt="user" class="img-circle"> <span class="profile-status offline pull-right"></span> </div>
+                                            <div class="user-img"> <img src="../static/assets/images/users/6.jpg" alt="user" class="img-circle"> <span class="profile-status offline pull-right"></span> </div>
                                             <div class="mail-contnet">
                                                 <h5>Jonathan Jones</h5> <span class="mail-desc">jj@gmail.com</span></div>
                                         </a>
@@ -320,7 +321,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-xlg-3">
                         <div class="card">
-                            <img class="card-img-top img-responsive" src="assets/images/big/img1.jpg" alt="Card image cap">
+                            <img class="card-img-top img-responsive" src="../static/assets/images/big/img1.jpg" alt="Card image cap">
                             <div class="card-body">
                                 <h3 class="font-normal">Business development of rules 2017</h3>
                                 <span class="label label-info label-rounded">Technology</span>
@@ -362,7 +363,7 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer">Copyright &copy; 2019.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></footer>
+            <footer class="footer">Copyright &copy; 2021.Company name All rights reserved.</footer>
             <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->
@@ -377,28 +378,28 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="assets/plugins/jquery/jquery.min.js"></script>
+    <script src="../static/assets/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap popper Core JavaScript -->
-    <script src="assets/plugins/bootstrap/js/popper.min.js"></script>
-    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../static/assets/plugins/bootstrap/js/popper.min.js"></script>
+    <script src="../static/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="assets/js/perfect-scrollbar.jquery.min.js"></script>
+    <script src="../static/assets/js/perfect-scrollbar.jquery.min.js"></script>
     <!--Wave Effects -->
-    <script src="assets/js/waves.js"></script>
+    <script src="../static/assets/js/waves.js"></script>
     <!--Menu sidebar -->
-    <script src="assets/js/sidebarmenu.js"></script>
+    <script src="../static/assets/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
-    <script src="assets/js/custom.min.js"></script>
+    <script src="../static/assets/js/custom.min.js"></script>
     <!-- ============================================================== -->
     <!-- This page plugins -->
     <!-- ============================================================== -->
-    <script src="assets/plugins/chartist-js/dist/chartist.min.js"></script>
-    <script src="assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="../static/assets/plugins/chartist-js/dist/chartist.min.js"></script>
+    <script src="../static/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
     <!--c3 JavaScript -->
-    <script src="assets/plugins/d3/d3.min.js"></script>
-    <script src="assets/plugins/c3-master/c3.min.js"></script>
+    <script src="../static/assets/plugins/d3/d3.min.js"></script>
+    <script src="../static/assets/plugins/c3-master/c3.min.js"></script>
     <!-- Chart JS -->
-    <script src="assets/js/dashboard.js"></script>
+    <script src="../static/assets/js/dashboard.js"></script>
 </body>
 
 </html>
