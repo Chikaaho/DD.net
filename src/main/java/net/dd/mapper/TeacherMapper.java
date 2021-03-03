@@ -1,6 +1,5 @@
 package net.dd.mapper;
 
-import net.dd.pojo.Student;
 import net.dd.pojo.Teacher;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

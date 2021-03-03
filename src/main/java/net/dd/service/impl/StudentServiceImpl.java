@@ -3,7 +3,6 @@ package net.dd.service.impl;
 import net.dd.mapper.StudentMapper;
 import net.dd.pojo.Student;
 import net.dd.service.StudentService;
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

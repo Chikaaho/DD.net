@@ -1,124 +1,144 @@
 package net.dd.pojo;
 
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Student implements Serializable {
 
-    private long id;
-    private long usernum;
-    private String username;
-    private String password;
-    private String classname;
-    private long isDeleted;
-    private java.sql.Timestamp createTime;
-    private java.sql.Timestamp updateTime;
+  private long id;
+  @ApiModelProperty(value="学号")
+  private long usernum;
+  @ApiModelProperty(value="用户名")
+  private String username;
+  @ApiModelProperty(value="密码")
+  private String password;
+  @ApiModelProperty(value="班级")
+  private String classname;
+  @ApiModelProperty(value="是否删除 0: 没有删除 1 :已删除")
+  private int isDeleted;
+  private LocalDateTime createTime;
+  private LocalDateTime updateTime;
 
-    public Student(long id, long usernum, String username, String password, String classname, long isDeleted, Timestamp createTime, Timestamp updateTime) {
-        this.id = id;
-        this.usernum = usernum;
-        this.username = username;
-        this.password = password;
-        this.classname = classname;
-        this.isDeleted = isDeleted;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
-    }
+  public Student() {
+  }
 
-    public Student() {
-    }
+  public Student(long id, long usernum, String username, String password, String classname, int isDeleted, LocalDateTime createTime, LocalDateTime updateTime) {
+    this.id = id;
+    this.usernum = usernum;
+    this.username = username;
+    this.password = password;
+    this.classname = classname;
+    this.isDeleted = isDeleted;
+    this.createTime = createTime;
+    this.updateTime = updateTime;
+  }
 
-    public long getId() {
-        return id;
-    }
+  public long getId() {
+    return id;
+  }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-
-    public long getUsernum() {
-        return usernum;
-    }
-
-    public void setUsernum(long usernum) {
-        this.usernum = usernum;
-    }
+  public void setId(long id) {
+    this.id = id;
+  }
 
 
-    public String getUsername() {
-        return username;
-    }
+  public long getUsernum() {
+    return usernum;
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public void setUsernum(long usernum) {
+    this.usernum = usernum;
+  }
 
 
-    public String getClassname() {
-        return classname;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public void setClassname(String classname) {
-        this.classname = classname;
-    }
-
-
-    public long getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(long isDeleted) {
-        this.isDeleted = isDeleted;
-    }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
 
-    public java.sql.Timestamp getCreateTime() {
-        return createTime;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    public void setCreateTime(java.sql.Timestamp createTime) {
-        this.createTime = createTime;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
 
-    public java.sql.Timestamp getUpdateTime() {
-        return updateTime;
-    }
+  public String getClassname() {
+    return classname;
+  }
 
-    public void setUpdateTime(java.sql.Timestamp updateTime) {
-        this.updateTime = updateTime;
-    }
+  public void setClassname(String classname) {
+    this.classname = classname;
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
-        return id == student.id &&
-                usernum == student.usernum &&
-                isDeleted == student.isDeleted &&
-                username.equals(student.username) &&
-                password.equals(student.password) &&
-                classname.equals(student.classname) &&
-                createTime.equals(student.createTime) &&
-                updateTime.equals(student.updateTime);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, usernum, username, password, classname, isDeleted, createTime, updateTime);
-    }
+  public int getIsDeleted() {
+    return isDeleted;
+  }
 
+  public void setIsDeleted(int isDeleted) {
+    this.isDeleted = isDeleted;
+  }
+
+
+  public LocalDateTime getCreateTime() {
+    return createTime;
+  }
+
+  public void setCreateTime(LocalDateTime createTime) {
+    this.createTime = createTime;
+  }
+
+
+  public LocalDateTime getUpdateTime() {
+    return updateTime;
+  }
+
+  public void setUpdateTime(LocalDateTime updateTime) {
+    this.updateTime = updateTime;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Student student = (Student) o;
+    return id == student.id &&
+            usernum == student.usernum &&
+            isDeleted == student.isDeleted &&
+            Objects.equals(username, student.username) &&
+            Objects.equals(password, student.password) &&
+            Objects.equals(classname, student.classname) &&
+            Objects.equals(createTime, student.createTime) &&
+            Objects.equals(updateTime, student.updateTime);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, usernum, username, password, classname, isDeleted, createTime, updateTime);
+  }
+
+  @Override
+  public String toString() {
+    return "Student{" +
+            "id=" + id +
+            ", usernum=" + usernum +
+            ", username='" + username + '\'' +
+            ", password='" + password + '\'' +
+            ", classname='" + classname + '\'' +
+            ", isDeleted=" + isDeleted +
+            ", createTime=" + createTime +
+            ", updateTime=" + updateTime +
+            '}';
+  }
 }

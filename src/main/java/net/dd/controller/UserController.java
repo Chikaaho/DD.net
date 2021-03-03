@@ -6,6 +6,7 @@ import net.dd.service.impl.StudentServiceImpl;
 import net.dd.service.impl.TeacherServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +24,7 @@ public class UserController {
 
     @RequestMapping("/loginCheck.php")
     @ResponseBody
+    @CrossOrigin
     public void teacherLogin(@RequestParam("teacher") Teacher teacher
             , @RequestParam("student") Student student
             , @RequestParam("id") long id
@@ -33,10 +35,12 @@ public class UserController {
         if (!studentService.selectStudent(id).contains(student)) {
             model.addAttribute("ERROR_MSG", "该用户不存在或账号密码输入错误，请检查后重新输入！");
         }
+
     }
 
     @RequestMapping("/login.php")
     @ResponseBody
+    @CrossOrigin
     public String login() {
 
         return "html/index";

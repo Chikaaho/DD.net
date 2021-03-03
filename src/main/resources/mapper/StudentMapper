@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper xmlns="http://mybatis.org/schema/mybatis-mapper" namespace="net.dd.mapper.StudentMapper">
+    <resultMap id="StudentMapper" type="net.dd.pojo.Student">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="usernum" jdbcType="int" property="usernum"/>
+        <result column="username" jdbcType="varchar" property="username"/>
+        <result column="password" jdbcType="varchar" property="password"/>
+        <result column="classname" jdbcType="varchar" property="classname"/>
+        <result column="is_deleted" jdbcType="tinyint" property="isDeleted"/>
+        <result column="create_time" jdbcType="datetime" property="createTime"/>
+        <result column="update_time" jdbcType="datetime" property="updateTime"/>
+    </resultMap>
+    <insert id="insertStudent">
+
+    </insert>
+    <update id="updateStudent">
+
+    </update>
+    <delete id="deleteStudent">
+
+    </delete>
+    <select id="selectStudent" resultType="net.dd.pojo.Student">
+
+    </select>
+</mapper>

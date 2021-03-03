@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 
@@ -17,7 +16,7 @@ public class ControllerTest {
     @RequestMapping("/test")
     @ResponseBody
     public DdData getJson() {
-        return new DdData(1L, 1L, 4423L, Timestamp.valueOf(LocalDateTime.now()), Timestamp.valueOf(LocalDateTime.now()));
+        return new DdData(1L, 1, 4423L, LocalDateTime.now(), LocalDateTime.now());
     }
 
 }
