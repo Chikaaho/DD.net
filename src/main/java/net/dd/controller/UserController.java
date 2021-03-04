@@ -43,7 +43,7 @@ public class UserController {
     @CrossOrigin
     public String login() {
 
-        return "html/index";
+        return "index";
     }
 
 }
