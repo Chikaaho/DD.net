@@ -10,10 +10,18 @@
     </resultMap>
 
     <select id="selectByFileId" resultType="net.dd.pojo.DdData">
-
+        SELECT
+        file_key
+        FROM
+        dd_net.dd_data
+        where file_id = #(file_id);
     </select>
     <insert id="insertFile">
-
+        INSERT INTO
+        dd_net.dd_data
+        (file_type, file_key, create_time, update_time)
+        VALUES
+        (#(file_type), #(file_key), #(create_time), #(update_time))
     </insert>
     <update id="updateFile">
 
