@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="net.dd.mapper.DdDataMapper">
+<mapper  namespace="net.dd.mapper.DdDataMapper">
     <resultMap id="DdDataMapper" type="net.dd.pojo.DdData">
         <id column="file_id" jdbcType="BIGINT" property="fileId"/>
         <result column="file_type" jdbcType="TINYINT" property="fileType"/>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<mapper xmlns="http://mybatis.org/schema/mybatis-mapper" namespace="net.dd.mapper.TeacherMapper">
+<mapper namespace="net.dd.mapper.TeacherMapper">
     <resultMap id="TeacherMapper" type="net.dd.pojo.Teacher">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="username" jdbcType="varchar" property="username"/>

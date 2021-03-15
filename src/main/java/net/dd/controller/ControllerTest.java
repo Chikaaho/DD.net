@@ -1,22 +1,34 @@
 package net.dd.controller;
 
-import net.dd.pojo.DdData;
+import net.dd.pojo.Student;
+import net.dd.service.impl.StudentServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.time.LocalDateTime;
+import javax.annotation.Resource;
+import java.util.List;
 
 
 @Controller
-@CrossOrigin
+
 public class ControllerTest {
+
+    @Resource
+    private StudentServiceImpl studentService;
 
     @RequestMapping("/test")
     @ResponseBody
-    public DdData getJson() {
-        return new DdData(1L, 1, 4423L, LocalDateTime.now(), LocalDateTime.now());
+    @CrossOrigin
+    public Student getJson() {
+        List<Student> students = studentService.selectStudent(1);
+        return students.get(0);
+    }
+
+    @RequestMapping("/hello")
+    public String test() {
+        return "hello world";
     }
 
 }

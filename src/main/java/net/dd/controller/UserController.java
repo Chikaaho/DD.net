@@ -22,6 +22,8 @@ public class UserController {
     @Resource
     private TeacherServiceImpl teacherService;
 
+    private Model model;
+
     @RequestMapping("/loginCheck.php")
     @ResponseBody
     @CrossOrigin
@@ -35,15 +37,20 @@ public class UserController {
         if (!studentService.selectStudent(id).contains(student)) {
             model.addAttribute("ERROR_MSG", "该用户不存在或账号密码输入错误，请检查后重新输入！");
         }
-
     }
 
-    @RequestMapping("/login.php")
+    @RequestMapping("/toLogin.php")
     @ResponseBody
     @CrossOrigin
     public String login() {
-
         return "index";
+    }
+
+    @RequestMapping("/regist.php")
+    @CrossOrigin
+    public String toRegistPage() {
+
+        return "regist/regist";
     }
 
 }
