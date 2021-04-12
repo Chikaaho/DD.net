@@ -10,6 +10,12 @@ public interface StudentService {
     // 查询学生信息
     List<Student> selectStudent(@Param("id") long id);
 
+    Student selectStudentByNumber(@Param("usernum") long usernum);
+
+    Student selectStudentByName(@Param("username") String username);
+
+    Student selectStudentByClassName(@Param("classname") String classname);
+
     // 添加学生信息
     int insertStudent(@Param("student") Student student);
 

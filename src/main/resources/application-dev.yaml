@@ -20,3 +20,8 @@ spring:
       additional-paths: src/main/java
   freemarker:
     cache: false
+mybatis-plus:
+  type-aliases-package: net.dd.pojo
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true

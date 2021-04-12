@@ -26,37 +26,19 @@ import java.nio.file.Paths;
 public class QiniuUtils {
 
     //设置好账号的ACCESS_KEY和SECRET_KEY
-    private static final String ACCESS_KEY = "evzPrTT1qVnC1WIcOAeJ763Ar9teglDAJVavCrCQ";
-    private static final String SECRET_KEY = "nUECECMhOHxp5ZZHiKCg50Yezn4WbZg_EtkhmBLC";
+    private static final String ACCESS_KEY = "";
+    private static final String SECRET_KEY = "";
     //要上传的空间 bucket name
-    private static final String BUCKET_NAME = "haoziweizhi1111";
+    private static final String BUCKET_NAME = "";
 
-    /**
-     * @param localFilePath
-     * @param fileName
-     * @return
-     * @throws QiniuException
-     */
     public static String easyUpLoad(File localFilePath, String fileName) throws QiniuException {
         return intoResult(null, localFilePath, null, fileName, null);
     }
 
-    /**
-     * @param uploadBytes
-     * @param fileName
-     * @return
-     * @throws QiniuException
-     */
     public static String byteUpLoad(byte[] uploadBytes, String fileName) throws QiniuException {
         return intoResult(uploadBytes, null, null, fileName, null);
     }
 
-    /**
-     * @param localFilePath
-     * @param fileName
-     * @return
-     * @throws QiniuException
-     */
     public static String byteUpLoadByName(File localFilePath, String fileName) throws QiniuException {
         return intoResultByName(null, localFilePath, null, fileName, null);
     }
@@ -79,22 +61,10 @@ public class QiniuUtils {
         return null;
     }
 
-
-    /**
-     * @param byteInputStream
-     * @param fileName
-     * @return
-     * @throws QiniuException
-     */
     public static String byteArrayInputStreamUpLoad(ByteArrayInputStream byteInputStream, String fileName) throws QiniuException {
         return intoResult(null, null, byteInputStream, fileName, null);
     }
 
-    /**
-     * @param localFilePath
-     * @param fileName
-     * @return
-     */
     public static String recorderUpLoad(File localFilePath, String fileName) {
         String localTempDir = Paths.get(System.getenv("java.io.tmpdir"), BUCKET_NAME).toString();
         try {

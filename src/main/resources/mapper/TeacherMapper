@@ -21,5 +21,8 @@
     <select id="selectTeacher" resultType="net.dd.pojo.Teacher">
 
     </select>
+    <select id="selectTeacherByName" resultType="net.dd.pojo.Teacher">
+
+    </select>
 
 </mapper>

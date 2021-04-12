@@ -14,6 +14,7 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
 
     private StudentMapper studentMapper;
+
     @Autowired
     public void setStudentMapper(StudentMapper studentMapper) {
         this.studentMapper = studentMapper;
@@ -22,6 +23,21 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> selectStudent(long id) {
         return studentMapper.selectStudent(id);
+    }
+
+    @Override
+    public Student selectStudentByNumber(long usernum) {
+        return studentMapper.selectStudentByNumber(usernum);
+    }
+
+    @Override
+    public Student selectStudentByName(String username) {
+        return studentMapper.selectStudentByName(username);
+    }
+
+    @Override
+    public Student selectStudentByClassName(String classname) {
+        return studentMapper.selectStudentByClassName(classname);
     }
 
     @Override

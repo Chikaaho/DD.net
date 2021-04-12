@@ -14,6 +14,8 @@ public interface TeacherMapper {
     // 查询老师信息
     List<Teacher> selectTeacher(@Param("id") long id);
 
+    Teacher selectTeacherByName(@Param("username") String username);
+
     // 添加老师信息
     int insertTeacher(@Param("teacher") Teacher teacher);
 

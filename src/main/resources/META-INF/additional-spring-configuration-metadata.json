@@ -4,5 +4,10 @@
       "name": "dd.mysql.driver",
       "type": "java.lang.String",
       "description": "Description for dd.mysql.driver."
-  }
-] }
+    },
+    {
+      "name": "mybatis.type-aliases-package",
+      "type": "java.lang.String",
+      "description": "Description for mybatis.type-aliases-package."
+    }
+  ] }
