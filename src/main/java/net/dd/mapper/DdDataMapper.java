@@ -3,10 +3,12 @@ package net.dd.mapper;
 import net.dd.pojo.DdData;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Mapper
+@Repository
 public interface DdDataMapper {
 
     // 根据文件id查询

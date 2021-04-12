@@ -2,8 +2,9 @@ package net.dd.controller;
 
 import net.dd.pojo.Student;
 import net.dd.pojo.Teacher;
-import net.dd.service.impl.StudentServiceImpl;
-import net.dd.service.impl.TeacherServiceImpl;
+import net.dd.service.StudentService;
+import net.dd.service.TeacherService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,41 +16,48 @@ import javax.annotation.Resource;
 
 @Controller
 @RequestMapping("/user")
+@CrossOrigin
 public class UserController {
 
-    @Resource
-    private StudentServiceImpl studentService;
-    @Resource
-    private TeacherServiceImpl teacherService;
 
-    private Model model;
+    private StudentService studentService;
+    private TeacherService teacherService;
 
-    @RequestMapping("/loginCheck.php")
-    @ResponseBody
-    @CrossOrigin
-    public void teacherLogin(@RequestParam("teacher") Teacher teacher
-            , @RequestParam("student") Student student
-            , @RequestParam("id") long id
-            , Model model) {
-        if (!teacherService.selectTeacher(id).contains(teacher)) {
-            model.addAttribute("ERROR_MSG", "该用户不存在或账号密码输入错误，请检查后重新输入！");
-        }
-        if (!studentService.selectStudent(id).contains(student)) {
-            model.addAttribute("ERROR_MSG", "该用户不存在或账号密码输入错误，请检查后重新输入！");
-        }
+    @Autowired
+    public void setStudentService(StudentService studentService) {
+        this.studentService = studentService;
     }
 
-    @RequestMapping("/toLogin.php")
-    @ResponseBody
-    @CrossOrigin
+    @Autowired
+    public void setTeacherService(TeacherService teacherService) {
+        this.teacherService = teacherService;
+    }
+
+    @RequestMapping("/loginCheck")
+    public String loginCheck(@RequestParam long id
+            , @RequestParam String username
+            , @RequestParam String password) {
+        return (id & 1) == 0b0001 ? studentLoginCheck(username, password) : teacherLoginCheck(username, password);
+    }
+
+    public String studentLoginCheck(@RequestParam String username
+            , @RequestParam String password) {
+
+        return "";
+    }
+
+    public String teacherLoginCheck(@RequestParam String username
+            , @RequestParam String password) {
+        return "";
+    }
+
+    @RequestMapping("/toLogin")
     public String login() {
         return "index";
     }
 
-    @RequestMapping("/regist.php")
-    @CrossOrigin
+    @RequestMapping("/regist")
     public String toRegistPage() {
-
         return "regist/regist";
     }
 

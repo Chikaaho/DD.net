@@ -12,7 +12,6 @@ import java.util.List;
 
 
 @Controller
-
 public class ControllerTest {
 
     @Resource
@@ -24,11 +23,6 @@ public class ControllerTest {
     public Student getJson() {
         List<Student> students = studentService.selectStudent(1);
         return students.get(0);
-    }
-
-    @RequestMapping("/hello")
-    public String test() {
-        return "hello world";
     }
 
 }

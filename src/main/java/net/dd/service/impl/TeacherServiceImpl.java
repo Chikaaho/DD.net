@@ -3,6 +3,7 @@ package net.dd.service.impl;
 import net.dd.mapper.TeacherMapper;
 import net.dd.pojo.Teacher;
 import net.dd.service.TeacherService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -11,8 +12,11 @@ import java.util.List;
 @Service
 public class TeacherServiceImpl implements TeacherService {
 
-    @Resource
     private TeacherMapper teacherMapper;
+    @Autowired
+    public void setTeacherMapper(TeacherMapper teacherMapper) {
+        this.teacherMapper = teacherMapper;
+    }
 
     @Override
     public List<Teacher> selectTeacher(long id) {

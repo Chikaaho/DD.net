@@ -27,5 +27,22 @@
     <select id="selectStudent" resultType="net.dd.pojo.Student" resultMap="StudentMapper">
         SELECT * FROM dd_net.student where id = #(id);
     </select>
+    <select id="studentLoginCheck" resultType="net.dd.pojo.Student">
+        SELECT *
+        FROM dd_net.student
+        where
+        username = #{username}
+        and
+        password = #{password};
+    </select>
+    <select id="selectStudentByNumber" resultType="net.dd.pojo.Student">
+
+    </select>
+    <select id="selectStudentByName" resultType="net.dd.pojo.Student">
+
+    </select>
+    <select id="selectStudentByClassName" resultType="net.dd.pojo.Student">
+
+    </select>
 
 </mapper>
