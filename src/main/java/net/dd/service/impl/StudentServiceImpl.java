@@ -10,7 +10,6 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-// @Mapper
 public class StudentServiceImpl implements StudentService {
 
     private StudentMapper studentMapper;
@@ -27,24 +26,30 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student selectStudentByNumber(long usernum) {
-        return studentMapper.selectStudentByNumber(usernum);
+        Student student = studentMapper.selectStudentByNumber(usernum);
+        return student.getIsDeleted() == 1 ? null : student;
     }
 
     @Override
     public Student selectStudentByName(String username) {
-        return studentMapper.selectStudentByName(username);
+        Student student = studentMapper.selectStudentByName(username.replaceAll("\\s*", ""));
+        return student.getIsDeleted() == 1 ? null : student;
     }
 
     @Override
     public Student selectStudentByClassName(String classname) {
-        return studentMapper.selectStudentByClassName(classname);
+        Student student = studentMapper.selectStudentByClassName(classname.replaceAll("\\s*", ""));
+        return student.getIsDeleted() == 1 ? null : student;
     }
 
     @Override
     public int insertStudent(String username, String password, long usernum, String classname) {
         Student student = studentMapper.selectStudentByNumber(usernum);
         if (student == null) {
-            return studentMapper.insertStudent(username, password, usernum, classname);
+            return studentMapper.insertStudent(username.replaceAll("\\s*", "")
+                    , password.replaceAll("\\s*", "")
+                    , usernum
+                    , classname.replaceAll("\\s*", ""));
         }
         if (student.getIsDeleted() == 1) {
             return 1 << 3;
@@ -53,10 +58,13 @@ public class StudentServiceImpl implements StudentService {
         }
     }
 
-
     @Override
-    public int updateStudent(long id, Student student) {
-        return studentMapper.updateStudent(id, student);
+    public int updateStudent(long id, String username, String password, long usernum, String classname) {
+        return studentMapper.updateStudent(id
+                , username.replaceAll("\\s*", "")
+                , password.replaceAll("\\s*", "")
+                , usernum
+                , classname.replaceAll("\\s*", ""));
     }
 
     @Override
@@ -71,6 +79,6 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student studentLoginCheck(String username, String password) {
-        return studentMapper.studentLoginCheck(username, password);
+        return studentMapper.studentLoginCheck(username.replaceAll("\\s*", ""), password.replaceAll("\\s*", ""));
     }
 }

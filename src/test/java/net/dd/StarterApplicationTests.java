@@ -9,12 +9,6 @@ import org.junit.runner.RunWith;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 @SpringBootTest
 @MapperScan("net.dd.mapper")
@@ -31,19 +25,14 @@ class StarterApplicationTests {
 
     @Test
     void contextLoads() {
-        studentService.insertStudent("chika", "1234", 18240398, "soft1");
-        System.out.println(studentService.studentLoginCheck("chika", "1234"));
-        System.out.println(studentService.selectStudent().toString());
-        studentService.deleteStudent(3);
-        System.out.println(studentService.selectStudentByNumber(18240398));
-        int i = studentService.insertStudent("dd", "dd", 18240398, "ss");
+        int i = studentService.insertStudent("test", "zzz123", 18240398, "demo1");
         if (i == 0) {
-            System.out.println("不存在");
+            System.out.println("已存在");
         }
-        if (i == 1 << 3) {
-            System.out.println("已注销");
-        }
-        System.out.println(i);
+        studentService.deleteStudent(5);
+        String str = "0398";
+        long num = Long.parseLong(str);
+        System.out.println(studentService.selectStudentByNumber(num));
     }
 
 }

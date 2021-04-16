@@ -27,7 +27,11 @@ public interface StudentMapper {
             , @Param("classname") String classname);
 
     // 修改学生信息
-    int updateStudent(@Param("id") long id, @Param("student") Student student);
+    int updateStudent(@Param("id") long id
+            , @Param("username") String username
+            , @Param("password") String password
+            , @Param("usernum") long usernum
+            , @Param("classname") String classname);
 
     // 删除学生信息(假删除)
     int deleteStudent(@Param("id") long id);

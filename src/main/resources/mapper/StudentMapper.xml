@@ -20,7 +20,14 @@
     </insert>
 
     <update id="updateStudent">
-
+        update dd_net.student
+        set username = #{username},
+            password = #{password},
+            usernum = #{usernum},
+            classname = #{password},
+            update_time = now()
+        where
+            id = #{id};
     </update>
 
     <update id="deleteStudent">
@@ -50,7 +57,7 @@
         select *
         from dd_net.student
         where
-        usernum = #{usernum};
+        usernum like concat('%', #{usernum}, '%');
     </select>
     <select id="selectStudentByName" resultType="net.dd.pojo.Student">
 
