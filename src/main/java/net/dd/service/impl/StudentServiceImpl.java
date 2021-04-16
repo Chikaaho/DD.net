@@ -21,8 +21,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> selectStudent(long id) {
-        return studentMapper.selectStudent(id);
+    public List<Student> selectStudent() {
+        return studentMapper.selectStudent();
     }
 
     @Override
@@ -41,9 +41,18 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public int insertStudent(Student student) {
-        return studentMapper.insertStudent(student);
+    public int insertStudent(String username, String password, long usernum, String classname) {
+        Student student = studentMapper.selectStudentByNumber(usernum);
+        if (student == null) {
+            return studentMapper.insertStudent(username, password, usernum, classname);
+        }
+        if (student.getIsDeleted() == 1) {
+            return 1 << 3;
+        } else {
+            return 0;
+        }
     }
+
 
     @Override
     public int updateStudent(long id, Student student) {
@@ -53,5 +62,15 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public int deleteStudent(long id) {
         return studentMapper.deleteStudent(id);
+    }
+
+    @Override
+    public int dropStudent(long id) {
+        return studentMapper.dropStudent(id);
+    }
+
+    @Override
+    public Student studentLoginCheck(String username, String password) {
+        return studentMapper.studentLoginCheck(username, password);
     }
 }

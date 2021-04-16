@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.dd.mapper.StudentMapper">
+    <resultMap id="StudentMapper" type="net.dd.pojo.Student">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="usernum" jdbcType="BIGINT" property="usernum"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="classname" jdbcType="VARCHAR" property="classname"/>
+        <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <insert id="insertStudent">
+        insert into dd_net.student
+            (usernum, username, password, classname)
+        values
+            (#{usernum}, #{username}, #{password}, #{classname});
+    </insert>
+
+    <update id="updateStudent">
+
+    </update>
+
+    <update id="deleteStudent">
+        update dd_net.student
+        set is_deleted = 1,
+            update_time = now()
+        where id = #{id};
+    </update>
+    <delete id="dropStudent">
+        delete from
+        dd_net.student
+        where id = #{id};
+    </delete>
+
+    <select id="selectStudent" resultType="net.dd.pojo.Student">
+        SELECT * FROM dd_net.student;
+    </select>
+    <select id="studentLoginCheck" resultType="net.dd.pojo.Student">
+        SELECT *
+        FROM dd_net.student
+        where
+        username = #{username}
+        and
+        password = #{password};
+    </select>
+    <select id="selectStudentByNumber" resultType="net.dd.pojo.Student">
+        select *
+        from dd_net.student
+        where
+        usernum = #{usernum};
+    </select>
+    <select id="selectStudentByName" resultType="net.dd.pojo.Student">
+
+    </select>
+    <select id="selectStudentByClassName" resultType="net.dd.pojo.Student">
+
+    </select>
+
+</mapper>

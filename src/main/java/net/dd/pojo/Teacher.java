@@ -3,10 +3,6 @@ package net.dd.pojo;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,7 +14,7 @@ public class Teacher {
 
   private static final long serialVersionUID = 1L;
 
-  @TableId(type = IdType.ASSIGN_ID)
+//  @TableId(type = IdType.ASSIGN_ID)
   @JsonSerialize(using = ToStringSerializer.class)
   private long id;
 
@@ -30,8 +26,8 @@ public class Teacher {
 
   @ApiModelProperty(value = "是否删除 0: 没有删除 1 :已删除")
   @JSONField(serialzeFeatures = SerializerFeature.WriteEnumUsingToString)
-  @TableLogic
-  @EnumValue
+//  @TableLogic
+//  @EnumValue
   private int isDeleted;
 
   @ApiModelProperty(value = "创建时间")

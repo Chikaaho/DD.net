@@ -6,7 +6,6 @@ import net.dd.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @Service
@@ -19,22 +18,34 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public List<Teacher> selectTeacher(long id) {
-        return teacherMapper.selectTeacher(id);
+    public List<Teacher> selectTeacher() {
+        return teacherMapper.selectTeacher();
     }
 
     @Override
-    public int insertTeacher(Teacher teacher) {
-        return teacherMapper.insertTeacher(teacher);
+    public int insertTeacher(String username,  String password) {
+        return teacherMapper.insertTeacher(username, password);
     }
 
     @Override
-    public int updateTeacher(long id, Teacher teacher) {
-        return teacherMapper.updateTeacher(id, teacher);
+    public int updateTeacher(long id, String username, String password) {
+        return teacherMapper.updateTeacher(id, username, password);
     }
 
     @Override
     public int deleteTeacher(long id) {
         return teacherMapper.deleteTeacher(id);
+    }
+
+    @Override
+    public Teacher teacherLoginCheck(String username, String password) {
+        Teacher teacher = teacherMapper.teacherLoginCheck(username, password);
+        if (teacher == null) {
+            return null;
+        }
+        if (teacher.getIsDeleted() == 1) {
+            return null;
+        }
+        return teacher;
     }
 }

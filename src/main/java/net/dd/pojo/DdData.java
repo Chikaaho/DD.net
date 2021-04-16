@@ -1,10 +1,7 @@
 package net.dd.pojo;
 
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModelProperty;
-import net.dd.pojo.request.DdDataRequest;
 import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
@@ -15,7 +12,7 @@ import java.util.Objects;
 
 public class DdData implements Serializable {
 
-  @TableId(type = IdType.ASSIGN_ID)
+//  @TableId(type = IdType.ASSIGN_ID)
   private long fileId;
 
   @ApiModelProperty(value="文件类型 0:txt 1:image 2:video")
@@ -43,12 +40,6 @@ public class DdData implements Serializable {
     this.updateTime = updateTime;
   }
 
-  public DdData(DdDataRequest ddDataRequest) {
-    BeanUtils.copyProperties(ddDataRequest, this);
-    Date date = new Date();
-    this.createTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-    this.updateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-  }
 
   public long getFileId() {
     return fileId;

@@ -1,5 +1,6 @@
 package net.dd.config;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
@@ -7,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @program DDNet
  * @create 2021/3/9 - 16:06
  **/
+@Configuration
 public class MyPasswordEncoder implements PasswordEncoder {
     @Override
     public String encode(CharSequence charSequence) {

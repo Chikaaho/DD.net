@@ -11,17 +11,14 @@ import javax.annotation.Resource;
 import java.util.List;
 
 
-@Controller
+
 public class ControllerTest {
 
-    @Resource
+
     private StudentServiceImpl studentService;
 
-    @RequestMapping("/test")
-    @ResponseBody
-    @CrossOrigin
     public Student getJson() {
-        List<Student> students = studentService.selectStudent(1);
+        List<Student> students = studentService.selectStudent();
         return students.get(0);
     }
 
