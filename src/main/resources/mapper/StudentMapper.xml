@@ -60,10 +60,16 @@
         usernum like concat('%', #{usernum}, '%');
     </select>
     <select id="selectStudentByName" resultType="net.dd.pojo.Student">
-
+        select *
+        from dd_net.student
+        where
+        username like concat('%', #{username}, '%');
     </select>
     <select id="selectStudentByClassName" resultType="net.dd.pojo.Student">
-
+        select *
+        from dd_net.student
+        where
+        classname like concat('%', #{classname}, '%');
     </select>
 
 </mapper>

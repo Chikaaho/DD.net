@@ -45,7 +45,7 @@
     <select id="selectTeacherByName" resultType="net.dd.pojo.Teacher">
         select *
         from dd_net.teacher
-        where username = #{username};
+        where username like concat('%', #{username}, '%');
     </select>
 
 </mapper>

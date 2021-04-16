@@ -24,12 +24,12 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public int insertTeacher(String username,  String password) {
-        return teacherMapper.insertTeacher(username, password);
+        return teacherMapper.insertTeacher(username.replaceAll("\\s*", ""), password.replaceAll("\\s*", ""));
     }
 
     @Override
     public int updateTeacher(long id, String username, String password) {
-        return teacherMapper.updateTeacher(id, username, password);
+        return teacherMapper.updateTeacher(id, username.replaceAll("\\s*", ""), password.replaceAll("\\s*", ""));
     }
 
     @Override
@@ -39,7 +39,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public Teacher teacherLoginCheck(String username, String password) {
-        Teacher teacher = teacherMapper.teacherLoginCheck(username, password);
+        Teacher teacher = teacherMapper.teacherLoginCheck(username.replaceAll("\\s*", ""), password.replaceAll("\\s*", ""));
         if (teacher == null) {
             return null;
         }
