@@ -79,6 +79,13 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student studentLoginCheck(String username, String password) {
-        return studentMapper.studentLoginCheck(username.replaceAll("\\s*", ""), password.replaceAll("\\s*", ""));
+        Student student = studentMapper.studentLoginCheck(username.replaceAll("\\s*", ""), password.replaceAll("\\s*", ""));
+        if (student == null) {
+            return null;
+        }
+        if (student.getIsDeleted() == 1) {
+            return null;
+        }
+        return student;
     }
 }

@@ -1,9 +1,5 @@
 package net.dd.controller;
 
-import net.dd.pojo.Student;
-import net.dd.pojo.Teacher;
-import net.dd.service.StudentService;
-import net.dd.service.TeacherService;
 import net.dd.service.impl.StudentServiceImpl;
 import net.dd.service.impl.TeacherServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -25,6 +22,8 @@ public class UserController {
 
     private StudentServiceImpl studentService;
     private TeacherServiceImpl teacherService;
+    private final HashMap<Object, Object> jsonDataMap = new HashMap<>();
+    private int license;
 
     @Autowired
     public void setStudentServiceImpl(StudentServiceImpl studentService) {
@@ -36,25 +35,28 @@ public class UserController {
         this.teacherService = teacherService;
     }
 
-    @RequestMapping("/loginCheck")
-    @ResponseBody
+    @RequestMapping("/login.do")
     public String loginCheck(@RequestParam String username, @RequestParam String password, Model model, HttpSession session) {
         int stu = studentLoginCheck(username, password);
         int teac = teacherLoginCheck(username, password);
-        int license = stu | teac;
-        if (username.equals("admin") && password.equals("admin@1234")) {
-            session.setAttribute("userLicense", "admin");
-            return "";
-        }
+        license = stu | teac;
+        jsonDataMap.clear();
         if (license == 0) {
             model.addAttribute("LOGIN_ERROR", "");
             return "";
         }
         if (license == 0b0011) {
             session.setAttribute("userLicense", "student");
+            jsonDataMap.put("student", studentService.selectStudent());
             return "";
         } else if (license == 0b1100) {
             session.setAttribute("userLicense", "teacher");
+            jsonDataMap.put("teacher", teacherService.selectTeacher());
+            return "";
+        } else if (license == 0b1111) {
+            session.setAttribute("userLicense", "admin");
+            jsonDataMap.put("teacher", teacherService.selectTeacher());
+            jsonDataMap.put("student", studentService.selectStudent());
             return "";
         }
         return "";
@@ -66,6 +68,24 @@ public class UserController {
 
     public int teacherLoginCheck(String username, String password) {
         return teacherService.teacherLoginCheck(username, password) == null ? 0 : 0b1100;
+    }
+
+    @RequestMapping("/delete.do")
+    public String deleteUser(@RequestParam long id) {
+        if (license == 0b0011) {
+            studentService.deleteStudent(id);
+        } else if (license == 0b1100) {
+            teacherService.deleteTeacher(id);
+        } else if (license == 0b1111){
+            System.out.println();
+        }
+        return "";
+    }
+
+    @ResponseBody
+    public Map<Object, Object> jsonData() {
+
+        return jsonDataMap;
     }
 
     @RequestMapping("/toLogin")
