@@ -110,7 +110,6 @@ public class JWTUtil {
         if (now - expiration > 0) {
             return null;
         }
-        // TODO: 2019/11/7
         String id = claims.get("id", String.class);
         String account = claims.get("account", String.class);
         String description = claims.get("description", String.class);

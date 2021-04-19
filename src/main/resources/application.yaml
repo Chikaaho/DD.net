@@ -1,4 +1,13 @@
 spring:
+  mail:
+    password: phdkyzggyjjjjggg
+    host: smtp.qq.com
+    username: chikaho@foxmail.com
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/dd_net?serverTimezone=Asia/Shanghai&useSSL=true

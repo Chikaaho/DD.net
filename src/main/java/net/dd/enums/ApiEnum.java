@@ -12,10 +12,9 @@ public enum ApiEnum {
     VERIFYCODE_ERROR(10004, "验证码错误"),
     USERNAME_PASSWORD_ERROR(10005, "用户名或密码错误"),
     TOKEN_NOT_MATCH(600, "非法的TOKEN"),
-    PRODUCT_ALREADY_EXIST(10006, "商品已经存在请勿重复添加！"),
-    PRODUCT_NOT_EXIST(10007, "商品不存在"),
+    PRODUCT_ALREADY_EXIST(10006, "已经存在请勿重复添加！"),
+    PRODUCT_NOT_EXIST(10007, "不存在"),
     USER_NOT_LEAGLE(10008, "用户信息不合法！"),
-    BALANCE_COUNT_ERROR(20000,"库存不足！")
     ;
 
     private final Integer code;

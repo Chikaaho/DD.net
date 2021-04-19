@@ -39,7 +39,7 @@ public class MD5Util {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        return null;
+        throw new RuntimeException("MD5 encryption failed!");
     }
 
     /***
@@ -86,7 +86,7 @@ public class MD5Util {
                 in = null;
             }
         }
-        return null;
+        throw new RuntimeException("MD5 encryption failed!");
     }
 
     public static void main(String[] args) {

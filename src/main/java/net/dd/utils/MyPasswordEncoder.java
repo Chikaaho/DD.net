@@ -1,4 +1,4 @@
-package net.dd.config;
+package net.dd.utils;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,12 +11,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class MyPasswordEncoder implements PasswordEncoder {
     @Override
-    public String encode(CharSequence charSequence) {
-        return charSequence.toString();
+    public String encode(CharSequence rawPassword) {
+        return MD5Util.encode((String) rawPassword);
     }
 
     @Override
-    public boolean matches(CharSequence charSequence, String s) {
-        return s.contentEquals(charSequence);
+    public boolean matches(CharSequence rawPassword, String encodedPassword) {
+        return encodedPassword.equals(MD5Util.encode((String) rawPassword));
     }
 }

@@ -9,14 +9,21 @@ import org.junit.runner.RunWith;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 @SpringBootTest
+@RunWith(SpringRunner.class)
 @MapperScan("net.dd.mapper")
 class StarterApplicationTests {
 
@@ -31,44 +38,35 @@ class StarterApplicationTests {
 
     int license;
     Map<Object, Object> jsonDataMap = new HashMap<>();
+    JavaMailSenderImpl javaMailSender;
+    @Autowired(required = false)
+    public void setJavaMailSender(JavaMailSenderImpl javaMailSender) {
+        this.javaMailSender = javaMailSender;
+    }
 
     @Test
     void contextLoads() {
-        System.out.println(loginCheck("testDelete", "1234"));
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setSubject("今晚开会");
+        message.setText("大家，好！今晚7:30在教学楼201开班委会，请各位班委准时参加！谢谢！");
+        message.setTo("1609879250@qq.com");
+        message.setFrom("chikaho@foxmail.com");
     }
 
-    public String loginCheck(@RequestParam String username, @RequestParam String password) {
-        int stu = studentLoginCheck(username, password);
-        int teac = teacherLoginCheck(username, password);
-        license = stu | teac;
-        jsonDataMap.clear();
-        if (license == 0) {
-           // model.addAttribute("LOGIN_ERROR", "");
-            return "登录失败";
-        }
-        if (license == 0b0011) {
-            //session.setAttribute("userLicense", "student");
-            jsonDataMap.put("student", studentService.selectStudent());
-            return "是学生";
-        } else if (license == 0b1100) {
-            //session.setAttribute("userLicense", "teacher");
-            jsonDataMap.put("teacher", service.selectTeacher());
-            return "是教师";
-        } else if (license == 0b1111) {
-            //session.setAttribute("userLicense", "admin");
-            jsonDataMap.put("teacher", service.selectTeacher());
-            jsonDataMap.put("student", studentService.selectStudent());
-            return "是管理员";
-        }
-        return "未登录";
-    }
+    @Test
+    public void test2() throws Exception{
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,true);
+        helper.setSubject("今晚开会");
+        helper.setText("大家，好！<br> &nbsp;&nbsp;<b style='color:red'>今晚7:30在教学楼201开班委会，请各位班委准时参加！</b> <br>谢谢！",true);
+        helper.setTo("1609879250@qq.com");
+        helper.setFrom("chikaho@foxmail.com");
 
-    public int studentLoginCheck(String username, String password) {
-        return studentService.studentLoginCheck(username, password) == null ? 0 : 0b0011;
-    }
+        //添加附件
+//        helper.addAttachment("会议说明.txt",new File("C:\\Users\\Dylan\\Pictures\\会议说明.txt"));
+//        helper.addAttachment("会议图片.jpg",new File("C:\\Users\\Dylan\\Pictures\\会议图片.jpg"));
 
-    public int teacherLoginCheck(String username, String password) {
-        return service.teacherLoginCheck(username, password) == null ? 0 : 0b1100;
+        javaMailSender.send(mimeMessage);
     }
 
 }
