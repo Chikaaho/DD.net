@@ -7,12 +7,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -58,12 +55,12 @@ public class Student implements Serializable {
     private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "权限")
-    private int license;
+    private int roles;
 
     public Student() {
     }
 
-    public Student(long id, long usernum, String username, String password, String classname, int isDeleted, LocalDateTime createTime, LocalDateTime updateTime, int license) {
+    public Student(long id, long usernum, String username, String password, String classname, int isDeleted, LocalDateTime createTime, LocalDateTime updateTime, int roles) {
         this.id = id;
         this.usernum = usernum;
         this.username = username;
@@ -72,7 +69,7 @@ public class Student implements Serializable {
         this.isDeleted = isDeleted;
         this.createTime = createTime;
         this.updateTime = updateTime;
-        this.license = license;
+        this.roles = roles;
     }
 
     public long getId() {
@@ -146,12 +143,12 @@ public class Student implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public int getLicense() {
-        return license;
+    public int getRoles() {
+        return roles;
     }
 
-    public void setLicense(int license) {
-        this.license = license;
+    public void setRoles(int roles) {
+        this.roles = roles;
     }
 
     @Override

@@ -10,7 +10,7 @@
         <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
-        <result column="license" jdbcType="TINYINT" property="license"/>
+        <result column="roles" jdbcType="TINYINT" property="roles"/>
     </resultMap>
 
     <insert id="insertStudent">

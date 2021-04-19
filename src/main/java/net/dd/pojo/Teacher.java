@@ -37,19 +37,19 @@ public class Teacher {
   private LocalDateTime updateTime;
 
   @ApiModelProperty(value = "权限")
-  private int license;
+  private int roles;
 
   public Teacher() {
   }
 
-  public Teacher(long id, String username, String password, int isDeleted, LocalDateTime createTime, LocalDateTime updateTime, int license) {
+  public Teacher(long id, String username, String password, int isDeleted, LocalDateTime createTime, LocalDateTime updateTime, int roles) {
     this.id = id;
     this.username = username;
     this.password = password;
     this.isDeleted = isDeleted;
     this.createTime = createTime;
     this.updateTime = updateTime;
-    this.license = license;
+    this.roles = roles;
   }
 
   public long getId() {
@@ -105,12 +105,12 @@ public class Teacher {
     this.updateTime = updateTime;
   }
 
-  public int getLicense() {
-    return license;
+  public int getRoles() {
+    return roles;
   }
 
-  public void setLicense(int license) {
-    this.license = license;
+  public void setRoles(int roles) {
+    this.roles = roles;
   }
 
   @Override
