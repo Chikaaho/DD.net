@@ -11,15 +11,13 @@ import javax.annotation.Resource;
 import java.util.List;
 
 
-
+@Controller
 public class ControllerTest {
 
-
-    private StudentServiceImpl studentService;
-
-    public Student getJson() {
-        List<Student> students = studentService.selectStudent();
-        return students.get(0);
+    @ResponseBody
+    @RequestMapping("/hello")
+    public String hello() {
+        return "hello world";
     }
 
 }

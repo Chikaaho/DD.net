@@ -57,10 +57,13 @@ public class Student implements Serializable {
     @ApiModelProperty(value = "修改时间")
     private LocalDateTime updateTime;
 
+    @ApiModelProperty(value = "权限")
+    private int license;
+
     public Student() {
     }
 
-    public Student(long id, long usernum, String username, String password, String classname, int isDeleted, LocalDateTime createTime, LocalDateTime updateTime) {
+    public Student(long id, long usernum, String username, String password, String classname, int isDeleted, LocalDateTime createTime, LocalDateTime updateTime, int license) {
         this.id = id;
         this.usernum = usernum;
         this.username = username;
@@ -69,8 +72,8 @@ public class Student implements Serializable {
         this.isDeleted = isDeleted;
         this.createTime = createTime;
         this.updateTime = updateTime;
+        this.license = license;
     }
-
 
     public long getId() {
         return id;
@@ -141,6 +144,14 @@ public class Student implements Serializable {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public int getLicense() {
+        return license;
+    }
+
+    public void setLicense(int license) {
+        this.license = license;
     }
 
     @Override

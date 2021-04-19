@@ -82,9 +82,17 @@ public class UserController {
         return "";
     }
 
+    @RequestMapping("/jsonData")
     @ResponseBody
     public Map<Object, Object> jsonData() {
-
+        jsonDataMap.clear();
+        jsonDataMap.put("userLicense", "admin");
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put("username", "chika");
+        map.put("password", "123456z");
+        map.put("usernum", 18240000);
+        map.put("classname", "soft1");
+        jsonDataMap.put("message", map);
         return jsonDataMap;
     }
 
