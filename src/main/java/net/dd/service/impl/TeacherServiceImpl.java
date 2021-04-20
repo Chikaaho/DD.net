@@ -32,7 +32,7 @@ public class TeacherServiceImpl implements TeacherService {
     public int registTeacher(String username, String password, String activeCodes, String email) {
         Teacher teacher = teacherMapper.selectTeacherByName(username);
         if (teacher != null) {
-            return 0;
+            return 1 << 3;
         } else {
             teacherMapper.registTeacher(username.replaceAll("\\s*", "")
                     , password.replaceAll("\\s*", "")

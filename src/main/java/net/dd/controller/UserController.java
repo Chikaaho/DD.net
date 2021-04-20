@@ -1,7 +1,10 @@
 package net.dd.controller;
 
+import io.swagger.annotations.ApiModelProperty;
 import net.dd.pojo.Student;
 import net.dd.pojo.Teacher;
+import net.dd.service.StudentService;
+import net.dd.service.TeacherService;
 import net.dd.service.impl.StudentServiceImpl;
 import net.dd.service.impl.TeacherServiceImpl;
 import net.dd.utils.IDUtil;
@@ -21,11 +24,11 @@ import java.util.Map;
 public class UserController {
 
 
-    private StudentServiceImpl studentService;
-    private TeacherServiceImpl teacherService;
-    private final HashMap<Object, Object> jsonDataMap = new HashMap<>();
+    private StudentService studentService;
+    private TeacherService teacherService;
+    private static final HashMap<Object, Object> JSON_DATA_MAP = new HashMap<>();
     // 登录凭证
-    private int license;
+    private static int LICENSE = 0;
 
     @Autowired
     public void setStudentServiceImpl(StudentServiceImpl studentService) {
@@ -41,24 +44,24 @@ public class UserController {
     public String loginCheck(@RequestParam String username, @RequestParam String password, Model model, HttpSession session) {
         int stu = studentLoginCheck(username, password);
         int teac = teacherLoginCheck(username, password);
-        license = stu | teac;
-        jsonDataMap.clear();
-        if (license == 0) {
+        LICENSE = stu | teac;
+        JSON_DATA_MAP.clear();
+        if (LICENSE == 0) {
             model.addAttribute("LOGIN_ERROR", "");
             return "/login";
         }
-        if (license == 0b0011) {
+        if (LICENSE == 0b0011) {
             session.setAttribute("userLicense", "student");
-            jsonDataMap.put("student", studentService.selectStudent());
+            JSON_DATA_MAP.put("student", studentService.selectStudent());
             return "sys/index";
-        } else if (license == 0b1100) {
+        } else if (LICENSE == 0b1100) {
             session.setAttribute("userLicense", "teacher");
-            jsonDataMap.put("teacher", teacherService.selectTeacher());
+            JSON_DATA_MAP.put("teacher", teacherService.selectTeacher());
             return "sys/index";
-        } else if (license == 0b1111) {
+        } else if (LICENSE == 0b1111) {
             session.setAttribute("userLicense", "admin");
-            jsonDataMap.put("teacher", teacherService.selectTeacher());
-            jsonDataMap.put("student", studentService.selectStudent());
+            JSON_DATA_MAP.put("teacher", teacherService.selectTeacher());
+            JSON_DATA_MAP.put("student", studentService.selectStudent());
             return "sys/index";
         }
         return "/login";
@@ -73,14 +76,27 @@ public class UserController {
     }
 
     @RequestMapping("/regist.do")
+    @ApiModelProperty(value = "注册教师")
     public String registUser(@RequestParam String username, @RequestParam String password, @RequestParam String email, Model model) {
         String activeCodes = IDUtil.getUUID();
         int i = teacherService.registTeacher(username, password, activeCodes, email);
-        if (i == 0) {
+        if (i == 1 << 3) {
             model.addAttribute("REGIST_ERROR", "该账号信息已存在,请直接登录");
             return "index";
         } else {
             model.addAttribute("REGIST_MESSAGE", "注册信息已提交,请前往邮箱查看");
+            return "index";
+        }
+    }
+
+    @RequestMapping("/add.do")
+    @ApiModelProperty(value = "添加学生")
+    public String addUser(@RequestParam String username, @RequestParam String password, @RequestParam String classname, @RequestParam long usernum, Model model) {
+        int i = studentService.insertStudent(username, password, usernum, classname);
+        if (i == 1 << 3) {
+            return "index";
+        } else {
+            model.addAttribute("STUDENT_REPEAT_ERROR", "");
             return "index";
         }
     }
@@ -98,19 +114,19 @@ public class UserController {
 
     @PostMapping("/delete.do")
     public String deleteUser(@RequestParam long id) {
-        if (license == 0b0011) {
+        if (LICENSE == 0b0011) {
             studentService.deleteStudent(id);
-        } else if (license == 0b1100) {
+        } else if (LICENSE == 0b1100) {
             teacherService.deleteTeacher(id);
-        } else if (license == 0b1111){
+        } else if (LICENSE == 0b1111) {
             System.out.println();
         }
         return "";
     }
 
     @PostMapping("waring/drop.do")
-    public String dropUser(@RequestParam long id, Model model){
-        if (license == 0b0011) {
+    public String dropUser(@RequestParam long id, Model model) {
+        if (LICENSE == 0b0011) {
             model.addAttribute("ERROR", "您的权限不足");
             return "index";
         } else {
@@ -121,6 +137,7 @@ public class UserController {
 
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
+        LICENSE = 0;
         session.invalidate();
         session.removeAttribute("userLicense");
         return "index";
@@ -128,8 +145,8 @@ public class UserController {
 
 
     /**
-    *   @return 数据查询
-    **/
+     * @return 数据查询
+     **/
     @RequestMapping("/selectAll")
     @ResponseBody
     public List selectAll() {
@@ -146,14 +163,14 @@ public class UserController {
     @ResponseBody
     public Map<Object, Object> jsonData() {
         HashMap<Object, Object> map = new HashMap<>();
-        jsonDataMap.clear();
+        JSON_DATA_MAP.clear();
 
-        return jsonDataMap;
+        return JSON_DATA_MAP;
     }
 
     /**
-    *    @return 页面跳转
-    **/
+     * @return 页面跳转
+     **/
     @RequestMapping("/toLogin")
     public String login() {
         return "sys/login";

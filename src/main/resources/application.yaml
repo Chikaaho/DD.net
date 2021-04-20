@@ -39,3 +39,10 @@ management:
     web:
       exposure:
         include: shutdown
+qiniu:
+  accessKey: ciIKJAtiHkSeEAm_Ci3MjuXvWPN2gZB_mY4wsOSK
+  secretKey: 5LIinEdTfH3eLf_HlAhfSYUC19leeBSScdf2C-r5
+  # 对象储存
+  bucket: ddnetdemo # 空间名称
+  zone: huanan # 存储区域
+  domain: qruqwlzsc.hn-bkt.clouddn.com # 访问域名

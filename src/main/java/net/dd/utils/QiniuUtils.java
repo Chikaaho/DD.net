@@ -13,6 +13,7 @@ import com.qiniu.util.Auth;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.ResponseBody;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -24,10 +25,10 @@ import java.nio.file.Paths;
 public class QiniuUtils {
 
     //设置好账号的ACCESS_KEY和SECRET_KEY
-    private static final String ACCESS_KEY = "evzPrTT1qVnC1WIcOAeJ763Ar9teglDAJVavCrCQ";
-    private static final String SECRET_KEY = "nUECECMhOHxp5ZZHiKCg50Yezn4WbZg_EtkhmBLC";
+    private static final String ACCESS_KEY = "ciIKJAtiHkSeEAm_Ci3MjuXvWPN2gZB_mY4wsOSK";
+    private static final String SECRET_KEY = "5LIinEdTfH3eLf_HlAhfSYUC19leeBSScdf2C-r5";
     //要上传的空间 bucket name
-    private static final String BUCKET_NAME = "haoziweizhi1111";
+    private static final String BUCKET_NAME = "ddnetdemo";
 
     /**
      * @param localFilePath
@@ -138,7 +139,7 @@ public class QiniuUtils {
     }
 
     private static String intoResultByName(byte[] uploadBytes, File localFilePath, ByteArrayInputStream byteInputStream, String fileName, FileRecorder fileRecorder) throws QiniuException {
-        Configuration cfg = new Configuration(Zone.zone2());
+        Configuration cfg = new Configuration(Region.huanan());
         UploadManager uploadManager = new UploadManager(cfg, fileRecorder);
 //        String substring = fileName.substring(fileName.lastIndexOf("."));
 

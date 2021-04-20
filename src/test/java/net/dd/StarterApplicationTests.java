@@ -3,6 +3,7 @@ package net.dd;
 import net.dd.mapper.StudentMapper;
 import net.dd.mapper.TeacherMapper;
 import net.dd.pojo.Teacher;
+import net.dd.service.QiNiuService;
 import net.dd.service.impl.StudentServiceImpl;
 import net.dd.service.impl.TeacherServiceImpl;
 import net.dd.utils.IDUtil;
@@ -31,9 +32,9 @@ import java.util.Map;
 @MapperScan("net.dd.mapper")
 class StarterApplicationTests {
 
-
     @Test
     void contextLoads() {
+
     }
 
 
