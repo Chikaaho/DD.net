@@ -11,7 +11,7 @@ public interface TeacherService {
     List<Teacher> selectTeacher();
 
     // 添加老师信息
-    int insertTeacher(@Param("username") String username, @Param("password") String password);
+    int registTeacher(@Param("username") String username, @Param("password") String password, @Param("activeCodes") String activeCodes, @Param("email") String email);
 
     // 修改老师信息
     int updateTeacher(@Param("id") long id, @Param("username") String username, @Param("password") String password);
@@ -21,5 +21,11 @@ public interface TeacherService {
 
     // 登录验证
     Teacher teacherLoginCheck(@Param("username") String username, @Param("password") String password);
+
+    Teacher registCheck(@Param("activeCode") String activeCode);
+
+    // 激活
+    void modify(@Param("status") int status, @Param("activeCodes") String activeCodes);
+
 
 }

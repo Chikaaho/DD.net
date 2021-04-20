@@ -4,6 +4,7 @@ import net.dd.pojo.Student;
 import net.dd.pojo.Teacher;
 import net.dd.service.impl.StudentServiceImpl;
 import net.dd.service.impl.TeacherServiceImpl;
+import net.dd.utils.IDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -69,6 +70,30 @@ public class UserController {
 
     public int teacherLoginCheck(String username, String password) {
         return teacherService.teacherLoginCheck(username, password) == null ? 0 : 0b1100;
+    }
+
+    @RequestMapping("/regist.do")
+    public String registUser(@RequestParam String username, @RequestParam String password, @RequestParam String email, Model model) {
+        String activeCodes = IDUtil.getUUID();
+        int i = teacherService.registTeacher(username, password, activeCodes, email);
+        if (i == 0) {
+            model.addAttribute("REGIST_ERROR", "该账号信息已存在，请直接登录");
+            return "index";
+        } else {
+            model.addAttribute("REGIST_MESSAGE", "注册信息已提交,请前往邮箱查看");
+            return "index";
+        }
+    }
+
+    @RequestMapping("/checkCode")
+    public String checkCode(String code) {
+        System.out.println("url获取激活码=>" + code);
+        Teacher teacher = teacherService.registCheck(code);
+        if (teacher != null) {
+            teacherService.modify(1, teacher.getActiveCodes());
+            return "success";
+        }
+        return "failed";
     }
 
     @PostMapping("/delete.do")

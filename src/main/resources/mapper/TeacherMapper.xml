@@ -6,16 +6,19 @@
         <result column="username" jdbcType="VARCHAR" property="username"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="is_deleted" jdbcType="TINYINT" property="isDeleted"/>
-        <result column="create_time"  property="createTime"/>
-        <result column="update_time"  property="updateTime"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
         <result column="roles" jdbcType="TINYINT" property="roles"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="active_codes" jdbcType="VARCHAR" property="activeCodes"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
     </resultMap>
 
-    <insert id="insertTeacher">
+    <insert id="registTeacher">
         insert into dd_net.teacher
-            (username, password)
+            (username, password, active_codes, email)
         values
-            (#{username}, #{password});
+            (#{username}, #{password}, #{activeCodes}, #{email});
     </insert>
     <update id="updateTeacher">
         update dd_net.teacher
@@ -31,22 +34,39 @@
         where
         username = #{username}
         and
-        password = #{password};
+        password = #{password}
+        and
+        status = 1;
     </select>
     <update id="deleteTeacher">
         update dd_net.teacher
         set is_deleted = 1,
             update_time = now()
-        where id = #{id};
+        where id = #{id}
+        and status = 1;
+    </update>
+    <update id="modify">
+        update dd_net.teacher
+        set status = #{status},
+            active_codes = '',
+            update_time = now()
+        where active_codes = #{activeCodes};
     </update>
     <select id="selectTeacher" resultType="net.dd.pojo.Teacher">
         select *
-        from dd_net.teacher;
+        from dd_net.teacher
+        where status = 1;
     </select>
     <select id="selectTeacherByName" resultType="net.dd.pojo.Teacher">
         select *
         from dd_net.teacher
-        where username like concat('%', #{username}, '%');
+        where username like concat('%', #{username}, '%')
+        and status = 1;
+    </select>
+    <select id="registCheck" resultType="net.dd.pojo.Teacher">
+        select *
+        from dd_net.teacher
+        where active_codes = #{activeCode};
     </select>
 
 </mapper>

@@ -5,6 +5,15 @@
     <title>Title</title>
 </head>
 <body>
-
+    <form action="/user/regist.do" method="post">
+        <div>账户名:<input type="text" name="username"></div>
+        <div>密码:<input type="password" name="password"></div>
+        <div>邮箱:<input type="email" name="email"></div>
+        <div><input type="submit" value="提交"></div>
+        <div>
+            <p th:text="${REGIST_MESSAGE}"></p>
+            <p th:text="${REGIST_ERROR}"></p>
+        </div>
+    </form>
 </body>
 </html>

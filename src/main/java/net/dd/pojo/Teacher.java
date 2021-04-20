@@ -7,10 +7,11 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Teacher {
+public class Teacher implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -39,10 +40,19 @@ public class Teacher {
   @ApiModelProperty(value = "权限")
   private int roles;
 
+  @ApiModelProperty(value = "激活状态")
+  private int status;
+
+  @ApiModelProperty(value = "激活码")
+  private String activeCodes;
+
+  @ApiModelProperty(value = "邮箱")
+  private String email;
+
   public Teacher() {
   }
 
-  public Teacher(long id, String username, String password, int isDeleted, LocalDateTime createTime, LocalDateTime updateTime, int roles) {
+  public Teacher(long id, String username, String password, int isDeleted, LocalDateTime createTime, LocalDateTime updateTime, int roles, int status, String activeCodes, String email) {
     this.id = id;
     this.username = username;
     this.password = password;
@@ -50,6 +60,9 @@ public class Teacher {
     this.createTime = createTime;
     this.updateTime = updateTime;
     this.roles = roles;
+    this.status = status;
+    this.activeCodes = activeCodes;
+    this.email = email;
   }
 
   public long getId() {
@@ -113,22 +126,49 @@ public class Teacher {
     this.roles = roles;
   }
 
+  public int getStatus() {
+    return status;
+  }
+
+  public void setStatus(int status) {
+    this.status = status;
+  }
+
+  public String getActiveCodes() {
+    return activeCodes;
+  }
+
+  public void setActiveCodes(String activeCodes) {
+    this.activeCodes = activeCodes;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (!(o instanceof Teacher)) return false;
     Teacher teacher = (Teacher) o;
-    return id == teacher.id &&
-            isDeleted == teacher.isDeleted &&
-            Objects.equals(username, teacher.username) &&
-            Objects.equals(password, teacher.password) &&
-            Objects.equals(createTime, teacher.createTime) &&
-            Objects.equals(updateTime, teacher.updateTime);
+    return getId() == teacher.getId() &&
+            getIsDeleted() == teacher.getIsDeleted() &&
+            getRoles() == teacher.getRoles() &&
+            getStatus() == teacher.getStatus() &&
+            Objects.equals(getUsername(), teacher.getUsername()) &&
+            Objects.equals(getPassword(), teacher.getPassword()) &&
+            Objects.equals(getCreateTime(), teacher.getCreateTime()) &&
+            Objects.equals(getUpdateTime(), teacher.getUpdateTime()) &&
+            Objects.equals(getActiveCodes(), teacher.getActiveCodes());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, username, password, isDeleted, createTime, updateTime);
+    return Objects.hash(getId(), getUsername(), getPassword(), getIsDeleted(), getCreateTime(), getUpdateTime(), getRoles(), getStatus(), getActiveCodes());
   }
 
   @Override
@@ -140,6 +180,9 @@ public class Teacher {
             ", isDeleted=" + isDeleted +
             ", createTime=" + createTime +
             ", updateTime=" + updateTime +
+            ", roles=" + roles +
+            ", status=" + status +
+            ", active_codes='" + activeCodes + '\'' +
             '}';
   }
 }

@@ -1,3 +1,4 @@
+/*
 package net.dd.config;
 
 import net.dd.service.impl.UserDetailsServiceImpl;
@@ -54,3 +55,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 }
+*/

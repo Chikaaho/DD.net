@@ -2,6 +2,7 @@ package net.dd.service.impl;
 
 import net.dd.mapper.TeacherMapper;
 import net.dd.pojo.Teacher;
+import net.dd.service.MailService;
 import net.dd.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,9 +13,14 @@ import java.util.List;
 public class TeacherServiceImpl implements TeacherService {
 
     private TeacherMapper teacherMapper;
+    private MailService mailService;
     @Autowired
     public void setTeacherMapper(TeacherMapper teacherMapper) {
         this.teacherMapper = teacherMapper;
+    }
+    @Autowired
+    public void setMailService(MailService mailService) {
+        this.mailService = mailService;
     }
 
     @Override
@@ -23,8 +29,20 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public int insertTeacher(String username,  String password) {
-        return teacherMapper.insertTeacher(username.replaceAll("\\s*", ""), password.replaceAll("\\s*", ""));
+    public int registTeacher(String username, String password, String activeCodes, String email) {
+        Teacher teacher = teacherMapper.selectTeacherByName(username);
+        if (teacher != null) {
+            return 0;
+        } else {
+            teacherMapper.registTeacher(username.replaceAll("\\s*", "")
+                    , password.replaceAll("\\s*", "")
+                    , activeCodes, email);
+            System.out.println("激活码=>" + activeCodes);
+            String subject = "来自DD网的激活邮件";
+            String context = "<a href=\"http://localhost:8080/user/checkCode?code="+activeCodes+"\">点击此处激活"+"</a>";
+            mailService.sendMimeMail(email, subject, context);
+            return 1;
+        }
     }
 
     @Override
@@ -47,5 +65,15 @@ public class TeacherServiceImpl implements TeacherService {
             return null;
         }
         return teacher;
+    }
+
+    @Override
+    public Teacher registCheck(String activeCode) {
+        return teacherMapper.registCheck(activeCode);
+    }
+
+    @Override
+    public void modify(int status, String activeCodes) {
+        teacherMapper.modify(status, activeCodes);
     }
 }
