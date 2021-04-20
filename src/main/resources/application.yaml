@@ -13,7 +13,6 @@ spring:
     url: jdbc:mysql://localhost:3306/dd_net?serverTimezone=Asia/Shanghai&useSSL=true
     username: root
     password: 123456
-
   mvc:
     static-path-pattern: /static/**
 #  热部署
@@ -32,3 +31,11 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: shutdown

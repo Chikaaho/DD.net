@@ -77,7 +77,7 @@ public class UserController {
         String activeCodes = IDUtil.getUUID();
         int i = teacherService.registTeacher(username, password, activeCodes, email);
         if (i == 0) {
-            model.addAttribute("REGIST_ERROR", "该账号信息已存在，请直接登录");
+            model.addAttribute("REGIST_ERROR", "该账号信息已存在,请直接登录");
             return "index";
         } else {
             model.addAttribute("REGIST_MESSAGE", "注册信息已提交,请前往邮箱查看");
@@ -87,7 +87,7 @@ public class UserController {
 
     @RequestMapping("/checkCode")
     public String checkCode(String code) {
-        System.out.println("url获取激活码=>" + code);
+        System.out.println("url激活码=>" + code);
         Teacher teacher = teacherService.registCheck(code);
         if (teacher != null) {
             teacherService.modify(1, teacher.getActiveCodes());
@@ -134,14 +134,9 @@ public class UserController {
     @RequestMapping("/jsonData")
     @ResponseBody
     public Map<Object, Object> jsonData() {
-        jsonDataMap.clear();
-        jsonDataMap.put("userLicense", "admin");
         HashMap<Object, Object> map = new HashMap<>();
-        map.put("username", "chika");
-        map.put("password", "123456z");
-        map.put("usernum", 18240000);
-        map.put("classname", "soft1");
-        jsonDataMap.put("message", map);
+        jsonDataMap.clear();
+
         return jsonDataMap;
     }
 
