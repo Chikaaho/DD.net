@@ -30,22 +30,17 @@ public class FileController {
     }
 
     @RequestMapping("/")
-    public String fileUpload(@RequestParam File file) {
+    public String fileUpload(@RequestParam String filePath, @RequestParam String fileName) throws QiniuException{
+        String result = qiNiuService.uploadFile(new File(filePath), fileName);
+        System.out.println("访问地址： " + result);
         return "";
     }
 
     @RequestMapping("/")
-    public String fileDelete(@RequestParam long id) {
+    public String fileDelete(@RequestParam long id, @RequestParam String key) throws QiniuException {
+        String result = qiNiuService.delete("helloworld");
+        System.out.println(key);
         return "";
     }
 
-    public void fileUpload() throws QiniuException {
-        String result = qiNiuService.uploadFile(new File("E:\\Datas\\photos\\other\\helloworld.jpg"), "helloworld");
-        System.out.println("访问地址： " + result);
-    }
-
-    public void fileDelete() throws QiniuException {
-        String result = qiNiuService.delete("helloworld");
-        System.out.println(result);
-    }
 }
