@@ -4,7 +4,7 @@
     <resultMap id="DdDataMapper" type="net.dd.pojo.DdData">
         <id column="file_id" jdbcType="BIGINT" property="fileId"/>
         <result column="file_type" jdbcType="TINYINT" property="fileType"/>
-        <result column="file_key" jdbcType="BIGINT" property="fileKey"/>
+        <result column="file_key" jdbcType="VARCHAR" property="fileKey"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>

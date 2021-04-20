@@ -19,7 +19,7 @@ public class DdData implements Serializable {
   private int fileType;
 
   @ApiModelProperty(value="访问凭证")
-  private long fileKey;
+  private String fileKey;
 
   @ApiModelProperty(value = "创建时间")
   private LocalDateTime createTime;
@@ -32,7 +32,12 @@ public class DdData implements Serializable {
   public DdData() {
   }
 
-  public DdData(long fileId, int fileType, long fileKey, LocalDateTime createTime, LocalDateTime updateTime) {
+  public DdData(int fileType, String fileKey) {
+    this.fileType = fileType;
+    this.fileKey = fileKey;
+  }
+
+  public DdData(long fileId, int fileType, String fileKey, LocalDateTime createTime, LocalDateTime updateTime) {
     this.fileId = fileId;
     this.fileType = fileType;
     this.fileKey = fileKey;
@@ -59,11 +64,11 @@ public class DdData implements Serializable {
   }
 
 
-  public long getFileKey() {
+  public String getFileKey() {
     return fileKey;
   }
 
-  public void setFileKey(long fileKey) {
+  public void setFileKey(String fileKey) {
     this.fileKey = fileKey;
   }
 
