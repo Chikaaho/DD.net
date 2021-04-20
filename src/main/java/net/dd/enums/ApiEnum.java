@@ -4,7 +4,6 @@ package net.dd.enums;
 public enum ApiEnum {
     SUCCESS(200, "成功"),
     FAILED(500, "失败"),
-    HELLO_WORLD(1000, "hello_world"),
     DIVIDE_BY_ZERO(10001, "除数不能为0"),
     FILE_SIZE_EXCEEDED(666, "文件大小请勿超过10MB"),
     PASSWORD_NOT_MATCH(10002, "密码不匹配"),
