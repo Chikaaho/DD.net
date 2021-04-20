@@ -127,9 +127,9 @@ public class UserController {
     }
 
 
-    /*
+    /**
     *   @return 数据查询
-    * */
+    **/
     @RequestMapping("/selectAll")
     @ResponseBody
     public List selectAll() {
@@ -151,9 +151,9 @@ public class UserController {
         return jsonDataMap;
     }
 
-    /*
+    /**
     *    @return 页面跳转
-    * */
+    **/
     @RequestMapping("/toLogin")
     public String login() {
         return "sys/login";
