@@ -108,6 +108,17 @@ public class UserController {
         return "";
     }
 
+    @PostMapping("waring/drop.do")
+    public String dropUser(@RequestParam long id, Model model){
+        if (license == 0b0011) {
+            model.addAttribute("ERROR", "您的权限不足");
+            return "index";
+        } else {
+            studentService.dropStudent(id);
+            return "index";
+        }
+    }
+
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
