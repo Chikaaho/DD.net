@@ -30,7 +30,7 @@ public class QiNiuConfig {
     @Bean
     public com.qiniu.storage.Configuration qiNiuConfig() {
         return switch (zone) {
-            case "huadong" -> new com.qiniu.storage.Configuration(Region.huanan());
+            case "huadong" -> new com.qiniu.storage.Configuration(Region.huadong());
             case "huabei" -> new com.qiniu.storage.Configuration(Region.huabei());
             case "huanan" -> new com.qiniu.storage.Configuration(Region.huanan());
             case "beimei" -> new com.qiniu.storage.Configuration(Region.beimei());
