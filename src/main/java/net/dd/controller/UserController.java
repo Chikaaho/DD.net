@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -154,13 +155,17 @@ public class UserController {
     @RequestMapping("/selectAll")
     @ResponseBody
     public List selectAll() {
-        List<Student> students = studentService.selectStudent();
         List<Teacher> teachers = teacherService.selectTeacher();
-        if (teachers == null) {
+        List<Student> students = studentService.selectStudent();
+        if (LICENSE == 0b1111) {
+            List<List> list = new ArrayList<>();
+            list.add(teachers);
+            list.add(students);
+            return list;
+        } else if (LICENSE == 0b1100) {
             return students;
-        } else {
-            return teachers;
         }
+        return null;
     }
 
     @RequestMapping("/jsonData")
