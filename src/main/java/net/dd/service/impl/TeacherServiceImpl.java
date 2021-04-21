@@ -4,6 +4,7 @@ import net.dd.mapper.TeacherMapper;
 import net.dd.pojo.Teacher;
 import net.dd.service.MailService;
 import net.dd.service.TeacherService;
+import net.dd.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,7 @@ public class TeacherServiceImpl implements TeacherService {
             return 1 << 3;
         } else {
             teacherMapper.registTeacher(username.replaceAll("\\s*", "")
-                    , password.replaceAll("\\s*", "")
+                    , MD5Util.encode(password.replaceAll("\\s*", ""))
                     , activeCodes, email);
             System.out.println("激活码=>" + activeCodes);
             String subject = "来自DD网的激活邮件";
@@ -47,7 +48,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public int updateTeacher(long id, String username, String password) {
-        return teacherMapper.updateTeacher(id, username.replaceAll("\\s*", ""), password.replaceAll("\\s*", ""));
+        return teacherMapper.updateTeacher(id, username.replaceAll("\\s*", ""), MD5Util.encode(password.replaceAll("\\s*", "")));
     }
 
     @Override
@@ -57,7 +58,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public Teacher teacherLoginCheck(String username, String password) {
-        Teacher teacher = teacherMapper.teacherLoginCheck(username.replaceAll("\\s*", ""), password.replaceAll("\\s*", ""));
+        Teacher teacher = teacherMapper.teacherLoginCheck(username.replaceAll("\\s*", ""), MD5Util.encode(password.replaceAll("\\s*", "")));
         if (teacher == null) {
             return null;
         }

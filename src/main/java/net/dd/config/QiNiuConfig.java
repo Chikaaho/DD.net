@@ -24,27 +24,13 @@ public class QiNiuConfig {
     @Value("${qiniu.secretKey}")
     private String secretKey;
 
-    @Value("${qiniu.zone}")
-    private String zone;
-
-    @Bean
-    public com.qiniu.storage.Configuration qiNiuConfig() {
-        return switch (zone) {
-            case "huadong" -> new com.qiniu.storage.Configuration(Region.huadong());
-            case "huabei" -> new com.qiniu.storage.Configuration(Region.huabei());
-            case "huanan" -> new com.qiniu.storage.Configuration(Region.huanan());
-            case "beimei" -> new com.qiniu.storage.Configuration(Region.beimei());
-            default -> throw new RuntimeException("存储区域配置错误");
-        };
-    }
-
 
     /**
      * 构建一个七牛上传工具实例
      */
     @Bean
     public UploadManager uploadManager() {
-        return new UploadManager(qiNiuConfig());
+        return new UploadManager(new com.qiniu.storage.Configuration(Region.huanan()));
     }
 
     /**
@@ -60,7 +46,7 @@ public class QiNiuConfig {
      */
     @Bean
     public BucketManager bucketManager() {
-        return new BucketManager(auth(), qiNiuConfig());
+        return new BucketManager(auth(), new com.qiniu.storage.Configuration(Region.huanan()));
     }
 
     @Bean

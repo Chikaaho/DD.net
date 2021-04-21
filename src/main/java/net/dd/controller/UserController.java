@@ -92,6 +92,10 @@ public class UserController {
     @RequestMapping("/add.do")
     @ApiModelProperty(value = "添加学生")
     public String addUser(@RequestParam String username, @RequestParam String password, @RequestParam String classname, @RequestParam long usernum, Model model) {
+        if (LICENSE != 0b1100 && LICENSE != 0b1111) {
+            model.addAttribute("","");
+            return "";
+        }
         int i = studentService.insertStudent(username, password, usernum, classname);
         if (i == 1 << 3) {
             return "index";

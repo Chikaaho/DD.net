@@ -7,6 +7,7 @@ import net.dd.service.QiNiuService;
 import net.dd.service.impl.StudentServiceImpl;
 import net.dd.service.impl.TeacherServiceImpl;
 import net.dd.utils.IDUtil;
+import net.dd.utils.MD5Util;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.annotation.MapperScan;
@@ -34,7 +35,8 @@ class StarterApplicationTests {
 
     @Test
     void contextLoads() {
-
+        String text = "zzz123";
+        System.out.println(MD5Util.encode(text));
     }
 
 

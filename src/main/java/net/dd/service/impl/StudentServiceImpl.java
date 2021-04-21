@@ -3,6 +3,7 @@ package net.dd.service.impl;
 import net.dd.mapper.StudentMapper;
 import net.dd.pojo.Student;
 import net.dd.service.StudentService;
+import net.dd.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +48,7 @@ public class StudentServiceImpl implements StudentService {
         Student student = studentMapper.selectStudentByNumber(usernum);
         if (student == null) {
             return studentMapper.insertStudent(username.replaceAll("\\s*", "")
-                    , password.replaceAll("\\s*", "")
+                    , MD5Util.encode(password.replaceAll("\\s*", ""))
                     , usernum
                     , classname.replaceAll("\\s*", ""));
         }
@@ -62,7 +63,7 @@ public class StudentServiceImpl implements StudentService {
     public int updateStudent(long id, String username, String password, long usernum, String classname) {
         return studentMapper.updateStudent(id
                 , username.replaceAll("\\s*", "")
-                , password.replaceAll("\\s*", "")
+                , MD5Util.encode(password.replaceAll("\\s*", ""))
                 , usernum
                 , classname.replaceAll("\\s*", ""));
     }
@@ -79,11 +80,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student studentLoginCheck(String username, String password) {
-        Student student = studentMapper.studentLoginCheck(username.replaceAll("\\s*", ""), password.replaceAll("\\s*", ""));
-        if (student == null) {
-            return null;
-        }
-        if (student.getIsDeleted() == 1) {
+        Student student = studentMapper.studentLoginCheck(username.replaceAll("\\s*", "")
+                , MD5Util.encode(password.replaceAll("\\s*", "")));
+        if (student == null || student.getIsDeleted() == 1) {
             return null;
         }
         return student;

@@ -44,7 +44,7 @@
     </delete>
 
     <select id="selectStudent" resultType="net.dd.pojo.Student">
-        SELECT * FROM dd_net.student;
+        SELECT * FROM dd_net.student where is_deleted = 0;
     </select>
     <select id="studentLoginCheck" resultType="net.dd.pojo.Student">
         SELECT *

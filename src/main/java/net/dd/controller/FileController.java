@@ -56,7 +56,7 @@ public class FileController {
         return "";
     }
 
-    @RequestMapping("/")
+    @RequestMapping("/fileDelete.do")
     public String fileDelete(@RequestParam long id, @RequestParam String key) {
         String result;
         try {
@@ -69,7 +69,7 @@ public class FileController {
         return "";
     }
 
-    @RequestMapping("/")
+    @RequestMapping("/fileData")
     @ResponseBody
     public Map<Object, Object> getJsonDataMap() {
         return JSON_DATA_MAP;

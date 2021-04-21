@@ -9,8 +9,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 public class MD5Util {
+
     /**
      * 可以把一段文字转换为MD5
      * Can convert a file to MD5
@@ -24,12 +26,11 @@ public class MD5Util {
             MessageDigest digest = MessageDigest.getInstance("md5");
             byte[] buffer = digest.digest(text.getBytes());
             // byte -128 ---- 127
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             for (byte b : buffer) {
                 int a = b & 0xff;
                 // Log.d(TAG, "" + a);
                 String hex = Integer.toHexString(a);
-
                 if (hex.length() == 1) {
                     hex = 0 + hex;
                 }
@@ -59,7 +60,7 @@ public class MD5Util {
             byte[] digest = digester.digest();
 
             // byte -128 ---- 127
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             for (byte b : digest) {
                 int a = b & 0xff;
                 // Log.d(TAG, "" + a);
@@ -90,6 +91,6 @@ public class MD5Util {
     }
 
     public static void main(String[] args) {
-        System.out.println(MD5Util.encode("123456"));
+        System.out.println(MD5Util.encode("a"));
     }
 }
