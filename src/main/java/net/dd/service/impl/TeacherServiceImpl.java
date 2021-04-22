@@ -52,8 +52,8 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public int deleteTeacher(long id) {
-        return teacherMapper.deleteTeacher(id);
+    public void deleteTeacher(long id) {
+        teacherMapper.deleteTeacher(id);
     }
 
     @Override

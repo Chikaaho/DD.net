@@ -30,6 +30,9 @@ public class UserController {
     private static final HashMap<Object, Object> JSON_DATA_MAP = new HashMap<>();
     // 登录凭证
     private static int LICENSE = 0;
+    /*
+    * 登录凭证用以权限控制:0000=>未登录或登录失败/0011=>学生权限/1100=>教师权限/1111=>超级管理员
+    * */
 
     @Autowired
     public void setStudentServiceImpl(StudentServiceImpl studentService) {
@@ -182,7 +185,7 @@ public class UserController {
      **/
     @RequestMapping("/toLogin")
     public String login() {
-        return "sys/login";
+        return "sys/user/login";
     }
 
     @RequestMapping("/regist")

@@ -63,6 +63,7 @@ public class FileController {
         return "sys/index";
     }
 
+    // key = fileName
     @RequestMapping("/fileDelete.do")
     public String fileDelete(@RequestParam long id, @RequestParam String key) {
         String result;
@@ -70,10 +71,12 @@ public class FileController {
             result = qiNiuService.delete(key);
         } catch (QiniuException e) {
             logger.error(e.toString());
-            return "forward:/file/toUploadPage";
+            return "forward:/file/toFileSetPage";
         }
+        dataService.deleteById(id);
+        JSON_DATA_MAP.remove(key);
         System.out.println(result);
-        return "forward:/file/toUploadPage";
+        return "forward:/file/toFileSetPage";
     }
 
     @RequestMapping("/fileData")

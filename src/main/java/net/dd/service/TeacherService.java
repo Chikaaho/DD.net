@@ -17,7 +17,7 @@ public interface TeacherService {
     int updateTeacher(@Param("id") long id, @Param("username") String username, @Param("password") String password);
 
     // 删除老师信息(假删除)
-    int deleteTeacher(@Param("id") long id);
+    void deleteTeacher(@Param("id") long id);
 
     // 登录验证
     Teacher teacherLoginCheck(@Param("username") String username, @Param("password") String password);
