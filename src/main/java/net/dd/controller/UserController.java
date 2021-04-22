@@ -155,7 +155,7 @@ public class UserController {
     /**
      * @return 数据查询
      **/
-    @RequestMapping("/selectAll")
+    /*@RequestMapping("/selectAll")
     @ResponseBody
     public List selectAll() {
         List<Teacher> teachers = teacherService.selectTeacher();
@@ -170,13 +170,10 @@ public class UserController {
         }
         return null;
     }
-
-    @RequestMapping("/jsonData")
+*/
+    @RequestMapping("/selectAll")
     @ResponseBody
     public Map<Object, Object> jsonData() {
-        HashMap<Object, Object> map = new HashMap<>();
-        JSON_DATA_MAP.clear();
-
         return JSON_DATA_MAP;
     }
 
