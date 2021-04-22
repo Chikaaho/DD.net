@@ -48,8 +48,8 @@ public class UserController {
         LICENSE = stu | teac;
         JSON_DATA_MAP.clear();
         if (LICENSE == 0) {
-            model.addAttribute("LOGIN_ERROR", "");
-            return "/login";
+            model.addAttribute("LOGIN_ERROR", "账号或密码错误，请重试");
+            return "sys/user/login";
         }
         if (LICENSE == 0b0011) {
             session.setAttribute("userLicense", "student");
@@ -65,7 +65,7 @@ public class UserController {
             JSON_DATA_MAP.put("student", studentService.selectStudent());
             return "sys/index";
         }
-        return "/login";
+        return "sys/user/login";
     }
 
     public int studentLoginCheck(String username, String password) {
@@ -94,15 +94,15 @@ public class UserController {
     @ApiModelProperty(value = "添加学生")
     public String addUser(@RequestParam String username, @RequestParam String password, @RequestParam String classname, @RequestParam long usernum, Model model) {
         if (LICENSE != 0b1100 && LICENSE != 0b1111) {
-            model.addAttribute("","");
+            model.addAttribute("LICENSE_INSUFFICIENT_ERROR","您的权限不足.");
             return "";
         }
         int i = studentService.insertStudent(username, password, usernum, classname);
         if (i == 1 << 3) {
-            return "index";
+            return "sys/index";
         } else {
-            model.addAttribute("STUDENT_REPEAT_ERROR", "");
-            return "index";
+            model.addAttribute("STUDENT_REPEAT_ERROR", "添加失败，该学号已存在一个对应账号");
+            return "sys/index";
         }
     }
 
@@ -112,9 +112,9 @@ public class UserController {
         Teacher teacher = teacherService.registCheck(code);
         if (teacher != null) {
             teacherService.modify(1, teacher.getActiveCodes());
-            return "success";
+            return "sys/result/success";
         }
-        return "failed";
+        return "sys/result/failed";
     }
 
     @PostMapping("/delete.do")
@@ -126,17 +126,17 @@ public class UserController {
         } else if (LICENSE == 0b1111) {
             System.out.println();
         }
-        return "";
+        return "sys/index";
     }
 
     @PostMapping("waring/drop.do")
     public String dropUser(@RequestParam long id, Model model) {
         if (LICENSE == 0b0011) {
             model.addAttribute("ERROR", "您的权限不足");
-            return "index";
+            return "sys/index";
         } else {
             studentService.dropStudent(id);
-            return "index";
+            return "sys/index";
         }
     }
 

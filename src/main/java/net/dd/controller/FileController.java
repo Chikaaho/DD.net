@@ -1,6 +1,7 @@
 package net.dd.controller;
 
 import com.qiniu.common.QiniuException;
+import io.swagger.annotations.ApiModelProperty;
 import net.dd.pojo.DdData;
 import net.dd.service.DdDataService;
 import net.dd.service.QiNiuService;
@@ -23,6 +24,13 @@ import java.util.Map;
 @CrossOrigin
 public class FileController {
 
+    /**
+    * @param
+    * fileType: 文件类型 —— 0：txt文本文件
+    *                      1：img图片文件
+    *                       2：video视频文件
+    **/
+
     private DdDataService dataService;
     private QiNiuService qiNiuService;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -44,16 +52,15 @@ public class FileController {
             result = qiNiuService.uploadFile(new File(filePath), fileName);
         } catch (QiniuException e) {
             logger.error(e.toString());
-            return "";
+            return "sys/index";
         }
-        JSON_DATA_MAP.clear();
         Map<Object, Object> map = new HashMap<>();
         dataService.insertFile(new DdData(fileType, fileName));
         map.put("fileType", fileType);
         map.put("fileName", fileName);
         JSON_DATA_MAP.put(fileName, map);
-        System.out.println("访问地址： " + result);
-        return "";
+        System.out.println("访问地址 => " + result);
+        return "sys/index";
     }
 
     @RequestMapping("/fileDelete.do")
@@ -63,16 +70,22 @@ public class FileController {
             result = qiNiuService.delete(key);
         } catch (QiniuException e) {
             logger.error(e.toString());
-            return "";
+            return "forward:/file/toUploadPage";
         }
         System.out.println(result);
-        return "";
+        return "forward:/file/toUploadPage";
     }
 
     @RequestMapping("/fileData")
     @ResponseBody
     public Map<Object, Object> getJsonDataMap() {
         return JSON_DATA_MAP;
+    }
+
+    @RequestMapping("/toFileSetPage")
+    @ApiModelProperty(value = "页面跳转")
+    public String toFileSetPage() {
+        return "sys/file/fileSet";
     }
 
 }
