@@ -30,26 +30,6 @@ public class Utils {
         return dot != -1 && dot != 0 && dot + 1 != fileName.length();
     }
 
-    private static boolean checkPassword(String password, int minlen, int maxlen) {
-        if (password == null) return false;
-        int len = password.length();
-        if (len < minlen || len > maxlen) return false;
-        // check without blank character
-        for (int i = 0; i < len; i++) {
-            if (' ' == password.charAt(i)) return false;
-        }
-        return true;
-    }
-
-    private static boolean checkUserName(String name) {
-        if (name == null) return false;
-        int len = name.length();
-        for (int i = 0; i < len; i++) {
-            if (' ' == name.charAt(i)) return false;
-        }
-        return true;
-    }
-
     public static boolean retBool(Integer insert) {
         return null != insert && insert >= 1;
     }
