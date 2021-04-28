@@ -58,6 +58,7 @@ public class FileController {
         dataService.insertFile(new DdData(fileType, fileName));
         map.put("fileType", fileType);
         map.put("fileName", fileName);
+        map.put("fileLink", result);
         JSON_DATA_MAP.put(fileName, map);
         System.out.println("访问地址 => " + result);
         return "sys/index";

@@ -10,7 +10,7 @@ import java.util.UUID;
 public class Utils {
 
     public static void main(String[] args) {
-        System.out.println(generateUUName("aaa.jpg"));
+        System.out.println(generateUUName("helloworld.mp4"));
     }
 
     public static String generateUUName(String fileName) {
