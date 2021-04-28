@@ -14,9 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -98,7 +96,7 @@ public class UserController {
     public String addUser(@RequestParam String username, @RequestParam String password, @RequestParam String classname, @RequestParam long usernum, Model model) {
         if (LICENSE != 0b1100 && LICENSE != 0b1111) {
             model.addAttribute("LICENSE_INSUFFICIENT_ERROR","您的权限不足.");
-            return "";
+            return "forward:/user/toAddStuPage";
         }
         int i = studentService.insertStudent(username, password, usernum, classname);
         if (i == 1 << 3) {
@@ -188,6 +186,11 @@ public class UserController {
     @RequestMapping("/regist")
     public String toRegistPage() {
         return "sys/user/register";
+    }
+
+    @RequestMapping("/toAddStuPage")
+    public String toAddStuPage() {
+        return "sys/user/addPage";
     }
 
 }

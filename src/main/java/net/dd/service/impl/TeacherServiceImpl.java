@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("teacherService")
 public class TeacherServiceImpl implements TeacherService {
 
     private TeacherMapper teacherMapper;
@@ -27,6 +27,11 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public List<Teacher> selectTeacher() {
         return teacherMapper.selectTeacher();
+    }
+
+    @Override
+    public Teacher selectTeacherByName(String username) {
+        return teacherMapper.selectTeacherByName(username);
     }
 
     @Override
