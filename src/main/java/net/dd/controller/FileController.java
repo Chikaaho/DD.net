@@ -5,9 +5,11 @@ import io.swagger.annotations.ApiModelProperty;
 import net.dd.pojo.DdData;
 import net.dd.service.DdDataService;
 import net.dd.service.QiNiuService;
+import net.dd.service.impl.QiNiuServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,13 +28,14 @@ public class FileController {
 
     /**
     * @param
-    * fileType: 文件类型 —— 0：txt文本文件
+    * fileType: 文件类型 —— 0：audio音频
     *                      1：img图片文件
     *                       2：video视频文件
     **/
 
     private DdDataService dataService;
     private QiNiuService qiNiuService;
+    private QiNiuServiceImpl serviceImpl;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private static final Map<Object, Object> JSON_DATA_MAP = new HashMap<>();
 
@@ -49,6 +52,7 @@ public class FileController {
     public String fileUpload(@RequestParam String filePath, @RequestParam String fileName, @RequestParam int fileType){
         String result;
         try {
+            serviceImpl.setFileType(fileType);
             result = qiNiuService.uploadFile(new File(filePath), fileName);
         } catch (QiniuException e) {
             logger.error(e.toString());

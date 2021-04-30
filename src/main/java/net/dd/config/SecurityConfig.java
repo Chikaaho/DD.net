@@ -15,8 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
-@Configuration
-@EnableWebSecurity
+//@Configuration
+//@EnableWebSecurity
+@Deprecated
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserDetailsService userDetailsService;
@@ -26,9 +27,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.userDetailsService = userDetailsService;
     }
 
-    @Override
+   /* @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }*/
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        /*http.formLogin()
+                .loginPage("sys/user/login.html")
+                .loginProcessingUrl("/user/toLogin")
+                .defaultSuccessUrl("/user/").permitAll()
+                .and().authorizeRequests()
+                .antMatchers("/","/test/hello","/login.html").permitAll() // 设置哪些路径可以直接访问，不需要认证
+                .anyRequest().authenticated()
+                .and().csrf().disable();*/
+//        http.addFilterBefore();
     }
 
     @Bean

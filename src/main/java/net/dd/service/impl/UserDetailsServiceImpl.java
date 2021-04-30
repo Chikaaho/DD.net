@@ -4,6 +4,7 @@ import net.dd.pojo.Student;
 import net.dd.pojo.Teacher;
 import net.dd.service.StudentService;
 import net.dd.service.TeacherService;
+import net.dd.utils.MD5PasswordEncoder;
 import net.dd.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,6 +25,7 @@ import java.util.List;
  * @create 2021/4/19 - 15:15
  **/
 @Service("userDetailsService")
+@Deprecated
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     TeacherService teacherService;
@@ -40,17 +42,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Teacher teacher = teacherService.selectTeacherByName(s);
-        Student student = studentService.selectStudentByName(s);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Teacher teacher = teacherService.selectTeacherByName(username);
+        Student student = studentService.selectStudentByName(username);
         if (teacher == null && student == null) {
             throw new UsernameNotFoundException("该用户不存在");
         } else if (student == null) {
             List<GrantedAuthority> auth = AuthorityUtils.commaSeparatedStringToAuthorityList(String.valueOf(teacher.getRoles()));
-            return new User(teacher.getUsername(), new BCryptPasswordEncoder().encode(MD5Util.encode(teacher.getPassword())), auth);
+            return new User(teacher.getUsername(), new MD5PasswordEncoder().encode(teacher.getPassword()), auth);
         } else {
             List<GrantedAuthority> auth = AuthorityUtils.commaSeparatedStringToAuthorityList(String.valueOf(student.getRoles()));
-            return new User(student.getUsername(), new BCryptPasswordEncoder().encode(MD5Util.encode(student.getPassword())), auth);
+//            System.out.println(auth);
+            return new User(student.getUsername(), new BCryptPasswordEncoder().encode("123456"), auth);
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new BCryptPasswordEncoder().encode("123456"));
+        System.out.println(new BCryptPasswordEncoder().encode("123456"));
     }
 }
