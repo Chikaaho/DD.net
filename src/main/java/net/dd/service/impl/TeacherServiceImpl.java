@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("teacherService")
+@Service
 public class TeacherServiceImpl implements TeacherService {
 
     private TeacherMapper teacherMapper;
@@ -27,11 +27,6 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public List<Teacher> selectTeacher() {
         return teacherMapper.selectTeacher();
-    }
-
-    @Override
-    public Teacher selectTeacherByName(String username) {
-        return teacherMapper.selectTeacherByName(username);
     }
 
     @Override
@@ -57,8 +52,8 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public void deleteTeacher(long id) {
-        teacherMapper.deleteTeacher(id);
+    public int deleteTeacher(long id) {
+        return teacherMapper.deleteTeacher(id);
     }
 
     @Override

@@ -1,3 +1,4 @@
+/*
 package net.dd.utils;
 
 import net.dd.enums.ApiEnum;
@@ -13,11 +14,13 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Random;
 
+*/
 /**
  * @author Chika
  * @program DDNet
  * @create 2021/4/29 - 14:19
- **/
+ **//*
+
 public class MD5PasswordEncoder implements PasswordEncoder {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -44,3 +47,4 @@ public class MD5PasswordEncoder implements PasswordEncoder {
     }
 
 }
+*/

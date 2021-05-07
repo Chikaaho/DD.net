@@ -64,8 +64,7 @@
         select *
         from dd_net.student
         where
-        username like concat('%', #{username}, '%')
-        and is_deleted = 0;
+        username like concat('%', #{username}, '%');
     </select>
     <select id="selectStudentByClassName" resultType="net.dd.pojo.Student">
         select *

@@ -8,13 +8,21 @@ import net.dd.service.TeacherService;
 import net.dd.service.impl.StudentServiceImpl;
 import net.dd.service.impl.TeacherServiceImpl;
 import net.dd.utils.IDUtil;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -28,9 +36,6 @@ public class UserController {
     private static final HashMap<Object, Object> JSON_DATA_MAP = new HashMap<>();
     // 登录凭证
     private static int LICENSE = 0;
-    /*
-    * 登录凭证用以权限控制:0000=>未登录或登录失败/0011=>学生权限/1100=>教师权限/1111=>超级管理员
-    * */
 
     @Autowired
     public void setStudentServiceImpl(StudentServiceImpl studentService) {
@@ -42,6 +47,8 @@ public class UserController {
         this.teacherService = teacherService;
     }
 
+
+
     @PostMapping("/login.do")
     public String loginCheck(@RequestParam String username, @RequestParam String password, Model model, HttpSession session) {
         int stu = studentLoginCheck(username, password);
@@ -49,8 +56,8 @@ public class UserController {
         LICENSE = stu | teac;
         JSON_DATA_MAP.clear();
         if (LICENSE == 0) {
-            model.addAttribute("LOGIN_ERROR", "账号或密码错误，请重试");
-            return "sys/user/login";
+            model.addAttribute("LOGIN_ERROR", "");
+            return "/login";
         }
         if (LICENSE == 0b0011) {
             session.setAttribute("userLicense", "student");
@@ -66,7 +73,7 @@ public class UserController {
             JSON_DATA_MAP.put("student", studentService.selectStudent());
             return "sys/index";
         }
-        return "sys/user/login";
+        return "/login";
     }
 
     public int studentLoginCheck(String username, String password) {
@@ -95,15 +102,15 @@ public class UserController {
     @ApiModelProperty(value = "添加学生")
     public String addUser(@RequestParam String username, @RequestParam String password, @RequestParam String classname, @RequestParam long usernum, Model model) {
         if (LICENSE != 0b1100 && LICENSE != 0b1111) {
-            model.addAttribute("LICENSE_INSUFFICIENT_ERROR","您的权限不足.");
-            return "forward:/user/toAddStuPage";
+            model.addAttribute("","");
+            return "";
         }
         int i = studentService.insertStudent(username, password, usernum, classname);
         if (i == 1 << 3) {
-            return "sys/index";
+            return "index";
         } else {
-            model.addAttribute("STUDENT_REPEAT_ERROR", "添加失败，该学号已存在一个对应账号");
-            return "sys/index";
+            model.addAttribute("STUDENT_REPEAT_ERROR", "");
+            return "index";
         }
     }
 
@@ -113,9 +120,9 @@ public class UserController {
         Teacher teacher = teacherService.registCheck(code);
         if (teacher != null) {
             teacherService.modify(1, teacher.getActiveCodes());
-            return "sys/result/success";
+            return "success";
         }
-        return "sys/result/failed";
+        return "failed";
     }
 
     @PostMapping("/delete.do")
@@ -127,17 +134,17 @@ public class UserController {
         } else if (LICENSE == 0b1111) {
             System.out.println();
         }
-        return "sys/index";
+        return "";
     }
 
     @PostMapping("waring/drop.do")
     public String dropUser(@RequestParam long id, Model model) {
         if (LICENSE == 0b0011) {
             model.addAttribute("ERROR", "您的权限不足");
-            return "sys/index";
+            return "index";
         } else {
             studentService.dropStudent(id);
-            return "sys/index";
+            return "index";
         }
     }
 
@@ -153,7 +160,7 @@ public class UserController {
     /**
      * @return 数据查询
      **/
-    /*@RequestMapping("/selectAll")
+    @RequestMapping("/selectAll")
     @ResponseBody
     public List selectAll() {
         List<Teacher> teachers = teacherService.selectTeacher();
@@ -168,10 +175,13 @@ public class UserController {
         }
         return null;
     }
-*/
-    @RequestMapping("/selectAll")
+
+    @RequestMapping("/jsonData")
     @ResponseBody
     public Map<Object, Object> jsonData() {
+        HashMap<Object, Object> map = new HashMap<>();
+        JSON_DATA_MAP.clear();
+
         return JSON_DATA_MAP;
     }
 
@@ -180,17 +190,12 @@ public class UserController {
      **/
     @RequestMapping("/toLogin")
     public String login() {
-        return "sys/user/login";
+        return "sys/login";
     }
 
     @RequestMapping("/regist")
     public String toRegistPage() {
         return "sys/user/register";
-    }
-
-    @RequestMapping("/toAddStuPage")
-    public String toAddStuPage() {
-        return "sys/user/addPage";
     }
 
 }

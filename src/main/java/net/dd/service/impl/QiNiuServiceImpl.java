@@ -43,8 +43,6 @@ public class QiNiuServiceImpl implements QiNiuService, InitializingBean {
      */
     private StringMap putPolicy;
 
-    private int fileType;
-
     @Override
     public String uploadFile(File file, String fileName) throws QiniuException {
         Response response = this.uploadManager.put(file, fileName, getUploadToken());
@@ -87,19 +85,7 @@ public class QiNiuServiceImpl implements QiNiuService, InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         this.putPolicy = new StringMap();
-        switch (fileType) {
-            case 0:
-                putPolicy.put("returnBody", "{\"key\":\"$(key)\",\"hash\":\"$(etag)\",\"bucket\":\"$(bucket)\",\"codec_type\":${aviinfo.audio.codec_type}}");
-                break;
-            case 1:
-                putPolicy.put("returnBody", "{\"key\":\"$(key)\",\"hash\":\"$(etag)\",\"bucket\":\"$(bucket)\",\"width\":$(imageInfo.width), \"height\":${imageInfo.height}}");
-                break;
-            case 2:
-                putPolicy.put("returnBody", "{\"key\":\"$(key)\",\"hash\":\"$(etag)\",\"bucket\":\"$(bucket)\",\"codec_type\":${aviinfo.video.codec_type}}");
-                break;
-            default:
-                throw new RuntimeException("文件类型有误");
-        }
+        putPolicy.put("returnBody", "{\"key\":\"$(key)\",\"hash\":\"$(etag)\",\"bucket\":\"$(bucket)\",\"width\":$(imageInfo.width), \"height\":${imageInfo.height}}");
     }
 
     /**
@@ -107,9 +93,5 @@ public class QiNiuServiceImpl implements QiNiuService, InitializingBean {
      */
     private String getUploadToken() {
         return this.auth.uploadToken(bucket, null, 3600, putPolicy);
-    }
-
-    public void setFileType(int fileType) {
-        this.fileType = fileType;
     }
 }

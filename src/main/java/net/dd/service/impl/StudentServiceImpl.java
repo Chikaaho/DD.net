@@ -34,6 +34,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student selectStudentByName(String username) {
         Student student = studentMapper.selectStudentByName(username.replaceAll("\\s*", ""));
+        if(student==null) return null;  //登录错误验证
         return student.getIsDeleted() == 1 ? null : student;
     }
 
