@@ -22,4 +22,18 @@ public class MyMVCConfig implements WebMvcConfigurer {
 //                .addResourceLocations("classpath:/META-INF/resources/webjars/");
 //    }
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new JwtInterceptor())./*配置路径*/addPathPatterns("/**");
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOriginPatterns("*")
+                .allowCredentials(true)
+                .allowedMethods("GET", "POST", "DELETE", "PUT", "PATCH", "OPTIONS", "HEAD")
+                .maxAge(3600 * 24);
+    }
+
 }

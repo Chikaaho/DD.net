@@ -14,7 +14,7 @@ import java.util.Enumeration;
  * @program DDNet
  * @create 2021/4/29 - 10:57
  **/
-
+@Deprecated
 public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
