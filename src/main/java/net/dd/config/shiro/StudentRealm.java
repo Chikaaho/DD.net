@@ -23,7 +23,7 @@ public class StudentRealm extends AuthorizingRealm {
     //授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        System.out.printf("执行了=>授权doGetAuthorizationInfo");
+        System.out.print("执行了=>授权doGetAuthorizationInfo");
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         //info.addStringPermission("user:add");
 
