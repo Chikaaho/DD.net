@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.UUID;
 
-@Slf4j
 @Controller
 @CrossOrigin
 public class ControllerTest {
