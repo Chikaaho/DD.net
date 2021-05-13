@@ -15,7 +15,9 @@ spring:
     password: 123456
   mvc:
     static-path-pattern: /static/**
-#  热部署
+  messages:
+    basename: i18n.index
+  #  热部署
   thymeleaf:
     cache: false
     prefix: classpath:/templates/
@@ -45,7 +47,7 @@ qiniu:
   # 对象储存
   bucket: ddnetdemo # 空间名称
   zone: huanan # 存储区域
-  domain: qruqwlzsc.hn-bkt.clouddn.com # 访问域名
+  domain: qt1bcqgbl.hn-bkt.clouddn.com # 访问域名
 ##jwt配置
 audience:
   # 代表这个JWT的接收对象,存入audience
