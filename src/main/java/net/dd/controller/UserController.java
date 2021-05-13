@@ -1,6 +1,7 @@
 package net.dd.controller;
 
 import io.swagger.annotations.ApiModelProperty;
+import net.dd.enums.ApiEnum;
 import net.dd.pojo.Student;
 import net.dd.pojo.Teacher;
 import net.dd.service.StudentService;
@@ -25,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("/user")
 @CrossOrigin
 public class UserController {
@@ -34,6 +35,13 @@ public class UserController {
     private StudentService studentService;
     private TeacherService teacherService;
     private static final HashMap<Object, Object> JSON_DATA_MAP = new HashMap<>();
+    /*
+    * {
+    *   STATUS: 488
+    *   MESSAGE: "该账号已注册"
+    *   DATA: "LOGIN_ERROR"
+    * }
+    * */
     // 登录凭证
     private static int LICENSE = 0;
 
@@ -47,9 +55,8 @@ public class UserController {
         this.teacherService = teacherService;
     }
 
-
-
     @PostMapping("/login.do")
+    @Deprecated
     public String loginCheck(@RequestParam String username, @RequestParam String password, Model model, HttpSession session) {
         int stu = studentLoginCheck(username, password);
         int teac = teacherLoginCheck(username, password);
@@ -76,25 +83,26 @@ public class UserController {
         return "/login";
     }
 
+    @Deprecated
     public int studentLoginCheck(String username, String password) {
         return studentService.studentLoginCheck(username, password) == null ? 0 : 0b0011;
     }
 
+    @Deprecated
     public int teacherLoginCheck(String username, String password) {
         return teacherService.teacherLoginCheck(username, password) == null ? 0 : 0b1100;
     }
 
     @RequestMapping("/regist.do")
     @ApiModelProperty(value = "注册教师")
-    public String registUser(@RequestParam String username, @RequestParam String password, @RequestParam String email, Model model) {
+    public ApiEnum registUser(@RequestParam String username, @RequestParam String password, @RequestParam String email, Model model) {
         String activeCodes = IDUtil.getUUID();
         int i = teacherService.registTeacher(username, password, activeCodes, email);
         if (i == 1 << 3) {
-            model.addAttribute("REGIST_ERROR", "该账号信息已存在,请直接登录");
-            return "index";
+
+            return ApiEnum.FAILED;
         } else {
-            model.addAttribute("REGIST_MESSAGE", "注册信息已提交,请前往邮箱查看");
-            return "index";
+            return ApiEnum.FAILED;
         }
     }
 
@@ -189,11 +197,13 @@ public class UserController {
      * @return 页面跳转
      **/
     @RequestMapping("/toLogin")
+    @Deprecated
     public String login() {
         return "sys/login";
     }
 
     @RequestMapping("/regist")
+    @Deprecated
     public String toRegistPage() {
         return "sys/user/register";
     }
