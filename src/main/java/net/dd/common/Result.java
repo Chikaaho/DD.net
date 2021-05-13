@@ -26,12 +26,10 @@ public class Result implements Serializable {
     }
 
     public static Result fail(String msg) {
-
         return fail(400, msg, null);
     }
 
     public static Result fail(String msg, Object data) {
-
         return fail(400, msg, data);
     }
 
