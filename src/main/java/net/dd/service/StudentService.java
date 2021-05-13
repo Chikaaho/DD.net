@@ -14,7 +14,7 @@ public interface StudentService {
 
     Student selectStudentByName(@Param("username") String username);
 
-    Student selectStudentByClassName(@Param("classname") String classname);
+    List<Student> selectStudentByClassName(@Param("classname") String classname);
 
     // 添加学生信息
     int insertStudent(@Param("username") String username

@@ -15,6 +15,7 @@ public interface TeacherMapper {
     List<Teacher> selectTeacher();
 
     Teacher selectTeacherByName(@Param("username") String username);
+    Teacher selectTeacherByNumber(@Param("teachernum") long teachernum);
 
     // 添加老师信息
     int registTeacher(@Param("username") String username, @Param("password") String password, @Param("activeCodes") String activeCodes, @Param("email") String email);

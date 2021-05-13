@@ -63,6 +63,11 @@
         where username like concat('%', #{username}, '%')
         and status = 1;
     </select>
+    <select id="selectTeacherByNumber" resultType="net.dd.pojo.Teacher">
+        select *
+        from dd_net.teacher
+        where  teachernum = #{teachernum};
+    </select>
     <select id="registCheck" resultType="net.dd.pojo.Teacher">
         select *
         from dd_net.teacher

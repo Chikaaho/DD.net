@@ -9,7 +9,7 @@ public interface TeacherService {
 
     // 查询老师信息
     List<Teacher> selectTeacher();
-
+    Teacher selectTeacherByNumber(@Param("teachernum") long teachernum);
     // 添加老师信息
     int registTeacher(@Param("username") String username, @Param("password") String password, @Param("activeCodes") String activeCodes, @Param("email") String email);
 

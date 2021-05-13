@@ -39,9 +39,10 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student selectStudentByClassName(String classname) {
-        Student student = studentMapper.selectStudentByClassName(classname.replaceAll("\\s*", ""));
-        return student.getIsDeleted() == 1 ? null : student;
+    public List<Student> selectStudentByClassName(String classname) {
+        List<Student> student = studentMapper.selectStudentByClassName(classname.replaceAll("\\s*", ""));
+        //return student.getIsDeleted() == 1 ? null : student;
+        return student;
     }
 
     @Override

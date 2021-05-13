@@ -29,13 +29,15 @@ public class ShiroController {
     public Result login(@RequestBody LoginDto loginDto){
         String username = loginDto.getUsername();
         String password = loginDto.getPassword();
+        String role = loginDto.getRole();
         System.out.println("=========================");
-        System.out.println("username+password:"+username+"======="+password);
+        System.out.println("username+password+role:"+username+"======="+password+"====="+role);
+
 
 //        //封装用户的登录数据
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-        //账号密码令牌
-       // AuthenticationToken token = new UsernamePasswordToken(username, password);
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password,role);
+        //账号密码令s,
+        // AuthenticationToken token = new UsernamePasswordToken(username, password);
         System.out.printf("token:"+token.getPrincipal());
         //获得当前用户到登录对象，现在状态为未认证
         Subject subject = SecurityUtils.getSubject();
@@ -43,8 +45,8 @@ public class ShiroController {
         try{
             subject.login(token); //执行登录方法，如果没有异常就说明ok了
             Subject currentSubject = SecurityUtils.getSubject();
-            Student stu = (Student) currentSubject.getPrincipal();
-            return Result.succ(200,"登录操作成功",stu);
+            Object user = (Object) currentSubject.getPrincipal();
+            return Result.succ(200,"登录操作成功",user);
         }catch (UnknownAccountException e){//用户名不存在
             //model.addAttribute("msg","用户名错误");
             return Result.fail("用户名不存在");

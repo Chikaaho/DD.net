@@ -18,7 +18,7 @@ public interface StudentMapper {
 
     Student selectStudentByName(@Param("username") String username);
 
-    Student selectStudentByClassName(@Param("classname") String classname);
+    List<Student> selectStudentByClassName(@Param("classname") String classname);
 
     // 注册
     int insertStudent(@Param("username") String username

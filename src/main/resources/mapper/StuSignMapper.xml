@@ -5,15 +5,36 @@
     <update id="updateStuSign">
         update dd_net.stusign
         set
+            stusignstate = "已签到",
+            signtime = now()
+        where
+            stunum = #{stunum}
+        and
+            signid = #{signid}
+        and
+            coursename = #{coursename}
+    </update>
+    <update id="teaupdatasign">
+        update dd_net.stusign
+        set
             stunum = #{stunum},
-
-            stusignstate = #{signid}
+            signid = #{signid},
+            stusignstate = #{stusignstate},
+            signtime = now()
         where
             stunum = #{stunum};
     </update>
 
+    <update id="updatesignplan">
+        update signplan set signstate = #{signstate} where signid = #{signid} and classname = #{classname} and coursename = #{coursename}
+    </update>
+
     <select id="selectStuSign" resultType="net.dd.pojo.StuSign">
         SELECT * FROM dd_net.stusign;
+    </select>
+
+    <select id="selectAllSignPlan" resultType="net.dd.pojo.SignPlan">
+        SELECT * FROM dd_net.signplan;
     </select>
     <select id="selectStuSignByNumber" resultType="net.dd.pojo.StuSign" >
         SELECT *
@@ -21,6 +42,56 @@
         where
         stunum = #{stunum}
     </select>
+    <select id="selectONEStuSign" resultType="net.dd.pojo.StuSign" >
+        SELECT *
+        FROM dd_net.stusign
+        where
+        stunum = #{stunum}
+        and
+        signid = #{signid}
+        and
+        coursename = #{coursename}
+    </select>
+    <select id="selectStuSignBySignId" resultType="net.dd.pojo.StuSign" >
+        SELECT *
+        FROM dd_net.stusign
+        where
+        signid = #{signid}
+        and
+        classname = #{classname}
+        and
+        coursename = #{coursename}
+    </select>
+    <select id="selectStuSignPlanBysignstate" resultType="net.dd.pojo.SignPlan" >
+        SELECT *
+        FROM dd_net.signplan
+        where
+        signid = #{signid}
+        and
+        classname = #{classname}
+        and
+        signstate = #{signstate}
+    </select>
 
-
+    <insert id="insertStuSign">
+        insert into dd_net.stusign
+            (stunum, stuname, signid,stusignstate, coursename,classname)
+        values
+            (#{stunum}, #{stuname}, #{signid}, #{stusignstate},#{coursename},#{classname});
+    </insert>
+    <insert id="insertSignPlan">
+        insert into dd_net.signplan
+            (classname,signstate ,signid, coursename)
+        values
+            (#{classname}, #{signstate}, #{signid}, #{coursename});
+    </insert>
+    <select id="selectOneSignPlan" resultType="net.dd.pojo.SignPlan">
+        SELECT * FROM dd_net.signplan
+        where
+         classname = #{classname}
+         and
+         signid =  #{signid}
+         and
+         coursename = #{coursename}
+    </select>
 </mapper>

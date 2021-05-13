@@ -28,7 +28,10 @@ public class TeacherServiceImpl implements TeacherService {
     public List<Teacher> selectTeacher() {
         return teacherMapper.selectTeacher();
     }
-
+    @Override
+    public Teacher selectTeacherByNumber(long teachernum) {
+        return teacherMapper.selectTeacherByNumber(teachernum);
+    }
     @Override
     public int registTeacher(String username, String password, String activeCodes, String email) {
         Teacher teacher = teacherMapper.selectTeacherByName(username);
