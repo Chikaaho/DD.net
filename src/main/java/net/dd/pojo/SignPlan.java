@@ -7,28 +7,49 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 //签到安排表
-//@Data
+@Data
 //@AllArgsConstructor
 //@NoArgsConstructor
 public class SignPlan implements Serializable {
 
     //签到安排编号
     private long id;
-    //课程编号
-    private long classid;
-    //签到状态
+    //课程名
+    private String classname;
+    //签到状态  0表示关闭签到 1表示开启
     private String signstate;
+    private long signid;
+    private String coursename;
     //删除状态
     private int isdeleted;
 
     public SignPlan() {
     }
 
-    public SignPlan(long id, long classid, String signstate, int isdeleted) {
+
+    public SignPlan(long id, String classname, String signstate, long signid, String coursename, int isdeleted) {
         this.id = id;
-        this.classid = classid;
+        this.classname = classname;
         this.signstate = signstate;
+        this.signid = signid;
+        this.coursename = coursename;
         this.isdeleted = isdeleted;
+    }
+
+    public long getSignid() {
+        return signid;
+    }
+
+    public void setSignid(long signid) {
+        this.signid = signid;
+    }
+
+    public String getCoursename() {
+        return coursename;
+    }
+
+    public void setCoursename(String coursename) {
+        this.coursename = coursename;
     }
 
     public long getId() {
@@ -39,12 +60,12 @@ public class SignPlan implements Serializable {
         this.id = id;
     }
 
-    public long getClassid() {
-        return classid;
+    public String getClassname() {
+        return classname;
     }
 
-    public void setClassid(long classid) {
-        this.classid = classid;
+    public void setClassname(String classname) {
+        this.classname = classname;
     }
 
     public String getSignstate() {
