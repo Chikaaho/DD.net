@@ -3,6 +3,7 @@ package net.dd.test;
 import com.qiniu.common.QiniuException;
 import net.dd.StarterApplication;
 import net.dd.pojo.DdData;
+import net.dd.service.DdDataService;
 import net.dd.service.QiNiuService;
 import net.dd.service.impl.QiNiuServiceImpl;
 import net.dd.utils.MD5Util;
@@ -29,12 +30,16 @@ import java.util.Map;
 @SpringBootTest(classes = StarterApplication.class)
 public class QiNiuTest {
 
-    @Autowired
     QiNiuService qiniuService;
+    DdDataService ddDataService;
 
     @Autowired
     public void setService(QiNiuService service) {
         this.qiniuService = service;
+    }
+    @Autowired
+    public void setDdDataService(DdDataService ddDataService) {
+        this.ddDataService = ddDataService;
     }
 
     String MD5Filename;
