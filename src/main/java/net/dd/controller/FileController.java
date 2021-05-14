@@ -1,6 +1,7 @@
 package net.dd.controller;
 
 import com.qiniu.common.QiniuException;
+import com.sun.istack.Nullable;
 import io.swagger.annotations.ApiModelProperty;
 import net.dd.enums.ApiEnum;
 import net.dd.pojo.DdData;
@@ -16,9 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @RestController
@@ -42,24 +41,55 @@ public class FileController {
 
     /*
     * fileName => 由获取文件时自动截取
+    * 拼接地址长度限定
+    * */
+    /*
+    *  eg: https://xxxx/filePath/addUrl/fileName
     * */
     @ApiModelProperty(value = "文件上传服务")
     @RequestMapping("/upload.do")
-    public ApiEnum fileUpload(@RequestParam String filePath, @RequestParam String fileName, @RequestParam int fileType){
+    public ApiEnum fileUpload(@RequestParam String filePath, @Nullable@RequestParam String addUrl, @RequestParam String fileName, @RequestParam int fileType){
         String result;
         // 文件名MD5扰乱
         String MD5FileName = MD5Util.encode(fileName);
         try {
             result = qiNiuService.uploadFile(new File(filePath), MD5FileName);
+            if (result.trim().length() != 0) {
+                Map<Object, Object> midCurrMap = new HashMap<>();
+                if (addUrl != null || addUrl.trim().length() != 0) {
+                    String[] split = addUrl.split("/");
+                    List<String> list = new ArrayList<>();
+                    for (String s : split) {
+                        if (s.trim().length() != 0) {
+                            list.add(s);
+                        }
+                    }
+                    midCurrMap.put("addUrl", list);
+                    /*
+                    * @addUrl: 拼接地址
+                    * {
+                    *   addUrl : {
+                    *               t1,
+                    *               t2,
+                    *               t3
+                    *             },
+                    *   fileType : {
+                    *               0 : .txt,
+                    *               1 : .jpg,
+                    *               2 : .mp4
+                    *              }
+                    *
+                    * }
+                    * */
+
+                }
+
+                JSON_DATA_MAP.put(MD5FileName, midCurrMap);
+            }
         } catch (QiniuException e) {
             logger.warn(e.toString());
             return ApiEnum.FILE_UPLOAD_FAILED;
         }
-        Map<Object, Object> map = new HashMap<>();
-        dataService.insertFile(fileType, MD5FileName);
-        map.put("fileType", fileType);
-        map.put("fileUrl", result);
-        JSON_DATA_MAP.put(MD5FileName, map);
         System.out.println("访问地址： " + result);
         return ApiEnum.FILE_UPLOAD_SUCCESS;
     }
@@ -115,5 +145,16 @@ public class FileController {
         return JSON_DATA_MAP.toString();
     }
 
+    public static void main(String[] args) {
+        String addUrl = "/a/b/c/d";
+        String[] split = addUrl.split("/");
+        List<String> list = new ArrayList<>();
+        for (String s : split) {
+            if (s.trim().length() != 0) {
+                list.add(s);
+            }
+        }
+        System.out.println(list);
+    }
 
 }
