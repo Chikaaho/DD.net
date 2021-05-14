@@ -56,9 +56,8 @@ public class FileController {
             return ApiEnum.FILE_UPLOAD_FAILED;
         }
         Map<Object, Object> map = new HashMap<>();
-        dataService.insertFile(new DdData(fileType, MD5FileName));
+        dataService.insertFile(fileType, MD5FileName);
         map.put("fileType", fileType);
-        map.put("fileName", MD5FileName);
         map.put("fileUrl", result);
         JSON_DATA_MAP.put(MD5FileName, map);
         System.out.println("访问地址： " + result);

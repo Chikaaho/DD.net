@@ -17,6 +17,6 @@ public interface DdDataService {
     int deleteById(@Param("fileId") long fileId);
 
     // 添加文件
-    DdData insertFile(@Param("ddData") DdData ddData);
+    void insertFile(@Param("fileType") int fileType, @Param("fileKey") String fileKey);
 
 }

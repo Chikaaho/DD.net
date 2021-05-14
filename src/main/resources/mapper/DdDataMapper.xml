@@ -2,23 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper  namespace="net.dd.mapper.DdDataMapper">
     <resultMap id="DdDataMapper" type="net.dd.pojo.DdData">
-        <id column="file_id" jdbcType="BIGINT" property="fileId"/>
-        <result column="file_type" jdbcType="TINYINT" property="fileType"/>
-        <result column="file_key" jdbcType="VARCHAR" property="fileKey"/>
+        <id column="file_id" property="fileId"/>
+        <result column="file_type" property="fileType"/>
+        <result column="file_key" property="fileKey"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <select id="selectByFileId" resultType="net.dd.pojo.DdData">
-
+        select * from dd_net.dd_data where file_id = #{fileId};
     </select>
     <insert id="insertFile">
-
+        insert into dd_net.dd_data (file_type, file_key) values (#{fileType}, #{fileKey});
     </insert>
     <update id="updateFile">
 
     </update>
     <delete id="deleteById">
-
+        delete from dd_net.dd_data where file_id = #{fileId};
     </delete>
 </mapper>

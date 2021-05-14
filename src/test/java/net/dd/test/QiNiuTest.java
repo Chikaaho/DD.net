@@ -48,19 +48,24 @@ public class QiNiuTest {
     public void testUpload() throws QiniuException {
         MD5Filename = MD5Util.encode("helloworld");
         String result = qiniuService.uploadFile(new File("E:\\Datas\\photos\\other\\helloworld.jpg"), MD5Filename);
+        ddDataService.insertFile(1, MD5Filename);
         System.out.println("访问地址： " + result);
     }
 
     @Test
     public void testDelete() throws QiniuException {
-        String result = qiniuService.delete("fc5e038d38a57032085441e7fe7010b0");
+        DdData ddData = ddDataService.selectByFileId(2);
+        String result = qiniuService.delete(ddData.getFileKey());
+        ddDataService.deleteById(2);
         System.out.println(result);
     }
 
     @Test
     public void testDownload() throws IOException {
         String fileUrl = "http://qt1bcqgbl.hn-bkt.clouddn.com/fc5e038d38a57032085441e7fe7010b0";
-        String fileLocalPath = "E:/ide/Projects/IdeaProject/DDNet/src/main/java/resources/" + MD5Util.encode("fc5e038d38a57032085441e7fe7010b0") + ".jpg";
+        DdData ddData = ddDataService.selectByFileId(2);
+        String fileKey = ddData.getFileKey();
+        String fileLocalPath = "E:/ide/Projects/IdeaProject/DDNet/src/main/java/resources/" + fileKey + ".jpg";
         FileUtils.copyURLToFile(new URL(fileUrl), new File(fileLocalPath));
     }
 
