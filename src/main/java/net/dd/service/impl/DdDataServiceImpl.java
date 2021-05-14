@@ -19,7 +19,7 @@ public class DdDataServiceImpl implements DdDataService {
     }
 
     @Override
-    public List<DdData> selectByFileId(long fileId) {
+    public DdData selectByFileId(long fileId) {
         return ddDataMapper.selectByFileId(fileId);
     }
 

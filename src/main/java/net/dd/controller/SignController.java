@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @CrossOrigin //所有域名均可访问该类下所有接口
@@ -47,8 +46,6 @@ public class SignController {
     public Result StuSignin(@RequestBody SignDto signDto) {
         long num = signDto.getStunum();  //学号
         long signid = signDto.getSignid(); //签到表编号
-        String state = signDto.getStusignstate();
-        String classname = signDto.getClassname();
         String coursename = signDto.getCoursename(); //课程名
         int a = stuSignService.updateStuSign(num, signid, coursename);
         if (a == 1) return Result.succ(200, "更新签到成功", a);
@@ -66,7 +63,6 @@ public class SignController {
                 continue;
             } else {
                 b = stuSignService.teaupdatasign(allsign.getStunum(), allsign.getSignid(), allsign.getValues());
-
             }
         }
         return Result.succ(200, "执行签到成功", a);
@@ -90,21 +86,21 @@ public class SignController {
     @PostMapping("/getsignplan")  //根据班级、id、课程名查签到表
     public Result getsignplan(@RequestBody SignPlanDto signPlanDto) {
         String classname = signPlanDto.getClassname();
-        long signid = signPlanDto.getSignid();
-        String coursename = signPlanDto.getCoursename();
-        List<StuSign> ss = stuSignService.selectStuSignBySignId(signid, classname, coursename);
-        if (ss.size() > 0) return Result.succ(200, "根据所有对应信息查询签到表成功", ss);
-        else return Result.fail(123, "没有签到表信息！", ss);
+        long signId = signPlanDto.getSignid();
+        String courseName = signPlanDto.getCoursename();
+        List<StuSign> stuSignsList = stuSignService.selectStuSignBySignId(signId, classname, courseName);
+        if (stuSignsList.size() > 0) return Result.succ(200, "根据所有对应信息查询签到表成功", stuSignsList);
+        else return Result.fail(123, "没有签到表信息！", stuSignsList);
     }
 
-    @PostMapping("/stugetsignplan")  //根据班级、id、是否开启签到查签到安排表
+    @PostMapping("/stuGetSignPlan")  //根据班级、id、是否开启签到查签到安排表
     public Result stugetsignplan(@RequestBody SignPlanDto signPlanDto) {
         String classname = signPlanDto.getClassname();
-        long signid = signPlanDto.getSignid();
-        long signstate = signPlanDto.getSignstate();
-        List<SignPlan> ss = stuSignMapper.selectStuSignPlanBysignstate(signid, classname, signstate);
+        long signId = signPlanDto.getSignid();
+        long signState = signPlanDto.getSignstate();
+        List<SignPlan> ss = stuSignMapper.selectStuSignPlanBysignstate(signId, classname, signState);
         if (ss.size() > 0) return Result.succ(200, "根据所有对应信息查询签到表成功", ss);
-        else return Result.fail(123, "没有签到表信息！/还没有开启签到", signid);
+        else return Result.fail(123, "没有签到表信息！/还没有开启签到", signId);
     }
 
     @PostMapping("/signplan")  //教师端开启签到后生成签到表

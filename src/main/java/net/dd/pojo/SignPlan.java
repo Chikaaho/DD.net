@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 //签到安排表
-@Data
 //@AllArgsConstructor
 //@NoArgsConstructor
 public class SignPlan implements Serializable {
