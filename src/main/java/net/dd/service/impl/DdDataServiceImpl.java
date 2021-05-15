@@ -37,4 +37,9 @@ public class DdDataServiceImpl implements DdDataService {
     public void insertFile(int fileType, String fileKey) {
         ddDataMapper.insertFile(fileType, fileKey);
     }
+
+    @Override
+    public List<DdData> selectAllFile(Integer roles) {
+        return ddDataMapper.selectAllFile(roles);
+    }
 }

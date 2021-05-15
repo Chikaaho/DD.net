@@ -34,53 +34,56 @@ public class FileController {
     public void setDataService(DdDataService dataService) {
         this.dataService = dataService;
     }
+
     @Autowired
     public void setQiNiuService(QiNiuService qiNiuService) {
         this.qiNiuService = qiNiuService;
     }
 
     /*
-    * fileName => 由获取文件时自动截取
-    * 拼接地址长度限定
-    * */
+     * fileName => 由获取文件时自动截取
+     * 拼接地址长度限定
+     * */
     /*
-    *  eg: https://xxxx/filePath/addUrl/fileName
-    * */
+     *  eg: https://xxxx/filePath/addUrl/fileName
+     * */
     @ApiModelProperty(value = "文件上传服务")
     @RequestMapping("/upload.do")
-    public ApiEnum fileUpload(@RequestParam String filePath, @Nullable@RequestParam String addUrl, @RequestParam String fileName, @RequestParam int fileType){
+    public ApiEnum fileUpload(@RequestParam String filePath, @Nullable @RequestParam String addUrl, @RequestParam String fileName, @RequestParam int fileType) {
         String result;
         // 文件名MD5扰乱
         String MD5FileName = MD5Util.encode(fileName);
         try {
             result = qiNiuService.uploadFile(new File(filePath), MD5FileName);
-            if (result.trim().length() != 0) {
+            if (!result.isEmpty() && !result.isBlank()) {
                 Map<Object, Object> midCurrMap = new HashMap<>();
-                if (addUrl != null || addUrl.trim().length() != 0) {
+                if (!addUrl.isEmpty() && !addUrl.isBlank()) {
                     String[] split = addUrl.split("/");
                     List<String> list = new ArrayList<>();
                     for (String s : split) {
-                        if (s.trim().length() != 0) {
+                        if (!s.isBlank()) {
                             list.add(s);
                         }
                     }
                     midCurrMap.put("addUrl", list);
                     /*
-                    * @addUrl: 拼接地址
-                    * {
-                    *   addUrl : {
-                    *               t1,
-                    *               t2,
-                    *               t3
-                    *             },
-                    *   fileType : {
-                    *               0 : .txt,
-                    *               1 : .jpg,
-                    *               2 : .mp4
-                    *              }
-                    *
-                    * }
-                    * */
+                     * @addUrl: 拼接地址
+                     * {fileMessage : {
+                     *      fileName: xxx,
+                     *      addUrl : {
+                     *                  t1,
+                     *                  t2,
+                     *                  t3
+                     *              },
+                     *      fileType : {
+                     *                  0 : .txt,
+                     *                  1 : .jpg,
+                     *                  2 : .mp4
+                     *                  }
+                     *
+                     *  }
+                     * }
+                     * */
 
                 }
 
@@ -140,9 +143,10 @@ public class FileController {
         return ApiEnum.FILE_DELETE_SUCCESS;
     }
 
-    @RequestMapping("/fileData")
-    public String getJsonDataMap() {
-        return JSON_DATA_MAP.toString();
+    @ApiModelProperty("权限查看文件")
+    @RequestMapping("")
+    public List<DdData> selectAllFile(@RequestParam Integer roles) {
+        return dataService.selectAllFile(roles);
     }
 
     public static void main(String[] args) {
@@ -154,6 +158,7 @@ public class FileController {
                 list.add(s);
             }
         }
+        JSON_DATA_MAP.put("addUrl", list);
         System.out.println(list);
     }
 

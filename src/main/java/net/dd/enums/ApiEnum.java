@@ -8,6 +8,8 @@ public enum ApiEnum {
     FILE_DELETE_SUCCESS(210, "文件删除成功"),
     FILE_UPLOAD_FAILED(510, "文件上传失败"),
     FILE_DELETE_FAILED(522, "文件删除失败"),
+    REGIST_SUCCESS(300, "注册邮件发送成功"),
+    REGIST_FAILED(430, "注册邮件发送失败"),
     DIVIDE_BY_ZERO(10001, "除数不能为0"),
     FILE_SIZE_EXCEEDED(666, "文件大小请勿超过10MB"),
     PASSWORD_NOT_MATCH(10002, "密码不匹配"),

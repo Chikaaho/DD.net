@@ -18,8 +18,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-//@CrossOrigin //所有域名均可访问该类下所有接口
-@CrossOrigin("http://localhost:8081") // 只有指定域名可以访问该类下所有接口
+@CrossOrigin //所有域名均可访问该类下所有接口
+//@CrossOrigin("http://localhost:8081") // 只有指定域名可以访问该类下所有接口
 public class ShiroController {
     @Autowired
     StudentService studentService;

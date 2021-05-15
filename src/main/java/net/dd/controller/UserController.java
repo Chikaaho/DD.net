@@ -95,30 +95,28 @@ public class UserController {
 
     @RequestMapping("/regist.do")
     @ApiModelProperty(value = "注册教师")
-    public ApiEnum registUser(@RequestParam String username, @RequestParam String password, @RequestParam String email, Model model) {
+    public ApiEnum registUser(@RequestParam String username, @RequestParam String password, @RequestParam String email) {
         String activeCodes = IDUtil.getUUID();
         int i = teacherService.registTeacher(username, password, activeCodes, email);
         if (i == 1 << 3) {
-
-            return ApiEnum.FAILED;
+            return ApiEnum.REGIST_SUCCESS;
         } else {
-            return ApiEnum.FAILED;
+            return ApiEnum.REGIST_FAILED;
         }
     }
 
     @RequestMapping("/add.do")
     @ApiModelProperty(value = "添加学生")
-    public String addUser(@RequestParam String username, @RequestParam String password, @RequestParam String classname, @RequestParam long usernum, Model model) {
+    public ApiEnum addUser(@RequestParam String username, @RequestParam String password,
+                          @RequestParam String classname, @RequestParam long usernum) {
         if (LICENSE != 0b1100 && LICENSE != 0b1111) {
-            model.addAttribute("","");
-            return "";
+            return ApiEnum.USER_NOT_LEAGLE;
         }
         int i = studentService.insertStudent(username, password, usernum, classname);
         if (i == 1 << 3) {
-            return "index";
+            return ApiEnum.SUCCESS;
         } else {
-            model.addAttribute("STUDENT_REPEAT_ERROR", "");
-            return "index";
+            return ApiEnum.FAILED;
         }
     }
 

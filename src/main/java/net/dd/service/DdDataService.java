@@ -19,4 +19,7 @@ public interface DdDataService {
     // 添加文件
     void insertFile(@Param("fileType") int fileType, @Param("fileKey") String fileKey);
 
+    // 查询所有文件
+    List<DdData> selectAllFile(@Param("roles") Integer roles);
+
 }
