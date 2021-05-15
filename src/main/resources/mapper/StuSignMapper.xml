@@ -17,12 +17,12 @@
     <update id="teaupdatasign">
         update dd_net.stusign
         set
-            stunum = #{stunum},
-            signid = #{signid},
             stusignstate = #{stusignstate},
             signtime = now()
         where
-            stunum = #{stunum};
+            stunum = #{stunum}
+        and
+            signid = #{signid}
     </update>
 
     <update id="updatesignplan">
@@ -36,11 +36,22 @@
     <select id="selectAllSignPlan" resultType="net.dd.pojo.SignPlan">
         SELECT * FROM dd_net.signplan;
     </select>
+
+    <select id="selectCourseByTeacherNum" resultType="net.dd.pojo.Course">
+        SELECT * FROM dd_net.course,dd_net.classes where teachernum = #{teachernum} and course.classesname = classes.classname;
+    </select>
+
+    <select id="selectCourseByClassName" resultType="net.dd.pojo.Course">
+        SELECT * FROM dd_net.course where classesname = #{classesname};
+    </select>
+
     <select id="selectStuSignByNumber" resultType="net.dd.pojo.StuSign" >
         SELECT *
         FROM dd_net.stusign
         where
         stunum = #{stunum}
+        and
+        coursename = #{coursename}
     </select>
     <select id="selectONEStuSign" resultType="net.dd.pojo.StuSign" >
         SELECT *

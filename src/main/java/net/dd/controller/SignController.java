@@ -4,7 +4,9 @@ import net.dd.common.Result;
 import net.dd.dto.SignDto;
 import net.dd.dto.SignPlanDto;
 import net.dd.dto.SomeSignDto;
+import net.dd.dto.TeacherDto;
 import net.dd.mapper.StuSignMapper;
+import net.dd.pojo.Course;
 import net.dd.pojo.SignPlan;
 import net.dd.pojo.StuSign;
 import net.dd.pojo.Student;
@@ -142,11 +144,13 @@ public class SignController {
         return Result.succ(200, "开启/关闭签到成功！", signstate);
     }
 
-    @GetMapping("/stustate") //根据学号查询签到
+    @PostMapping("/stustate") //根据学号和课程查询签到
     public Result StuState(@RequestBody SignDto signDto) {
         long num = signDto.getStunum();  //谁签
-        StuSign stuSign = stuSignService.selectStuSignByNumber(num);
-        return Result.succ(stuSign);
+        String coursename = signDto.getCoursename();
+        List<StuSign> stuSign = stuSignService.selectStuSignByNumber(num,coursename);
+        if(stuSign.size()!=0) return Result.succ(200,"根据学号查询签到成功！",stuSign);
+        return Result.succ(123,"根据学号查询签到失败！",num);
     }
 
     @GetMapping("/Allstustate") //所有签到
@@ -159,6 +163,20 @@ public class SignController {
     public Result Allsignplan() {
         List<SignPlan> Allsignplan = stuSignMapper.selectAllSignPlan();
         return Result.succ(Allsignplan);
+    }
+    @PostMapping("/getcourse") //根据教师id获取课程
+    public Result getcourse(@RequestBody TeacherDto teacherDto) {
+        long teachernum = teacherDto.getTeachernum();
+        List<Course> course = stuSignMapper.selectCourseByTeacherNum(teachernum);
+        if(course.size()!=0) return Result.succ(200,"根据教师id获取课程成功",course);
+        else return Result.succ(123,"这个教师没有课程",teachernum);
+    }
+    @PostMapping("/stugetcourse") //根据班级获取课程
+    public Result stugetcourse(@RequestBody SignDto SignDto) {
+        String classname = SignDto.getClassname();
+        List<Course> course = stuSignMapper.selectCourseByClassName(classname);
+        if(course.size()!=0) return Result.succ(200,"根据班级获取课程成功",course);
+        else return Result.succ(123,"这个把你没有课程",classname);
     }
 
 }

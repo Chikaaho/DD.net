@@ -32,8 +32,8 @@ public class StuSignServiceImpl implements StuSignService {
     }
 
     @Override
-    public StuSign selectStuSignByNumber(long usernum) {
-        return StuSignMapper.selectStuSignByNumber(usernum);
+    public List<StuSign> selectStuSignByNumber(long usernum,String coursename) {
+        return StuSignMapper.selectStuSignByNumber(usernum,coursename);
     }
 
     @Override

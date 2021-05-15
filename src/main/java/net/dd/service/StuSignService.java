@@ -20,7 +20,8 @@ public interface StuSignService {
                                            @Param("classname") String classname,
                                            @Param("signstate") long signstate);
 
-    StuSign selectStuSignByNumber(@Param("stunum") long stunum);
+    List<StuSign> selectStuSignByNumber(@Param("stunum") long stunum,
+                                        @Param("coursename") String coursename);
 
     StuSign selectONEStuSign(@Param("stunum") long stunum,
                              @Param("signid") long signid,
