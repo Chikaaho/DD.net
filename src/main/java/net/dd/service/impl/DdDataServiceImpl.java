@@ -19,7 +19,7 @@ public class DdDataServiceImpl implements DdDataService {
     }
 
     @Override
-    public List<DdData> selectByFileId(long fileId) {
+    public DdData selectByFileId(long fileId) {
         return ddDataMapper.selectByFileId(fileId);
     }
 
@@ -34,7 +34,7 @@ public class DdDataServiceImpl implements DdDataService {
     }
 
     @Override
-    public DdData insertFile(DdData ddData) {
-        return ddDataMapper.insertFile(ddData);
+    public void insertFile(int fileType, String fileKey) {
+        ddDataMapper.insertFile(fileType, fileKey);
     }
 }
