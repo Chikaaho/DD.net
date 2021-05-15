@@ -49,10 +49,13 @@ public class Teacher implements Serializable {
   @ApiModelProperty(value = "邮箱")
   private String email;
 
+  @ApiModelProperty(value = "教师编号")
+  private long teachernum;
+
   public Teacher() {
   }
 
-  public Teacher(long id, String username, String password, int isDeleted, LocalDateTime createTime, LocalDateTime updateTime, int roles, int status, String activeCodes, String email) {
+  public Teacher(long id, String username, String password, int isDeleted, LocalDateTime createTime, LocalDateTime updateTime, int roles, int status, String activeCodes, String email,long teachernum) {
     this.id = id;
     this.username = username;
     this.password = password;
@@ -63,6 +66,7 @@ public class Teacher implements Serializable {
     this.status = status;
     this.activeCodes = activeCodes;
     this.email = email;
+    this.teachernum = teachernum;
   }
 
   public long getId() {
@@ -148,6 +152,14 @@ public class Teacher implements Serializable {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  public long getTeachernum() {
+    return teachernum;
+  }
+
+  public void setTeachernum(long teachernum) {
+    this.teachernum = teachernum;
   }
 
   @Override

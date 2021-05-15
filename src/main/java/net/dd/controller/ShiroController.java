@@ -34,7 +34,7 @@ public class ShiroController {
         System.out.println("username+password+role:"+username+"======="+password+"====="+role);
 
 
-//        //封装用户的登录数据
+        //封装用户的登录数据
         UsernamePasswordToken token = new UsernamePasswordToken(username, password,role);
         //账号密码令s,
         // AuthenticationToken token = new UsernamePasswordToken(username, password);

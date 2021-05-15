@@ -1,5 +1,6 @@
 package net.dd.mapper;
 
+import net.dd.pojo.Course;
 import net.dd.pojo.SignPlan;
 import net.dd.pojo.StuSign;
 import net.dd.pojo.Student;
@@ -26,7 +27,12 @@ public interface StuSignMapper {
                                         @Param("classname") String classname,
                                         @Param("signstate") long signstate);
 
-    StuSign selectStuSignByNumber(@Param("stunum") long stunum);
+    List<Course> selectCourseByTeacherNum(@Param("teachernum") long teachernum);
+
+    List<Course> selectCourseByClassName(@Param("classesname") String classesname);
+
+    List<StuSign> selectStuSignByNumber(@Param("stunum") long stunum,
+                                        @Param("coursename") String coursename);
 
     StuSign selectONEStuSign(@Param("stunum") long stunum,
                                   @Param("signid") long signid,
