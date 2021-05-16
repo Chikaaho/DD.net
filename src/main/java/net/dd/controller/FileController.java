@@ -145,8 +145,8 @@ public class FileController {
 
     @ApiModelProperty("权限查看文件")
     @RequestMapping("")
-    public List<DdData> selectAllFile(@RequestParam Integer roles) {
-        return dataService.selectAllFile(roles);
+    public List<DdData> selectAllFile(@RequestParam Integer roles, @Nullable @RequestParam Long id) {
+        return dataService.selectAllFile(roles, id );
     }
 
     public static void main(String[] args) {

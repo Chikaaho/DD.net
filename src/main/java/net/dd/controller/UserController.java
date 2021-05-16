@@ -121,18 +121,18 @@ public class UserController {
     }
 
     @RequestMapping("/checkCode")
-    public String checkCode(String code) {
+    public ApiEnum checkCode(String code) {
         System.out.println("url激活码=>" + code);
         Teacher teacher = teacherService.registCheck(code);
         if (teacher != null) {
             teacherService.modify(1, teacher.getActiveCodes());
-            return "success";
+            return ApiEnum.SUCCESS;
         }
-        return "failed";
+        return ApiEnum.SUCCESS;
     }
 
     @PostMapping("/delete.do")
-    public String deleteUser(@RequestParam long id) {
+    public ApiEnum deleteUser(@RequestParam long id) {
         if (LICENSE == 0b0011) {
             studentService.deleteStudent(id);
         } else if (LICENSE == 0b1100) {
@@ -140,26 +140,20 @@ public class UserController {
         } else if (LICENSE == 0b1111) {
             System.out.println();
         }
-        return "";
+        return ApiEnum.SUCCESS;
     }
 
     @PostMapping("waring/drop.do")
-    public String dropUser(@RequestParam long id, Model model) {
-        if (LICENSE == 0b0011) {
-            model.addAttribute("ERROR", "您的权限不足");
-            return "index";
-        } else {
-            studentService.dropStudent(id);
-            return "index";
-        }
+    public void dropUser(@RequestParam long id) {
+        studentService.dropStudent(id);
     }
 
     @RequestMapping("/logout")
-    public String logout(HttpSession session) {
+    @Deprecated
+    public void logout(HttpSession session) {
         LICENSE = 0;
         session.invalidate();
         session.removeAttribute("userLicense");
-        return "index";
     }
 
 

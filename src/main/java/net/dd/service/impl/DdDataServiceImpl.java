@@ -4,6 +4,7 @@ import net.dd.mapper.DdDataMapper;
 import net.dd.pojo.DdData;
 import net.dd.service.DdDataService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -39,7 +40,7 @@ public class DdDataServiceImpl implements DdDataService {
     }
 
     @Override
-    public List<DdData> selectAllFile(Integer roles) {
-        return ddDataMapper.selectAllFile(roles);
+    public List<DdData> selectAllFile(Integer roles, @Nullable Long id) {
+        return ddDataMapper.selectAllFile(roles, id);
     }
 }

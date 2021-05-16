@@ -3,6 +3,7 @@ package net.dd.mapper;
 import net.dd.pojo.DdData;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,6 +25,6 @@ public interface DdDataMapper {
     void insertFile(@Param("fileType") int fileType, @Param("fileKey") String fileKey);
 
     // 查询所有文件
-    List<DdData> selectAllFile(@Param("roles") Integer roles);
+    List<DdData> selectAllFile(@Param("roles") Integer roles, @Nullable @Param("id") Long id);
 
 }

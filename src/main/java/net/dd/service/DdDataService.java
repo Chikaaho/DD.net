@@ -2,6 +2,7 @@ package net.dd.service;
 
 import net.dd.pojo.DdData;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.lang.Nullable;
 
 import java.util.List;
 
@@ -20,6 +21,6 @@ public interface DdDataService {
     void insertFile(@Param("fileType") int fileType, @Param("fileKey") String fileKey);
 
     // 查询所有文件
-    List<DdData> selectAllFile(@Param("roles") Integer roles);
+    List<DdData> selectAllFile(@Param("roles") Integer roles, @Nullable @Param("id") Long id);
 
 }
