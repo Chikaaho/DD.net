@@ -3,6 +3,7 @@ package net.dd.pojo;
 
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.BeanUtils;
+import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,8 +16,7 @@ public class DdData implements Serializable {
 //  @TableId(type = IdType.ASSIGN_ID)
   private long fileId;
 
-  @ApiModelProperty(value="文件类型 0:txt 1:image 2:video")
-  private int fileType;
+  private String fileType;
 
   @ApiModelProperty(value="访问凭证")
   private String fileKey;
@@ -27,24 +27,35 @@ public class DdData implements Serializable {
   @ApiModelProperty(value = "修改时间")
   private LocalDateTime updateTime;
 
+  private Long studentId;
+
+  private Long classesId;
+
+  private String addUrl;
+
   private static final long serialVersionUID = 1L;
 
   public DdData() {
   }
 
-  public DdData(int fileType, String fileKey) {
+  public DdData(String fileType, String fileKey, @Nullable Long studentId, @Nullable Long classesId, @Nullable String addUrl) {
     this.fileType = fileType;
     this.fileKey = fileKey;
+    this.studentId = studentId;
+    this.classesId = classesId;
+    this.addUrl = addUrl;
   }
 
-  public DdData(long fileId, int fileType, String fileKey, LocalDateTime createTime, LocalDateTime updateTime) {
+  public DdData(long fileId, String fileType, String fileKey, LocalDateTime createTime, LocalDateTime updateTime, long studentId, long classesId, String addUrl) {
     this.fileId = fileId;
     this.fileType = fileType;
     this.fileKey = fileKey;
     this.createTime = createTime;
     this.updateTime = updateTime;
+    this.studentId = studentId;
+    this.classesId = classesId;
+    this.addUrl = addUrl;
   }
-
 
   public long getFileId() {
     return fileId;
@@ -55,11 +66,11 @@ public class DdData implements Serializable {
   }
 
 
-  public long getFileType() {
+  public String getFileType() {
     return fileType;
   }
 
-  public void setFileType(int fileType) {
+  public void setFileType(String fileType) {
     this.fileType = fileType;
   }
 
@@ -90,31 +101,47 @@ public class DdData implements Serializable {
     this.updateTime = updateTime;
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    DdData ddData = (DdData) o;
-    return fileId == ddData.fileId &&
-            fileType == ddData.fileType &&
-            fileKey == ddData.fileKey &&
-            Objects.equals(createTime, ddData.createTime) &&
-            Objects.equals(updateTime, ddData.updateTime);
+  public long getStudentId() {
+    return studentId;
   }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(fileId, fileType, fileKey, createTime, updateTime);
+  public void setStudentId(long studentId) {
+    this.studentId = studentId;
+  }
+
+  public void setClassesId(long classesId) {
+    this.classesId = classesId;
+  }
+
+  public void setAddUrl(String addUrl) {
+    this.addUrl = addUrl;
+  }
+
+  public long getClassesId() {
+    return classesId;
+  }
+
+  public String getAddUrl() {
+    return addUrl;
   }
 
   @Override
   public String toString() {
     return "DdData{" +
             "fileId=" + fileId +
-            ", fileType=" + fileType +
-            ", fileKey=" + fileKey +
+            ", fileType='" + fileType + '\'' +
+            ", fileKey='" + fileKey + '\'' +
             ", createTime=" + createTime +
             ", updateTime=" + updateTime +
+            ", studentId=" + studentId +
+            ", classesId=" + classesId +
+            ", addUrl='" + addUrl + '\'' +
             '}';
+  }
+
+  public static void main(String[] args) {
+    DdData ddData = new DdData();
+    ddData.setAddUrl(" ");
+    System.out.println(ddData.getAddUrl().isBlank());
   }
 }

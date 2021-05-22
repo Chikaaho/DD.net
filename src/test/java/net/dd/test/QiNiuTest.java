@@ -48,7 +48,7 @@ public class QiNiuTest {
     public void testUpload() throws QiniuException {
         MD5Filename = MD5Util.encode("demo");
         String result = qiniuService.uploadFile(new File(""), MD5Filename);
-        ddDataService.insertFile(0, MD5Filename);
+//        ddDataService.insertFile();
         System.out.println("访问地址： " + result);
     }
 

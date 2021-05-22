@@ -35,12 +35,12 @@ public class DdDataServiceImpl implements DdDataService {
     }
 
     @Override
-    public void insertFile(int fileType, String fileKey) {
-        ddDataMapper.insertFile(fileType, fileKey);
+    public void insertFile(DdData ddData) {
+        ddDataMapper.insertFile(ddData);
     }
 
     @Override
-    public List<DdData> selectAllFile(Integer roles, @Nullable Long id) {
-        return ddDataMapper.selectAllFile(roles, id);
+    public List<DdData> selectAllFile(Long id) {
+        return ddDataMapper.selectAllFile(id);
     }
 }
