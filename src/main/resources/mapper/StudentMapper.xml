@@ -25,11 +25,26 @@
         set username = #{username},
             password = #{password},
             usernum = #{usernum},
-            classname = #{password},
+            classname = #{classname},
             update_time = now()
         where
             id = #{id};
     </update>
+    <update id="AdminupdateStudent">
+        update dd_net.student
+        set username = #{username},
+            password = #{password},
+            classname = #{classname},
+            update_time = now()
+        where
+            usernum = #{usernum}
+    </update>
+
+    <delete id="AdmindeleteStudent">
+        delete from
+        dd_net.student
+        where usernum = #{usernum};
+    </delete>
 
     <update id="deleteStudent">
         update dd_net.student
@@ -70,7 +85,7 @@
         select *
         from dd_net.student
         where
-        classname like concat('%', #{classname}, '%');
+        classname = #{classname};
     </select>
 
 </mapper>

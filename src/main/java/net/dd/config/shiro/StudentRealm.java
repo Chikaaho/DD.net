@@ -1,6 +1,11 @@
 package net.dd.config.shiro;
 
 
+import net.dd.mapper.AdminMapper;
+import net.dd.mapper.StuSignMapper;
+import net.dd.mapper.StudentMapper;
+import net.dd.mapper.TeacherMapper;
+import net.dd.pojo.Admin;
 import net.dd.pojo.Student;
 import net.dd.pojo.Teacher;
 import net.dd.service.StudentService;
@@ -21,7 +26,12 @@ public class StudentRealm extends AuthorizingRealm {
 
     @Autowired
     StudentService studentService;
-
+    @Autowired
+    StudentMapper studentMapper;
+    @Autowired
+    TeacherMapper teacherMapper;
+    @Autowired
+    AdminMapper adminMapper;
     @Autowired
     TeacherService teacherService;
 
@@ -56,7 +66,7 @@ public class StudentRealm extends AuthorizingRealm {
         String role = userToken.getHost();
         if(role.equals("学生")){
             //连接真实的数据库
-            Student student = studentService.selectStudentByNumber(username);
+            Student student = studentMapper.selectStudentByNumber(username);
             if(student==null){ //没有这个人
                 return null;//抛出异常 UnknownAccountException
             }
@@ -65,8 +75,8 @@ public class StudentRealm extends AuthorizingRealm {
             //将此用户存放到登录认证info中，无需自己做密码对比Shiro会为我们进行密码对比校验
             return new SimpleAuthenticationInfo(student,student.getPassword(),ByteSource.Util.bytes(student.getUsername()),getName());
         }
-        else {  //否则则为教师
-            Teacher teacher = teacherService.selectTeacherByNumber(username);
+        else if((role.equals("教师"))){
+            Teacher teacher = teacherMapper.selectTeacherByNumber(username);
             if(teacher==null){ //没有这个人
                 return null;//抛出异常 UnknownAccountException
             }
@@ -74,6 +84,15 @@ public class StudentRealm extends AuthorizingRealm {
             //密码认证，shiro做
             //将此用户存放到登录认证info中，无需自己做密码对比Shiro会为我们进行密码对比校验
             return new SimpleAuthenticationInfo(teacher,teacher.getPassword(),ByteSource.Util.bytes(teacher.getUsername()),getName());
+        }else{          //否则则为管理员
+            Admin admin = adminMapper.selectAdminByNumber(username);
+            if(admin==null){ //没有这个人
+                return null;//抛出异常 UnknownAccountException
+            }
+            //可以加密：MD5 MD5盐值加密
+            //密码认证，shiro做
+            //将此用户存放到登录认证info中，无需自己做密码对比Shiro会为我们进行密码对比校验
+            return new SimpleAuthenticationInfo(admin,admin.getPassword(),ByteSource.Util.bytes(admin.getUsername()),getName());
         }
 
 

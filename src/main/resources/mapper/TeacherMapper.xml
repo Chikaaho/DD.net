@@ -14,12 +14,30 @@
         <result column="email" jdbcType="VARCHAR" property="email"/>
     </resultMap>
 
+    <insert id="AdminaddTeacher">
+        insert into dd_net.teacher
+            (username, password, teachernum, email, status)
+        values
+            (#{username}, #{password}, #{teachernum}, #{email}, 1);
+    </insert>
+
     <insert id="registTeacher">
         insert into dd_net.teacher
             (username, password, active_codes, email)
         values
             (#{username}, #{password}, #{activeCodes}, #{email});
     </insert>
+
+    <update id="AdminupdateTeacher">
+        update dd_net.teacher
+        set username = #{username},
+            password = #{password},
+            email = #{email},
+            update_time = now()
+        where
+            teachernum = #{teachernum};
+    </update>
+
     <update id="updateTeacher">
         update dd_net.teacher
         set username = #{username},
@@ -38,6 +56,12 @@
         and
         status = 1;
     </select>
+    <delete id="AdmindeleteTeacher">
+        delete from
+        dd_net.teacher
+        where teachernum = #{teachernum};
+    </delete>
+
     <update id="deleteTeacher">
         update dd_net.teacher
         set is_deleted = 1,

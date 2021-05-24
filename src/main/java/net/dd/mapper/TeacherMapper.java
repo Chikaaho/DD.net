@@ -17,11 +17,22 @@ public interface TeacherMapper {
     Teacher selectTeacherByName(@Param("username") String username);
     Teacher selectTeacherByNumber(@Param("teachernum") long teachernum);
 
+    // 管理员添加老师信息
+    int AdminaddTeacher(@Param("teachernum") long teachernum, @Param("username") String username, @Param("password") String password, @Param("email") String email);
+
+
     // 添加老师信息
     int registTeacher(@Param("username") String username, @Param("password") String password, @Param("activeCodes") String activeCodes, @Param("email") String email);
 
+    // 管理员修改老师信息
+    int AdminupdateTeacher(@Param("teachernum") long teachernum, @Param("username") String username, @Param("password") String password, @Param("email") String email);
+
+
     // 修改老师信息
     int updateTeacher(@Param("id") long id, @Param("username") String username, @Param("password") String password);
+
+    // 管理员删除老师信息
+    int AdmindeleteTeacher(@Param("teachernum") long teachernum);
 
     // 删除老师信息(假删除)
     int deleteTeacher(@Param("id") long id);

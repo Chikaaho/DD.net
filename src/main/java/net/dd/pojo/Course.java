@@ -10,18 +10,28 @@ public class Course implements Serializable {
     private Date endtime;
     private String classesname;
     private long teachernum;
+    private String username;
     private String major;
 
     public Course(){};
 
-    public Course(int courseid, String coursename, Date starttime, Date endtime, String classesname, long teachernum, String major) {
+    public Course(int courseid, String coursename, Date starttime, Date endtime, String classesname, long teachernum, String username, String major) {
         this.courseid = courseid;
         this.coursename = coursename;
         this.starttime = starttime;
         this.endtime = endtime;
         this.classesname = classesname;
         this.teachernum = teachernum;
+        this.username = username;
         this.major = major;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getMajor() {

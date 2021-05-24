@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.dd.mapper.AdminMapper">
+
+    <select id="selectAdmin" resultType="net.dd.pojo.Admin">
+        SELECT * FROM dd_net.admin where is_deleted = 0;
+    </select>
+    <select id="selectBanji" resultType="net.dd.pojo.Banji">
+        SELECT * FROM dd_net.classes;
+    </select>
+    <select id="selectBanjimember" resultType="integer">
+        SELECT count(*) FROM dd_net.student where classname = #{classname};
+    </select>
+    <select id="selectCourse" resultType="net.dd.pojo.Course">
+        SELECT dd_net.course.*,dd_net.teacher.username FROM dd_net.course,dd_net.teacher where course.teachernum = teacher.teachernum;
+    </select>
+
+    <select id="selectAdminByNumber" resultType="net.dd.pojo.Admin">
+        select *
+        from dd_net.admin
+        where
+        adminnum = #{adminnum};
+    </select>
+
+    <insert id="insertAdmin">
+        insert into dd_net.admin
+            (adminnum, username, password)
+        values
+            (#{adminnum}, #{username}, #{password});
+    </insert>
+    <insert id="insertCourse">
+        insert into dd_net.course
+            (coursename, starttime, endtime, classesname, teachernum)
+        values
+            (#{coursename}, #{starttime}, #{endtime}, #{classesname}, #{teachernum});
+    </insert>
+
+    <update id="updateCourse">
+        update dd_net.course
+        set coursename = #{coursename},
+            starttime = #{starttime},
+            endtime = #{endtime},
+            classesname = #{classesname},
+            teachernum = #{teachernum}
+        where
+            courseid = #{courseid};
+    </update>
+
+    <delete id="deleteCourse">
+        delete from
+        dd_net.course
+        where courseid = #{courseid};
+    </delete>
+
+    <insert id="insertBanji">
+        insert into dd_net.classes
+            (classname, major)
+        values
+            (#{classname}, #{major});
+    </insert>
+
+    <update id="updateBanji">
+        update dd_net.classes
+        set classname = #{classname},
+            major = #{major}
+        where
+            classesid = #{classesid};
+    </update>
+
+    <delete id="deleteBanji">
+        delete from
+        dd_net.classes
+        where classesid = #{classesid};
+    </delete>
+</mapper>
