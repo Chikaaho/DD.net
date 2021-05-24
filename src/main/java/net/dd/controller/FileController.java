@@ -50,8 +50,9 @@ public class FileController {
      * */
     @ApiModelProperty(value = "文件上传服务")
     @RequestMapping("/upload.do")
-    public void fileUpload(@RequestParam File filePath, @Nullable @RequestParam String addUrl) {
+    public void fileUpload(@RequestBody File filePath, @Nullable @RequestBody String addUrl) {
         if (filePath == null) {
+            logger.info("文件不能为空");
             return;
         }
         String result;
@@ -75,7 +76,7 @@ public class FileController {
 
     @ApiModelProperty(value = "文件下载")
     @RequestMapping("/fileDownload")
-    public void fileDownload(@RequestParam long id, @RequestParam String fileLocalPath) {
+    public void fileDownload(@RequestBody long id, @RequestBody String fileLocalPath) {
         DdData ddData = dataService.selectByFileId(id);
         StringBuffer fileUrl = new StringBuffer();
         fileUrl.append(QINIU_URL);
@@ -93,7 +94,7 @@ public class FileController {
 
     @ApiModelProperty(value = "文件删除服务")
     @RequestMapping("/fileDelete.do")
-    public ApiEnum fileDelete(@RequestParam long id) {
+    public ApiEnum fileDelete(@RequestBody long id) {
         DdData ddData = dataService.selectByFileId(id);
         StringBuilder fileKey = new StringBuilder();
         String addUrl = ddData.getAddUrl();
