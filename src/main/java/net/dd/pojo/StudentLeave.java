@@ -1,6 +1,8 @@
 package net.dd.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
+
 
 /**
  * @author Chika
@@ -11,9 +13,18 @@ public class StudentLeave implements Serializable {
 
     private Long leaveId;
     private Long studentId;
+    private Long courseId;
     private String stuName;
     private Integer leaveState;
     private String leaveReason;
+
+
+    public static void main(String[] args) {
+        Date date = new Date();
+
+        java.sql.Date datetime = new java.sql.Date(date.getTime());
+        System.out.println(datetime);
+    }
 
     public StudentLeave(Long leaveId, Long studentId, String stuName, Integer leaveState, String leaveReason) {
         this.leaveId = leaveId;
