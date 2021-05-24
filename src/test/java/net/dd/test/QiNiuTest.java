@@ -83,7 +83,7 @@ public class QiNiuTest {
 
     @Test
     public void fileDownload() {
-        long id = 10;
+        long id = 1;
         String fileLocalPath = "E:/ide/Projects/IdeaProject/DDNet/src/main/resources/";
         DdData ddData = ddDataService.selectByFileId(id);
         StringBuffer fileUrl = new StringBuffer();
@@ -115,17 +115,19 @@ public class QiNiuTest {
 
     @Test
     public void fileDelete() {
-        long id = 11;
+        long id = 2;
         DdData ddData = ddDataService.selectByFileId(id);
+        StringBuilder fileKey = new StringBuilder();
         String addUrl = ddData.getAddUrl();
-        StringBuffer fileKey = new StringBuffer();
-        fileKey.append(addUrl.substring(1)).append("/").append(ddData.getFileKey());
+        if (!addUrl.isEmpty() && !addUrl.isBlank()) {
+            fileKey.append(addUrl.substring(1));
+        }
+        fileKey.append("/").append(ddData.getFileKey());
         try {
             qiniuService.delete(fileKey.toString());
             ddDataService.deleteById(id);
         } catch (QiniuException e) {
 //            logger.warn(e.toString());
-            e.printStackTrace();
         }
     }
 
