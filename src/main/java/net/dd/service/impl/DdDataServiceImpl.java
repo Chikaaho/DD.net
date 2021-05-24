@@ -35,8 +35,8 @@ public class DdDataServiceImpl implements DdDataService {
     }
 
     @Override
-    public void insertFile(String fileType, String fileKey, Long studentId, Long classesId, String addUrl) {
-        ddDataMapper.insertFile(fileType, fileKey, studentId, classesId, addUrl);
+    public void insertFile(String fileType, String fileKey, String addUrl) {
+        ddDataMapper.insertFile(fileType, fileKey, addUrl);
     }
 
     @Override

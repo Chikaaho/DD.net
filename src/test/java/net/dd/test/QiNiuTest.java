@@ -23,6 +23,8 @@ import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -59,9 +61,7 @@ public class QiNiuTest {
     @Test
     public void fileUpload() {
         String filePath = "E:/Datas/photos/other/helloworld.jpg";
-        Long studentId = null;
-        Long classesId = null;
-        String addUrl = "/18soft/18240398";
+        String addUrl = "/18soft/18240369";
         String result;
         String fileName = "";
         String fileKey = MD5Util.encode(IDUtil.getUUID());;
@@ -73,7 +73,7 @@ public class QiNiuTest {
             result = qiniuService.uploadFile(new File(filePath), fileName);
             String[] split = filePath.split("\\.");
             String fileType = "." + split[split.length - 1];
-            ddDataService.insertFile(fileType, fileKey, studentId, classesId, addUrl);
+            ddDataService.insertFile(fileType, fileKey, addUrl);
         } catch (QiniuException e) {
 //            logger.warn(e.toString());
             return;
@@ -100,6 +100,17 @@ public class QiNiuTest {
 //            logger.warn(e.toString());
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void selectAllFile() {
+        List<DdData> ddData = ddDataService.selectAllFile();
+        Map<String, DdData> map = new HashMap<>();
+        for (DdData ddDatum : ddData) {
+            String addUrl = ddDatum.getAddUrl();
+            map.put(addUrl, ddDatum);
+        }
+        System.out.println(map);
     }
 
     @Test

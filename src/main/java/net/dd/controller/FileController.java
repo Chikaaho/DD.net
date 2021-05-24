@@ -45,12 +45,12 @@ public class FileController {
      * fileName => 由获取文件时自动截取
      *
      * */
-    /*
+    /*   .xxx
      *  eg: https://xxxx/filePath/addUrl/fileName
      * */
     @ApiModelProperty(value = "文件上传服务")
     @RequestMapping("/upload.do")
-    public void fileUpload(@RequestParam String filePath, @Nullable @RequestParam Long studentId, @Nullable @RequestParam Long classesId, @Nullable @RequestParam String addUrl) {
+    public void fileUpload(@RequestParam InputStream filePath, @Nullable @RequestParam String addUrl, @RequestParam String fileType) {
         String result;
         String fileName = "";
         String fileKey = MD5Util.encode(IDUtil.getUUID());
@@ -59,10 +59,8 @@ public class FileController {
         }
         fileName += fileKey;
         try {
-            result = qiNiuService.uploadFile(new File(filePath), fileName);
-            String[] split = filePath.split("\\.");
-            String fileType = "." + split[split.length - 1];
-            dataService.insertFile(fileType, fileKey, studentId, classesId, addUrl);
+            result = qiNiuService.uploadFile(filePath, fileName);
+            dataService.insertFile(fileType, fileKey, addUrl);
         } catch (QiniuException e) {
             logger.warn(e.toString());
             return;
