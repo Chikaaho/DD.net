@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.net.URL;
@@ -50,10 +51,20 @@ public class FileController {
      * */
     @ApiModelProperty(value = "文件上传服务")
     @RequestMapping("/upload.do")
-    public void fileUpload(@RequestParam File filePath, @Nullable @RequestParam String addUrl) {
+    public void fileUpload(@RequestParam MultipartFile filePath, @Nullable @RequestParam String addUrl) {
         if (filePath == null) {
             logger.info("文件不能为空");
             return;
+        }
+        File file = null;
+        try {
+            String originalFilename = filePath.getOriginalFilename();
+            String[] split1 = originalFilename.split("\\.");
+            file = File.createTempFile(split1[0], split1[1]);
+            filePath.transferTo(file);
+            file.deleteOnExit();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         String result;
         String fileName = "";
@@ -65,7 +76,7 @@ public class FileController {
         String[] split = filePath.getName().split("\\.");
         String fileType = "." + split[split.length - 1];
         try {
-            result = qiNiuService.uploadFile(filePath, fileName);
+            result = qiNiuService.uploadFile(file,fileName);
             dataService.insertFile(fileType, fileKey, addUrl);
         } catch (QiniuException e) {
             logger.warn(e.toString());

@@ -70,8 +70,9 @@ public class QiNiuTest {
             fileName = addUrl.substring(1) + "/";
         }
         fileName += fileKey;
+        File file = new File(filePath);
         try {
-            result = qiniuService.uploadFile(new File(filePath), fileName);
+            result = qiniuService.uploadFile(file, fileName);
             String[] split = filePath.split("\\.");
             String fileType = "." + split[split.length - 1];
             ddDataService.insertFile(fileType, fileKey, addUrl);
@@ -116,7 +117,7 @@ public class QiNiuTest {
 
     @Test
     public void fileDelete() {
-        long id = 2;
+        long id = 3;
         DdData ddData = ddDataService.selectByFileId(id);
         StringBuilder fileKey = new StringBuilder();
         String addUrl = ddData.getAddUrl();
