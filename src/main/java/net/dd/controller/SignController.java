@@ -177,11 +177,6 @@ public class SignController {
         else return Result.succ(123, "这个把你没有课程", classname);
     }
 
-    // 请假流程
-    @PostMapping("AskForLeave")
-    public ApiEnum askForLeave(@RequestParam Long studentId, @RequestParam Long classesId, @RequestParam Long teacherId) {
-        
-        return ApiEnum.SUCCESS;
-    }
+
 
 }

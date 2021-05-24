@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.dd.mapper.StudentLeaveMapper">
+    <resultMap id="StudentLeaveMapper" type="net.dd.pojo.StudentLeave">
+        <result column="leave_id" property="leaveId"/>
+        <result column="student_id" property="studentId"/>
+        <result column="stu_name" property="stuName"/>
+        <result column="leave_reason" property="leaveReason"/>
+        <result column="leave_state" property="leaveState"/>
+    </resultMap>
+    <insert id="start">
+        insert into dd_net.stu_leave (student_id, stu_name, leave_reason)
+        values (#{studentId}, #{stuName}, #{leaveReason});
+    </insert>
+    <update id="approve">
+        update dd_net.stu_leave set
+        leave_state = #{leaveState},
+        update_time = now()
+        where
+        student_id = #{studentId};
+    </update>
+    <delete id="end">
+        delete from dd_net.stu_leave where leave_id = #{leave_id};
+    </delete>
+    <select id="selectByStudentId" resultType="net.dd.pojo.StudentLeave">
+        select leave_id from dd_net.stu_leave where student_id = #{studentId};
+    </select>
+</mapper>
