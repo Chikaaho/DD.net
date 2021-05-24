@@ -98,7 +98,6 @@ public class UserController {
     @ApiModelProperty(value = "注册教师")
     public ApiEnum registUser(@RequestBody RegistDto registDto) {
         String activeCodes = IDUtil.getUUID();
-
         int i = teacherService.registTeacher(registDto.getUsername(),
                 registDto.getPassword(),
                 activeCodes,
