@@ -1,11 +1,14 @@
 package net.dd.test;
 
 import com.qiniu.common.QiniuException;
+import com.sun.istack.Nullable;
 import net.dd.StarterApplication;
+import net.dd.enums.ApiEnum;
 import net.dd.pojo.DdData;
 import net.dd.service.DdDataService;
 import net.dd.service.QiNiuService;
 import net.dd.service.impl.QiNiuServiceImpl;
+import net.dd.utils.IDUtil;
 import net.dd.utils.MD5Util;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
@@ -14,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.io.File;
@@ -50,6 +54,68 @@ public class QiNiuTest {
         String result = qiniuService.uploadFile(new File(""), MD5Filename);
 //        ddDataService.insertFile();
         System.out.println("访问地址： " + result);
+    }
+
+    @Test
+    public void fileUpload() {
+        String filePath = "E:/Datas/photos/other/helloworld.jpg";
+        Long studentId = null;
+        Long classesId = null;
+        String addUrl = "/18soft/18240398";
+        String result;
+        String fileName = "";
+        String fileKey = MD5Util.encode(IDUtil.getUUID());;
+        if (addUrl != null) {
+            fileName = addUrl.substring(1) + "/";
+        }
+        fileName += fileKey;
+        try {
+            result = qiniuService.uploadFile(new File(filePath), fileName);
+            String[] split = filePath.split("\\.");
+            String fileType = "." + split[split.length - 1];
+            ddDataService.insertFile(fileType, fileKey, studentId, classesId, addUrl);
+        } catch (QiniuException e) {
+//            logger.warn(e.toString());
+            return;
+        }
+        System.out.println("访问地址： " + result);
+    }
+
+    @Test
+    public void fileDownload() {
+        long id = 10;
+        String fileLocalPath = "E:/ide/Projects/IdeaProject/DDNet/src/main/resources/";
+        DdData ddData = ddDataService.selectByFileId(id);
+        StringBuffer fileUrl = new StringBuffer();
+        fileUrl.append("http://qt1bcqgbl.hn-bkt.clouddn.com");
+        if (!ddData.getAddUrl().isEmpty() && !ddData.getAddUrl().isBlank()) {
+            fileUrl.append(ddData.getAddUrl());
+        }
+        fileUrl.append("/").append(ddData.getFileKey());
+        String type = ddData.getFileType();
+        String fileName = "下载测试";
+        try {
+            FileUtils.copyURLToFile(new URL(fileUrl.toString()), new File(fileLocalPath + fileName + type));
+        } catch (IOException e) {
+//            logger.warn(e.toString());
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void fileDelete() {
+        long id = 11;
+        DdData ddData = ddDataService.selectByFileId(id);
+        String addUrl = ddData.getAddUrl();
+        StringBuffer fileKey = new StringBuffer();
+        fileKey.append(addUrl.substring(1)).append("/").append(ddData.getFileKey());
+        try {
+            qiniuService.delete(fileKey.toString());
+            ddDataService.deleteById(id);
+        } catch (QiniuException e) {
+//            logger.warn(e.toString());
+            e.printStackTrace();
+        }
     }
 
     @Test

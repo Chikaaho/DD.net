@@ -7,16 +7,18 @@
         <result column="file_key" property="fileKey"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
+        <result column="addUrl" property="addUrl"/>
     </resultMap>
 
     <select id="selectByFileId" resultType="net.dd.pojo.DdData">
         select * from dd_net.dd_data where file_id = #{fileId};
     </select>
     <select id="selectAllFile" resultType="net.dd.pojo.DdData">
-        select
+        select * from dd_net.dd_data;
     </select>
     <insert id="insertFile">
-        insert into dd_net.dd_data (file_type, file_key) values (#{fileType}, #{fileKey});
+        insert into dd_net.dd_data (file_type, file_key, addUrl)
+        value (#{fileType}, #{fileKey}, #{addUrl});
     </insert>
     <update id="updateFile">
 

@@ -27,10 +27,6 @@ public class DdData implements Serializable {
   @ApiModelProperty(value = "修改时间")
   private LocalDateTime updateTime;
 
-  private Long studentId;
-
-  private Long classesId;
-
   private String addUrl;
 
   private static final long serialVersionUID = 1L;
@@ -38,22 +34,18 @@ public class DdData implements Serializable {
   public DdData() {
   }
 
-  public DdData(String fileType, String fileKey, @Nullable Long studentId, @Nullable Long classesId, @Nullable String addUrl) {
+  public DdData(String fileType, String fileKey, @Nullable String addUrl) {
     this.fileType = fileType;
     this.fileKey = fileKey;
-    this.studentId = studentId;
-    this.classesId = classesId;
     this.addUrl = addUrl;
   }
 
-  public DdData(long fileId, String fileType, String fileKey, LocalDateTime createTime, LocalDateTime updateTime, long studentId, long classesId, String addUrl) {
+  public DdData(long fileId, String fileType, String fileKey, LocalDateTime createTime, LocalDateTime updateTime, String addUrl) {
     this.fileId = fileId;
     this.fileType = fileType;
     this.fileKey = fileKey;
     this.createTime = createTime;
     this.updateTime = updateTime;
-    this.studentId = studentId;
-    this.classesId = classesId;
     this.addUrl = addUrl;
   }
 
@@ -101,25 +93,11 @@ public class DdData implements Serializable {
     this.updateTime = updateTime;
   }
 
-  public long getStudentId() {
-    return studentId;
-  }
-
-  public void setStudentId(long studentId) {
-    this.studentId = studentId;
-  }
-
-  public void setClassesId(long classesId) {
-    this.classesId = classesId;
-  }
 
   public void setAddUrl(String addUrl) {
     this.addUrl = addUrl;
   }
 
-  public long getClassesId() {
-    return classesId;
-  }
 
   public String getAddUrl() {
     return addUrl;
@@ -133,8 +111,6 @@ public class DdData implements Serializable {
             ", fileKey='" + fileKey + '\'' +
             ", createTime=" + createTime +
             ", updateTime=" + updateTime +
-            ", studentId=" + studentId +
-            ", classesId=" + classesId +
             ", addUrl='" + addUrl + '\'' +
             '}';
   }

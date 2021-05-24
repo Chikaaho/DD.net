@@ -50,18 +50,19 @@ public class FileController {
      * */
     @ApiModelProperty(value = "文件上传服务")
     @RequestMapping("/upload.do")
-    public void fileUpload(@RequestParam String filePath, @Nullable Long studentId, @Nullable Long classesId, @Nullable @RequestParam String addUrl) {
+    public void fileUpload(@RequestParam String filePath, @Nullable @RequestParam Long studentId, @Nullable @RequestParam Long classesId, @Nullable @RequestParam String addUrl) {
         String result;
         String fileName = "";
+        String fileKey = MD5Util.encode(IDUtil.getUUID());
         if (addUrl != null) {
             fileName = addUrl.substring(1) + "/";
         }
-        fileName += MD5Util.encode(IDUtil.getUUID());
+        fileName += fileKey;
         try {
             result = qiNiuService.uploadFile(new File(filePath), fileName);
             String[] split = filePath.split("\\.");
-            String fileType = "\\." + split[split.length - 1];
-            dataService.insertFile(new DdData(fileType, fileName, studentId, classesId, addUrl));
+            String fileType = "." + split[split.length - 1];
+            dataService.insertFile(fileType, fileKey, studentId, classesId, addUrl);
         } catch (QiniuException e) {
             logger.warn(e.toString());
             return;
@@ -79,9 +80,9 @@ public class FileController {
             fileUrl.append(ddData.getAddUrl());
         }
         fileUrl.append("/").append(ddData.getFileKey());
-        String type = "\\." + ddData.getFileType();
+        String type = ddData.getFileType();
         try {
-            FileUtils.copyURLToFile(new URL(fileUrl.toString()), new File(fileLocalPath + type));
+            FileUtils.copyURLToFile(new URL(fileUrl.toString()), new File(fileLocalPath + ddData.getFileKey() + type));
         } catch (IOException e) {
             logger.warn(e.toString());
         }
@@ -91,9 +92,14 @@ public class FileController {
     @RequestMapping("/fileDelete.do")
     public ApiEnum fileDelete(@RequestParam long id) {
         DdData ddData = dataService.selectByFileId(id);
-        String fileKey = ddData.getFileKey();
+        StringBuilder fileKey = new StringBuilder();
+        String addUrl = ddData.getAddUrl();
+        if (!addUrl.isEmpty() && !addUrl.isBlank()) {
+            fileKey.append(addUrl.substring(1));
+        }
+        fileKey.append("/").append(ddData.getFileKey());
         try {
-            qiNiuService.delete(fileKey);
+            qiNiuService.delete(fileKey.toString());
             dataService.deleteById(id);
         } catch (QiniuException e) {
             logger.warn(e.toString());
@@ -102,10 +108,16 @@ public class FileController {
         return ApiEnum.FILE_DELETE_SUCCESS;
     }
 
-    @ApiModelProperty("权限查看文件")
-    @RequestMapping("")
-    public List<DdData> selectAllFile(@RequestParam Integer roles, @Nullable @RequestParam Long id) {
-        return dataService.selectAllFile(id);
+    @ApiModelProperty("查看文件")
+    @RequestMapping("/selectAll")
+    public Map<String, DdData> selectAllFile() {
+        List<DdData> ddData = dataService.selectAllFile();
+        Map<String, DdData> map = new HashMap<>();
+        for (DdData ddDatum : ddData) {
+            String addUrl = ddDatum.getAddUrl();
+            map.put(addUrl, ddDatum);
+        }
+        return map;
     }
 
     public static void main(String[] args) {

@@ -5,6 +5,7 @@ import net.dd.dto.SignDto;
 import net.dd.dto.SignPlanDto;
 import net.dd.dto.SomeSignDto;
 import net.dd.dto.TeacherDto;
+import net.dd.enums.ApiEnum;
 import net.dd.mapper.StuSignMapper;
 import net.dd.pojo.Course;
 import net.dd.pojo.SignPlan;
@@ -21,7 +22,6 @@ import java.util.List;
 @CrossOrigin //所有域名均可访问该类下所有接口
 //@CrossOrigin("http://localhost:8081") // 只有指定域名可以访问该类下所有接口
 public class SignController {
-
 
     private StuSignService stuSignService;
 
@@ -144,9 +144,9 @@ public class SignController {
     public Result StuState(@RequestBody SignDto signDto) {
         long num = signDto.getStunum();  //谁签
         String coursename = signDto.getCoursename();
-        List<StuSign> stuSign = stuSignService.selectStuSignByNumber(num,coursename);
-        if(stuSign.size()!=0) return Result.succ(200,"根据学号查询签到成功！",stuSign);
-        return Result.succ(123,"根据学号查询签到失败！",num);
+        List<StuSign> stuSign = stuSignService.selectStuSignByNumber(num, coursename);
+        if (stuSign.size() != 0) return Result.succ(200, "根据学号查询签到成功！", stuSign);
+        return Result.succ(123, "根据学号查询签到失败！", num);
     }
 
     @GetMapping("/Allstustate") //所有签到
@@ -160,19 +160,28 @@ public class SignController {
         List<SignPlan> Allsignplan = stuSignMapper.selectAllSignPlan();
         return Result.succ(Allsignplan);
     }
+
     @PostMapping("/getcourse") //根据教师id获取课程
     public Result getcourse(@RequestBody TeacherDto teacherDto) {
         long teachernum = teacherDto.getTeachernum();
         List<Course> course = stuSignMapper.selectCourseByTeacherNum(teachernum);
-        if(course.size()!=0) return Result.succ(200,"根据教师id获取课程成功",course);
-        else return Result.succ(123,"这个教师没有课程",teachernum);
+        if (course.size() != 0) return Result.succ(200, "根据教师id获取课程成功", course);
+        else return Result.succ(123, "这个教师没有课程", teachernum);
     }
+
     @PostMapping("/stugetcourse") //根据班级获取课程
     public Result stugetcourse(@RequestBody SignDto SignDto) {
         String classname = SignDto.getClassname();
         List<Course> course = stuSignMapper.selectCourseByClassName(classname);
-        if(course.size()!=0) return Result.succ(200,"根据班级获取课程成功",course);
-        else return Result.succ(123,"这个把你没有课程",classname);
+        if (course.size() != 0) return Result.succ(200, "根据班级获取课程成功", course);
+        else return Result.succ(123, "这个把你没有课程", classname);
+    }
+
+    // 请假流程
+    @PostMapping("AskForLeave")
+    public ApiEnum askForLeave(@RequestParam Long studentId, @RequestParam Long classesId, @RequestParam Long teacherId) {
+        
+        return ApiEnum.SUCCESS;
     }
 
 }
