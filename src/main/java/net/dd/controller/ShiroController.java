@@ -46,6 +46,7 @@ public class ShiroController {
             subject.login(token); //执行登录方法，如果没有异常就说明ok了
             Subject currentSubject = SecurityUtils.getSubject();
             Object user = (Object) currentSubject.getPrincipal();
+            System.out.println("这里是登录并验证成功的信息"+user);
             return Result.succ(200,"登录操作成功",user);
         }catch (UnknownAccountException e){//用户名不存在
             //model.addAttribute("msg","用户名错误");

@@ -33,6 +33,14 @@ public interface StudentMapper {
             , @Param("usernum") long usernum
             , @Param("classname") String classname);
 
+    // 管理员修改学生信息
+    int AdminupdateStudent(@Param("username") String username
+            , @Param("password") String password
+            , @Param("usernum") long usernum
+            , @Param("classname") String classname);
+    // 管理员删除学生信息
+    int AdmindeleteStudent(@Param("usernum") long usernum);
+
     // 删除学生信息(假删除)
     int deleteStudent(@Param("id") long id);
 
