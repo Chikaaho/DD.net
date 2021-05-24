@@ -85,7 +85,6 @@ public class FileController {
         System.out.println("访问地址： " + result);
         return ApiEnum.FILE_UPLOAD_SUCCESS;
     }
-
     @ApiModelProperty(value = "文件下载")
     @RequestMapping("/fileDownload")
     public void fileDownload(@RequestParam long id, @RequestParam String fileLocalPath) {

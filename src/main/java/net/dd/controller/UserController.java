@@ -1,6 +1,7 @@
 package net.dd.controller;
 
 import io.swagger.annotations.ApiModelProperty;
+import net.dd.dto.RegistDto;
 import net.dd.enums.ApiEnum;
 import net.dd.pojo.Student;
 import net.dd.pojo.Teacher;
@@ -95,9 +96,14 @@ public class UserController {
 
     @RequestMapping("/regist.do")
     @ApiModelProperty(value = "注册教师")
-    public ApiEnum registUser(@RequestParam String username, @RequestParam String password, @RequestParam String email, @RequestParam Long teacherNum) {
+    public ApiEnum registUser(@RequestBody RegistDto registDto) {
         String activeCodes = IDUtil.getUUID();
-        int i = teacherService.registTeacher(username, password, activeCodes, email, teacherNum);
+
+        int i = teacherService.registTeacher(registDto.getUsername(),
+                registDto.getPassword(),
+                activeCodes,
+                registDto.getEmail(),
+                registDto.getTeacherNum());
         if (i == 1 << 3) {
             return ApiEnum.REGIST_SUCCESS;
         } else {
