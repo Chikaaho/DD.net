@@ -33,17 +33,17 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherMapper.selectTeacherByNumber(teachernum);
     }
     @Override
-    public int registTeacher(String username, String password, String activeCodes, String email) {
+    public int registTeacher(String username, String password, String activeCodes, String email, Long teacherNum) {
         Teacher teacher = teacherMapper.selectTeacherByName(username);
         if (teacher != null) {
             return 1 << 3;
         } else {
             teacherMapper.registTeacher(username.replaceAll("\\s*", "")
                     , MD5Util.encode(password.replaceAll("\\s*", ""))
-                    , activeCodes, email);
+                    , activeCodes, email, teacherNum);
             System.out.println("激活码=>" + activeCodes);
             String subject = "来自DD网的激活邮件";
-            String context = "<a href=\"http://localhost:8080/user/checkCode?code="+activeCodes+"\">点击此处激活"+"</a>";
+            String context = "<a href=\"http://localhost:8081/user/checkCode?code="+activeCodes+"\">点击此处激活"+"</a>";
             mailService.sendMimeMail(email, subject, context);
             return 1;
         }

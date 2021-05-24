@@ -1,10 +1,13 @@
 package net.dd;
 
 
+import net.dd.enums.ApiEnum;
 import net.dd.mapper.AdminMapper;
 import net.dd.mapper.StudentMapper;
 import net.dd.pojo.Admin;
 import net.dd.pojo.Student;
+import net.dd.service.TeacherService;
+import net.dd.utils.IDUtil;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 import org.junit.Test;
@@ -13,12 +16,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.lang.Nullable;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class UserTest {
     @Autowired
     private AdminMapper adminMapper;
+
+    @Autowired
+    private TeacherService teacherService;
 
     /**
      * 新增用户
@@ -59,6 +66,11 @@ public class UserTest {
 //        System.out.println("加密密码：" + studentInfo.getPassword());
 //        System.out.println("盐：" + ByteSource.Util.bytes("shirotest"));
 
+    }
+    @Test
+    public void registUser() {
+        String activeCodes  = IDUtil.getUUID();
+        teacherService.registTeacher("testRegist", "z1234", activeCodes, "h_chikaho@163.com", 1888979L);
     }
 
 }

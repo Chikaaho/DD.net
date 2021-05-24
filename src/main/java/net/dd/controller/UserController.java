@@ -95,9 +95,9 @@ public class UserController {
 
     @RequestMapping("/regist.do")
     @ApiModelProperty(value = "注册教师")
-    public ApiEnum registUser(@RequestParam String username, @RequestParam String password, @RequestParam String email) {
+    public ApiEnum registUser(@RequestParam String username, @RequestParam String password, @RequestParam String email, @RequestParam Long teacherNum) {
         String activeCodes = IDUtil.getUUID();
-        int i = teacherService.registTeacher(username, password, activeCodes, email);
+        int i = teacherService.registTeacher(username, password, activeCodes, email, teacherNum);
         if (i == 1 << 3) {
             return ApiEnum.REGIST_SUCCESS;
         } else {

@@ -22,7 +22,7 @@ public interface TeacherMapper {
 
 
     // 添加老师信息
-    int registTeacher(@Param("username") String username, @Param("password") String password, @Param("activeCodes") String activeCodes, @Param("email") String email);
+    int registTeacher(@Param("username") String username, @Param("password") String password, @Param("activeCodes") String activeCodes, @Param("email") String email, @Param("teacherNum") Long teacherNum);
 
     // 管理员修改老师信息
     int AdminupdateTeacher(@Param("teachernum") long teachernum, @Param("username") String username, @Param("password") String password, @Param("email") String email);

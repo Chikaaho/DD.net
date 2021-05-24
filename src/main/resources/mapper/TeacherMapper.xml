@@ -12,6 +12,7 @@
         <result column="status" jdbcType="TINYINT" property="status"/>
         <result column="active_codes" jdbcType="VARCHAR" property="activeCodes"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="teachernum" property="teachernum"/>
     </resultMap>
 
     <insert id="AdminaddTeacher">
@@ -23,9 +24,9 @@
 
     <insert id="registTeacher">
         insert into dd_net.teacher
-            (username, password, active_codes, email)
+            (username, password, active_codes, email, teachernum)
         values
-            (#{username}, #{password}, #{activeCodes}, #{email});
+            (#{username}, #{password}, #{activeCodes}, #{email}, #{teacherNum});
     </insert>
 
     <update id="AdminupdateTeacher">

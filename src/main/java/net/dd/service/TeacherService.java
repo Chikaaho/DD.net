@@ -11,7 +11,7 @@ public interface TeacherService {
     List<Teacher> selectTeacher();
     Teacher selectTeacherByNumber(@Param("teachernum") long teachernum);
     // 添加老师信息
-    int registTeacher(@Param("username") String username, @Param("password") String password, @Param("activeCodes") String activeCodes, @Param("email") String email);
+    int registTeacher(@Param("username") String username, @Param("password") String password, @Param("activeCodes") String activeCodes, @Param("email") String email, Long teacherNum);
 
     // 修改老师信息
     int updateTeacher(@Param("id") long id, @Param("username") String username, @Param("password") String password);
