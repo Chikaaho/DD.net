@@ -29,17 +29,25 @@ public class AskForLeaveController {
     // 发起请假
     @PostMapping("/askForLeave")
     public ApiEnum askForLeave(@RequestParam Long studentId, @RequestParam String stuName, @RequestParam String leaveReason) {
-        studentLeaveService.start(studentId, stuName, leaveReason);
+        try {
+            studentLeaveService.start(studentId, stuName, leaveReason);
+        } catch (Exception e) {
+            return ApiEnum.FAILED;
+        }
         return ApiEnum.SUCCESS;
     }
 
     // 老师处理
     @PostMapping("/approve")
     public ApiEnum approve(@RequestParam Integer leaveState, @RequestParam Long studentId) {
-        studentLeaveService.approve(leaveState);
-        if (!leaveState.equals(1)) {
-            StudentLeave studentLeave = studentLeaveService.selectByStudentId(studentId);
-            this.end(studentLeave.getLeaveId());
+        try {
+            studentLeaveService.approve(leaveState);
+            if (!leaveState.equals(1)) {
+                StudentLeave studentLeave = studentLeaveService.selectByStudentId(studentId);
+                this.end(studentLeave.getLeaveId());
+                return ApiEnum.FAILED;
+            }
+        } catch (Exception e) {
             return ApiEnum.FAILED;
         }
         return ApiEnum.SUCCESS;
