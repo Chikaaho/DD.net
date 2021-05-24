@@ -36,12 +36,12 @@ public class UserController {
     private TeacherService teacherService;
     private static final HashMap<Object, Object> JSON_DATA_MAP = new HashMap<>();
     /*
-    * {
-    *   STATUS: 488
-    *   MESSAGE: "该账号已注册"
-    *   DATA: "LOGIN_ERROR"
-    * }
-    * */
+     * {
+     *   STATUS: 488
+     *   MESSAGE: "该账号已注册"
+     *   DATA: "LOGIN_ERROR"
+     * }
+     * */
     // 登录凭证
     private static int LICENSE = 0;
 
@@ -105,10 +105,21 @@ public class UserController {
         }
     }
 
+    @RequestMapping("/checkCode")
+    public ApiEnum checkCode(String code) {
+        System.out.println("url激活码=>" + code);
+        Teacher teacher = teacherService.registCheck(code);
+        if (teacher != null) {
+            teacherService.modify(1, teacher.getActiveCodes());
+            return ApiEnum.SUCCESS;
+        }
+        return ApiEnum.SUCCESS;
+    }
+
     @RequestMapping("/add.do")
     @ApiModelProperty(value = "添加学生")
     public ApiEnum addUser(@RequestParam String username, @RequestParam String password,
-                          @RequestParam String classname, @RequestParam long usernum) {
+                           @RequestParam String classname, @RequestParam long usernum) {
         if (LICENSE != 0b1100 && LICENSE != 0b1111) {
             return ApiEnum.USER_NOT_LEAGLE;
         }
@@ -120,16 +131,6 @@ public class UserController {
         }
     }
 
-    @RequestMapping("/checkCode")
-    public ApiEnum checkCode(String code) {
-        System.out.println("url激活码=>" + code);
-        Teacher teacher = teacherService.registCheck(code);
-        if (teacher != null) {
-            teacherService.modify(1, teacher.getActiveCodes());
-            return ApiEnum.SUCCESS;
-        }
-        return ApiEnum.SUCCESS;
-    }
 
     @PostMapping("/delete.do")
     public ApiEnum deleteUser(@RequestParam long id) {
