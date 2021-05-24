@@ -51,10 +51,10 @@ public class FileController {
      * */
     @ApiModelProperty(value = "文件上传服务")
     @RequestMapping("/upload.do")
-    public void fileUpload(@RequestParam MultipartFile filePath, @Nullable @RequestParam String addUrl) {
+    public ApiEnum fileUpload(@RequestParam MultipartFile filePath, @Nullable @RequestParam String addUrl) {
         if (filePath == null) {
             logger.info("文件不能为空");
-            return;
+            return ApiEnum.FILE_UPLOAD_FAILED;
         }
         File file = null;
         try {
@@ -80,9 +80,10 @@ public class FileController {
             dataService.insertFile(fileType, fileKey, addUrl);
         } catch (QiniuException e) {
             logger.warn(e.toString());
-            return;
+            return ApiEnum.FILE_UPLOAD_FAILED;
         }
         System.out.println("访问地址： " + result);
+        return ApiEnum.FILE_UPLOAD_SUCCESS;
     }
 
     @ApiModelProperty(value = "文件下载")
