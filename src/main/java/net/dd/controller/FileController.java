@@ -50,7 +50,7 @@ public class FileController {
      * */
     @ApiModelProperty(value = "文件上传服务")
     @RequestMapping("/upload.do")
-    public void fileUpload(@RequestParam InputStream filePath, @Nullable @RequestParam String addUrl, @RequestParam String fileType) {
+    public void fileUpload(@RequestParam File filePath, @Nullable @RequestParam String addUrl, @RequestParam String fileType) {
         String result;
         String fileName = "";
         String fileKey = MD5Util.encode(IDUtil.getUUID());
