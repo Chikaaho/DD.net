@@ -50,7 +50,7 @@ public class FileController {
      * */
     @ApiModelProperty(value = "文件上传服务")
     @RequestMapping("/upload.do")
-    public void fileUpload(@RequestParam File filePath, @Nullable @RequestParam String addUrl, @RequestParam String fileAllName) {
+    public void fileUpload(@RequestParam File filePath, @Nullable @RequestParam String addUrl) {
         String result;
         String fileName = "";
         String fileKey = MD5Util.encode(IDUtil.getUUID());
@@ -58,7 +58,7 @@ public class FileController {
             fileName = addUrl.substring(1) + "/";
         }
         fileName += fileKey;
-        String[] split = fileAllName.split("\\.");
+        String[] split = filePath.getPath().split("\\.");
         String fileType = "." + split[split.length - 1];
         try {
             result = qiNiuService.uploadFile(filePath, fileName);
