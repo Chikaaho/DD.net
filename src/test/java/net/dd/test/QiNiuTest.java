@@ -23,6 +23,7 @@ import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -146,6 +147,12 @@ public class QiNiuTest {
         String fileKey = MD5Util.encode(ddData.getFileKey());
         String fileLocalPath = "E:/ide/Projects/IdeaProject/DDNet/src/main/resources/" + fileKey + ".text";
         FileUtils.copyURLToFile(new URL(fileUrl), new File(fileLocalPath));
+    }
+
+    public static void main(String[] args) {
+        String path = new File("E:/Datas/photos/other/helloworld.jpg").getName();
+        String[] split = path.split("\\.");
+        System.out.println(Arrays.toString(split));
     }
 
 }

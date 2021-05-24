@@ -58,7 +58,7 @@ public class FileController {
             fileName = addUrl.substring(1) + "/";
         }
         fileName += fileKey;
-        String[] split = filePath.getPath().split("\\.");
+        String[] split = filePath.getName().split("\\.");
         String fileType = "." + split[split.length - 1];
         try {
             result = qiNiuService.uploadFile(filePath, fileName);
