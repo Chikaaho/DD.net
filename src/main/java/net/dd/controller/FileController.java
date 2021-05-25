@@ -57,8 +57,9 @@ public class FileController {
             return ApiEnum.FILE_UPLOAD_FAILED;
         }
         File file = null;
+        String originalFilename = null;
         try {
-            String originalFilename = filePath.getOriginalFilename();
+            originalFilename = filePath.getOriginalFilename();
             String[] split1 = originalFilename.split("\\.");
             file = File.createTempFile(split1[0], split1[1]);
             filePath.transferTo(file);
@@ -73,7 +74,7 @@ public class FileController {
             fileName = addUrl.substring(1) + "/";
         }
         fileName += fileKey;
-        String[] split = filePath.getName().split("\\.");
+        String[] split = originalFilename.split("\\.");
         String fileType = "." + split[split.length - 1];
         try {
             result = qiNiuService.uploadFile(file,fileName);
