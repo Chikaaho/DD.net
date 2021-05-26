@@ -84,6 +84,8 @@ public class FileController {
             return ApiEnum.FILE_UPLOAD_FAILED;
         }
         System.out.println("访问地址： " + result);
+        DdData ddData = dataService.selectByFileKey(fileKey);
+        long fileId = ddData.getFileId();
         return ApiEnum.FILE_UPLOAD_SUCCESS;
     }
     @ApiModelProperty(value = "文件下载")

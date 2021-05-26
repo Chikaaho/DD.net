@@ -23,4 +23,6 @@ public interface DdDataService {
     // 查询所有文件
     List<DdData> selectAllFile();
 
+    DdData selectByFileKey(@Param("fileKey") String fileKey);
+
 }

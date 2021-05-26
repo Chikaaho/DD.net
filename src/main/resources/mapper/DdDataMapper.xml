@@ -16,6 +16,9 @@
     <select id="selectAllFile" resultType="net.dd.pojo.DdData">
         select * from dd_net.dd_data;
     </select>
+    <select id="selectByFileKey" resultType="net.dd.pojo.DdData">
+        select * from dd_net.dd_data where file_key = #{fileKey};
+    </select>
     <insert id="insertFile">
         insert into dd_net.dd_data (file_type, file_key, addUrl)
         value (#{fileType}, #{fileKey}, #{addUrl});
