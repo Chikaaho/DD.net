@@ -87,8 +87,8 @@ public class FileController {
         return ApiEnum.FILE_UPLOAD_SUCCESS;
     }
     @ApiModelProperty(value = "文件下载")
-    @RequestMapping("/fileDownload")
-    public void fileDownload(@RequestParam long id, @RequestParam String fileLocalPath) {
+    @RequestMapping("/fileDownload/{id}")
+    public ApiEnum fileDownload(@PathVariable("id") long id) {
         DdData ddData = dataService.selectByFileId(id);
         StringBuffer fileUrl = new StringBuffer();
         fileUrl.append(QINIU_URL);
@@ -98,10 +98,12 @@ public class FileController {
         fileUrl.append("/").append(ddData.getFileKey());
         String type = ddData.getFileType();
         try {
-            FileUtils.copyURLToFile(new URL(fileUrl.toString()), new File(fileLocalPath + ddData.getFileKey() + type));
+            FileUtils.copyURLToFile(new URL(fileUrl.toString()), new File("C:/Download/" + ddData.getFileKey() + type));
         } catch (IOException e) {
             logger.warn(e.toString());
+            return ApiEnum.FAILED;
         }
+        return ApiEnum.SUCCESS;
     }
 
     @ApiModelProperty(value = "文件删除服务")
