@@ -30,4 +30,7 @@ public interface DdDataMapper {
     // 查询所有文件
     List<DdData> selectAllFile();
 
+    // 根据key查询
+    DdData selectByFileKey(@Param("fileKey") String fileKey);
+
 }
