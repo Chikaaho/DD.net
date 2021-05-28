@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.dd.mapper.HomeWorkMapper">
+
+    <select id="selectHomeWorkPlanByclassandcourse" resultType="net.dd.pojo.HomeWorkPlan">
+        SELECT * FROM dd_net.homeworkplan where coursename = #{coursename} and classname = #{classname};
+    </select>
+
+    <select id="selectOneHomeWork" resultType="net.dd.pojo.HomeWork">
+        SELECT homework.*,student.username FROM dd_net.homework,dd_net.student where homework.coursename = #{coursename} and homework.classname = #{classname} and homework.title = #{title} and homework.stunum = student.usernum;
+    </select>
+
+    <select id="stuselectAllHomeWork" resultType="net.dd.pojo.HomeWork">
+        SELECT homework.*,student.username,homeworkplan.content,homeworkplan.deadline,homeworkplan.creattime,homeworkplan.file FROM dd_net.homework,dd_net.student,dd_net.homeworkplan where homework.coursename = #{coursename} and homework.classname = #{classname} and homework.stunum = #{stunum} and homework.stunum = student.usernum and homework.title = homeworkplan.title;
+    </select>
+
+    <select id="stuselectOneHomeWork" resultType="net.dd.pojo.HomeWork">
+        SELECT homework.*,student.username,homeworkplan.content,homeworkplan.deadline,homeworkplan.creattime,homeworkplan.file FROM dd_net.homework,dd_net.student,dd_net.homeworkplan where homework.coursename = #{coursename} and homework.classname = #{classname} and homework.title = #{title} and homework.stunum = #{stunum} and homework.stunum = student.usernum and homework.title = homeworkplan.title;
+    </select>
+
+    <select id="selectHomeWorkPlanByclassandcourseandid" resultType="net.dd.pojo.HomeWorkPlan">
+        SELECT * FROM dd_net.homeworkplan where coursename = #{coursename} and classname = #{classname} and id = #{id} ;
+    </select>
+
+    <insert id="insertHomeWorkPlan">
+        insert into dd_net.homeworkplan
+            (title, content, deadline, file, coursename, classname)
+        values
+            (#{title}, #{content}, #{deadline}, #{file}, #{coursename}, #{classname});
+    </insert>
+    <insert id="teacheruploadfile">
+        insert into dd_net.homeworkplan
+            (title, content, file, coursename, classname)
+        values
+            ("1", "1", #{file}, #{coursename}, #{classname});
+    </insert>
+
+    <insert id="insertHomeWork">
+        insert into dd_net.homework
+            (title, coursename, stunum, classname)
+        values
+            (#{title}, #{coursename}, #{stunum}, #{classname});
+    </insert>
+
+    <update id="stusubmithomework">
+        update dd_net.homework
+        set answer = #{answer},
+            stufile = #{stufile}
+        where id = #{id};
+    </update>
+
+    <update id="teacherupdatehomework">
+        update dd_net.homework
+        set score = #{score}
+        where id = #{id};
+    </update>
+
+</mapper>

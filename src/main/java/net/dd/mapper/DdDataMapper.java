@@ -15,6 +15,9 @@ public interface DdDataMapper {
     // 根据文件id查询
     DdData selectByFileId(@Param("fileId") long fileId);
 
+    // 根据文件key查询
+    DdData selectByFileKey(@Param("filekey") String filekey);
+
     // 更新文件信息
     int updateFile(@Param("fileId") long fileId, @Param("ddData") DdData ddData);
 

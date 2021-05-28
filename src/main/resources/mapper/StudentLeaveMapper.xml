@@ -1,28 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.dd.mapper.StudentLeaveMapper">
-    <resultMap id="StudentLeaveMapper" type="net.dd.pojo.StudentLeave">
-        <result column="leave_id" property="leaveId"/>
-        <result column="student_id" property="studentId"/>
-        <result column="stu_name" property="stuName"/>
-        <result column="leave_reason" property="leaveReason"/>
-        <result column="leave_state" property="leaveState"/>
-    </resultMap>
     <insert id="start">
-        insert into dd_net.stu_leave (student_id, stu_name, leave_reason)
-        values (#{studentId}, #{stuName}, #{leaveReason});
+        insert into dd_net.stu_leave (stunum, stuname, classname, coursename, leavereason, leavetime)
+        values (#{stunum}, #{stuname}, #{classname}, #{coursename}, #{leavereason}, #{leavetime});
     </insert>
-    <update id="approve">
+    <update id="acceptleave">
         update dd_net.stu_leave set
-        leave_state = #{leaveState},
-        update_time = now()
+        leavestate = 1,
+        updatetime = now()
         where
-        student_id = #{studentId};
+        leaveid = #{leaveid};
+    </update>
+    <update id="rejectleave">
+        update dd_net.stu_leave set
+        leavestate = 2,
+        updatetime = now()
+        where
+        leaveid = #{leaveid};
     </update>
     <delete id="end">
         delete from dd_net.stu_leave where leave_id = #{leave_id};
     </delete>
-    <select id="selectByStudentId" resultType="net.dd.pojo.StudentLeave">
-        select leave_id from dd_net.stu_leave where student_id = #{studentId};
+    <select id="selectleave" resultType="net.dd.pojo.StudentLeave">
+        select * from dd_net.stu_leave where leaveid = #{leaveid};
+    </select>
+
+    <select id="stuselectAllleave" resultType="net.dd.pojo.StudentLeave">
+        select * from dd_net.stu_leave where classname = #{classname}  and stunum = #{stunum};
+    </select>
+
+    <select id="selectAllleave" resultType="net.dd.pojo.StudentLeave">
+        select * from dd_net.stu_leave where classname = #{classname} and coursename = #{coursename};
+    </select>
+
+    <insert id="leavelist">
+        insert into dd_net.stu_leavelist (leaveid, stunum, coursename)
+        values (#{leaveid}, #{stunum}, #{coursename});
+    </insert>
+
+    <select id="selectleavelistbystunum" resultType="net.dd.pojo.StudentLeaveList">
+        select * from dd_net.stu_leavelist where stunum = #{stunum} and coursename = #{coursename};
+    </select>
+
+    <select id="checkisask" resultType="net.dd.pojo.StudentLeave">
+        select * from dd_net.stu_leave where stunum = #{stunum} and coursename = #{coursename} and leavetime = #{leavetime};
+    </select>
+
+    <select id="leaveid" resultType="int">
+        select max(leaveid) from dd_net.stu_leave;
     </select>
 </mapper>

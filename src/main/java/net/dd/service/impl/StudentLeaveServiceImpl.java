@@ -6,6 +6,8 @@ import net.dd.service.StudentLeaveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 /**
  * @author Chika
  * @program DDNet
@@ -22,14 +24,19 @@ public class StudentLeaveServiceImpl implements StudentLeaveService {
     }
 
     @Override
-    public void start(Long studentId, String stuName, String leaveReason) {
-        studentLeaveMapper.start(studentId, stuName, leaveReason);
+    public void start(Long studentId, String stuName, String leaveReason, Date leaveTime) {
+        //studentLeaveMapper.start(studentId, stuName, leaveReason, leaveTime);
     }
 
     @Override
     public void approve(Integer leaveState) {
-        studentLeaveMapper.approve(leaveState);
+
     }
+
+//    @Override
+//    public void approve(Integer leaveState) {
+//        studentLeaveMapper.approve(leaveState);
+//    }
 
     @Override
     public void end(Long leaveId) {
@@ -38,6 +45,11 @@ public class StudentLeaveServiceImpl implements StudentLeaveService {
 
     @Override
     public StudentLeave selectByStudentId(Long studentId) {
-        return studentLeaveMapper.selectByStudentId(studentId);
+        return null;
     }
+
+    //@Override
+//    public StudentLeave selectByStudentId(Long studentId) {
+//        return studentLeaveMapper.selectByStudentId(studentId);
+//    }
 }

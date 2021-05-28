@@ -13,6 +13,9 @@
     <select id="selectByFileId" resultType="net.dd.pojo.DdData">
         select * from dd_net.dd_data where file_id = #{fileId};
     </select>
+    <select id="selectByFileKey" resultType="net.dd.pojo.DdData">
+        select * from dd_net.dd_data where file_key = #{filekey};
+    </select>
     <select id="selectAllFile" resultType="net.dd.pojo.DdData">
         select * from dd_net.dd_data;
     </select>

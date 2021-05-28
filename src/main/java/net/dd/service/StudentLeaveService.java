@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+
 /**
  * @author Chika
  * @program DDNet
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Repository;
 
 public interface StudentLeaveService {
 
-    void start(@Param("studentId") Long studentId, @Param("stuName") String stuName, @Param("leaveSeason") String leaveReason);
+    void start(@Param("studentId") Long studentId, @Param("stuName") String stuName, @Param("leaveSeason") String leaveReason, Date leaveTime);
 
     void approve(Integer leaveState);
 

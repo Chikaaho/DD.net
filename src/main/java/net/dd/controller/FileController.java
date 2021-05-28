@@ -3,7 +3,11 @@ package net.dd.controller;
 import com.qiniu.common.QiniuException;
 import com.sun.istack.Nullable;
 import io.swagger.annotations.ApiModelProperty;
+import net.dd.common.Result;
+import net.dd.dto.DownloadDto;
+import net.dd.dto.FileDto;
 import net.dd.enums.ApiEnum;
+import net.dd.mapper.DdDataMapper;
 import net.dd.pojo.DdData;
 import net.dd.service.DdDataService;
 import net.dd.service.QiNiuService;
@@ -27,6 +31,8 @@ import java.util.*;
 @CrossOrigin
 public class FileController {
 
+    @Autowired
+    DdDataMapper ddDataMapper;
     private DdDataService dataService;
     private QiNiuService qiNiuService;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -51,14 +57,15 @@ public class FileController {
      * */
     @ApiModelProperty(value = "文件上传服务")
     @RequestMapping("/upload.do")
-    public ApiEnum fileUpload(@RequestParam MultipartFile filePath, @Nullable @RequestParam String addUrl) {
+    public Result fileUpload(@RequestParam MultipartFile filePath, @Nullable @RequestParam String addUrl) {
         if (filePath == null) {
             logger.info("文件不能为空");
-            return ApiEnum.FILE_UPLOAD_FAILED;
+            return Result.fail("上传失败");
         }
         File file = null;
+        String originalFilename = null;
         try {
-            String originalFilename = filePath.getOriginalFilename();
+            originalFilename = filePath.getOriginalFilename();
             String[] split1 = originalFilename.split("\\.");
             file = File.createTempFile(split1[0], split1[1]);
             filePath.transferTo(file);
@@ -73,22 +80,23 @@ public class FileController {
             fileName = addUrl.substring(1) + "/";
         }
         fileName += fileKey;
-        String[] split = filePath.getName().split("\\.");
-        String fileType = "." + split[split.length - 1];
+        String[] split = originalFilename.split("\\.");
+        String fileType ="." + split[split.length - 1];
         try {
             result = qiNiuService.uploadFile(file,fileName);
             dataService.insertFile(fileType, fileKey, addUrl);
         } catch (QiniuException e) {
             logger.warn(e.toString());
-            return ApiEnum.FILE_UPLOAD_FAILED;
+            return Result.fail("上传失败");
         }
         System.out.println("访问地址： " + result);
-        return ApiEnum.FILE_UPLOAD_SUCCESS;
+
+        return Result.succ(200,"上传成功",fileKey);
     }
     @ApiModelProperty(value = "文件下载")
     @RequestMapping("/fileDownload")
-    public void fileDownload(@RequestParam long id, @RequestParam String fileLocalPath) {
-        DdData ddData = dataService.selectByFileId(id);
+    public Result fileDownload(@RequestBody DownloadDto downloadDto) {
+        DdData ddData = dataService.selectByFileKey(downloadDto.getFilekey());
         StringBuffer fileUrl = new StringBuffer();
         fileUrl.append(QINIU_URL);
         if (!ddData.getAddUrl().isEmpty() && !ddData.getAddUrl().isBlank()) {
@@ -97,10 +105,12 @@ public class FileController {
         fileUrl.append("/").append(ddData.getFileKey());
         String type = ddData.getFileType();
         try {
-            FileUtils.copyURLToFile(new URL(fileUrl.toString()), new File(fileLocalPath + ddData.getFileKey() + type));
+            FileUtils.copyURLToFile(new URL(fileUrl.toString()), new File("C:/Download/" + ddData.getFileKey() + type));
         } catch (IOException e) {
             logger.warn(e.toString());
+            return Result.fail("下载失败");
         }
+        return Result.succ("下载成功");
     }
 
     @ApiModelProperty(value = "文件删除服务")
@@ -125,14 +135,24 @@ public class FileController {
 
     @ApiModelProperty("查看文件")
     @RequestMapping("/selectAll")
-    public Map<String, DdData> selectAllFile() {
+    public Result selectAllFile() {
         List<DdData> ddData = dataService.selectAllFile();
-        Map<String, DdData> map = new HashMap<>();
-        for (DdData ddDatum : ddData) {
-            String addUrl = ddDatum.getAddUrl();
-            map.put(addUrl, ddDatum);
-        }
-        return map;
+//        Map<String, DdData> map = new HashMap<>();
+//        for (DdData ddDatum : ddData) {
+//            String addUrl = ddDatum.getAddUrl();
+//            map.put(addUrl, ddDatum);
+//        }
+
+        return Result.succ(200,"查询所有文件成功！",ddData);
+    }
+
+    @RequestMapping("/selectAllFileByfilekey")
+        public Result selectAllFileByfilekey(@RequestBody FileDto fileDto) {  //根据filekey查询上传文件
+
+        DdData ddData = ddDataMapper.selectByFileKey(fileDto.getFilekey());
+
+
+        return Result.succ(200,"根据filekey查询文件成功！",ddData);
     }
 
     public static void main(String[] args) {

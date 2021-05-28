@@ -14,6 +14,10 @@ public interface DdDataService {
     // 更新文件信息
     int updateFile(@Param("fileId") long fileId, @Param("ddData") DdData ddData);
 
+
+    // 根据文件key查询
+    DdData selectByFileKey(@Param("filekey") String filekey);
+
     // 删除文件
     int deleteById(@Param("fileId") long fileId);
 

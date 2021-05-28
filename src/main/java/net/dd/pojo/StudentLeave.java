@@ -11,66 +11,111 @@ import java.util.Date;
  **/
 public class StudentLeave implements Serializable {
 
-    private Long leaveId;
-    private Long studentId;
-    private Long courseId;
-    private String stuName;
-    private Integer leaveState;
-    private String leaveReason;
+    private Integer leaveId;
+    private Long stunum;
+    private String coursename;
+    private String classname;
+    private Integer leavestate;
+    private String leavereason;
+    private Date leavetime;
+    private String stuname;
+    private Date creattime;
+    private Date updatetime;
 
 
-    public static void main(String[] args) {
-        Date date = new Date();
-
-        java.sql.Date datetime = new java.sql.Date(date.getTime());
-        System.out.println(datetime);
+    public StudentLeave() {
     }
 
-    public StudentLeave(Long leaveId, Long studentId, String stuName, Integer leaveState, String leaveReason) {
+    public StudentLeave(Integer leaveId, Long stunum, String coursename, String classname, Integer leavestate, String leavereason, Date leavetime, String stuname, Date creattime, Date updatetime) {
         this.leaveId = leaveId;
-        this.studentId = studentId;
-        this.stuName = stuName;
-        this.leaveState = leaveState;
-        this.leaveReason = leaveReason;
+        this.stunum = stunum;
+        this.coursename = coursename;
+        this.classname = classname;
+        this.leavestate = leavestate;
+        this.leavereason = leavereason;
+        this.leavetime = leavetime;
+        this.stuname = stuname;
+        this.creattime = creattime;
+        this.updatetime = updatetime;
     }
 
-    public Long getLeaveId() {
+    public Date getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(Date updatetime) {
+        this.updatetime = updatetime;
+    }
+
+    public Date getCreattime() {
+        return creattime;
+    }
+
+    public void setCreattime(Date creattime) {
+        this.creattime = creattime;
+    }
+
+    public String getStuname() {
+        return stuname;
+    }
+
+    public void setStuname(String stuname) {
+        this.stuname = stuname;
+    }
+
+    public Integer getLeaveId() {
         return leaveId;
     }
 
-    public void setLeaveId(Long leaveId) {
+    public void setLeaveId(Integer leaveId) {
         this.leaveId = leaveId;
     }
 
-    public Long getStudentId() {
-        return studentId;
+    public Long getStunum() {
+        return stunum;
     }
 
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
+    public void setStunum(Long stunum) {
+        this.stunum = stunum;
     }
 
-    public String getStuName() {
-        return stuName;
+    public String getCoursename() {
+        return coursename;
     }
 
-    public void setStuName(String stuName) {
-        this.stuName = stuName;
+    public void setCoursename(String coursename) {
+        this.coursename = coursename;
     }
 
-    public Integer getLeaveState() {
-        return leaveState;
+    public String getClassname() {
+        return classname;
     }
 
-    public void setLeaveState(Integer leaveState) {
-        this.leaveState = leaveState;
+    public void setClassname(String classname) {
+        this.classname = classname;
     }
 
-    public String getLeaveReason() {
-        return leaveReason;
+    public Integer getLeavestate() {
+        return leavestate;
     }
 
-    public void setLeaveReason(String leaveReason) {
-        this.leaveReason = leaveReason;
+    public void setLeavestate(Integer leavestate) {
+        this.leavestate = leavestate;
+    }
+
+    public String getLeavereason() {
+        return leavereason;
+    }
+
+    public void setLeavereason(String leavereason) {
+        this.leavereason = leavereason;
+    }
+
+    public Date getLeavetime() {
+        return leavetime;
+    }
+
+    public void setLeavetime(Date leavetime) {
+        this.leavetime = leavetime;
     }
 }

@@ -30,6 +30,11 @@ public class DdDataServiceImpl implements DdDataService {
     }
 
     @Override
+    public DdData selectByFileKey(String filekey) {
+        return ddDataMapper.selectByFileKey(filekey);
+    }
+
+    @Override
     public int deleteById(long fileId) {
         return ddDataMapper.deleteById(fileId);
     }

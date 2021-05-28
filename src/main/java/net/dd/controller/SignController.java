@@ -121,7 +121,7 @@ public class SignController {
         if (stuSignService.selectStuSignBySignId(signid, classname, coursename).size() != 0) {  //签到表里有数据，说明已存在一张表
             return Result.fail(123, "已经存在签到表，无需创建", signid);
         }
-        List<Student> stus = studentService.selectStudentByClassName(classname);  //通过班级查到所有同意班级的学生
+        List<Student> stus = studentService.selectStudentByClassName(classname);  //通过班级查到所有同一班级的学生
         int addnums = 0;
         for (int i = 0; i < stus.size(); i++) {
             Student s = stus.get(i);
