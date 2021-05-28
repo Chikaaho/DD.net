@@ -49,8 +49,5 @@ public class DdDataServiceImpl implements DdDataService {
         return ddDataMapper.selectAllFile();
     }
 
-    @Override
-    public DdData selectByFileKey(String fileKey) {
-        return ddDataMapper.selectByFileKey(fileKey);
-    }
+
 }
